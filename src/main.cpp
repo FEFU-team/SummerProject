@@ -17,10 +17,19 @@ int main()
         {
             sf::Vector2i mousePos = sf::Mouse::getPosition(window);
             sf::Vector2f mousePosF = window.mapPixelToCoords(mousePos);
-
-
-            if (shape.getGlobalBounds().contains(mousePosF)) {
-                shape.setFillColor(sf::Color::Green);
+            if (const auto* mousePressed = event->getIf<sf::Event::MouseButtonPressed>()) {
+                if (mousePressed->button == sf::Mouse::Button::Right) {
+                    cout << "right pressed" << endl;
+                    shape.setFillColor(sf::Color::Blue);
+                }
+                else {
+                    shape.setFillColor(sf::Color::Green);
+                    cout << "Button pressed" << endl;
+                }
+               
+            }
+            else if (shape.getGlobalBounds().contains(mousePosF)) {
+                shape.setFillColor(sf::Color::Yellow);
             }
             else {
                 shape.setFillColor(sf::Color::White);
