@@ -7,12 +7,25 @@ int main()
 //#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
     auto window = sf::RenderWindow(sf::VideoMode({1920u, 1080u}), "CMake SFML Project");
     window.setFramerateLimit(144);
-    sf::CircleShape shape(100.f);
+    sf::RectangleShape shape({ 100.f,100.f });
     shape.setFillColor(sf::Color::Green);
+    shape.setPosition({ 100,100 });
+    sf::Vector2i mousePos;
     while (window.isOpen())
     {
         while (const std::optional event = window.pollEvent())
         {
+            sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+            sf::Vector2f mousePosF = window.mapPixelToCoords(mousePos);
+
+
+            if (shape.getGlobalBounds().contains(mousePosF)) {
+                shape.setFillColor(sf::Color::Green);
+            }
+            else {
+                shape.setFillColor(sf::Color::White);
+            }
+   
             if (event->is<sf::Event::Closed>())
             {
                 cout << "d" << endl;
@@ -36,7 +49,10 @@ int main()
             }
         }
         window.clear();
+        
         window.draw(shape);
+        
+        
         window.display();
     }
 }
