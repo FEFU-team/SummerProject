@@ -5,7 +5,7 @@ int main()
 {
 //#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
 //#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
-    auto window = sf::RenderWindow(sf::VideoMode({1920u, 1080u}), "CMake SFML Project");
+    auto window = sf::RenderWindow(sf::VideoMode({1080u, 1070u}), "CMake SFML Project");
     window.setFramerateLimit(144);
     sf::RectangleShape shape({ 100.f,100.f });
     shape.setFillColor(sf::Color::Green);
