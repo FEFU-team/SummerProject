@@ -9,7 +9,7 @@ int main()
     window.setFramerateLimit(144);
     sf::RectangleShape shape({ 100.f,100.f });
     shape.setFillColor(sf::Color::Green);
-    shape.setPosition({ 100,100 });
+    shape.setPosition({ 1,1 });
     sf::Vector2i mousePos;
     while (window.isOpen())
     {
