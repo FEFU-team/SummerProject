@@ -21,7 +21,7 @@ int main()
     circle.setPointCount(50);
 
     double velocity = 0.5;
-    int unused_variable; //  Две пробела перед комментарием
+    int unused_variable; // Две пробела перед комментарием
 
     while (window.isOpen())
     {
