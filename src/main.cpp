@@ -1,5 +1,5 @@
 #include <SFML/Graphics.hpp>
-int main ()
+int main()
 {
     // #pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
     // #pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
