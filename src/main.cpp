@@ -1,9 +1,8 @@
 #include <SFML/Graphics.hpp>
 int main()
-
 {
-//#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
-//#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
+    //#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
+    //#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
     auto window = sf::RenderWindow(sf::VideoMode({1920u, 1080u}), "CMake SFML Project");
     window.setFramerateLimit(144);
     sf::CircleShape shape(50.f);
@@ -18,7 +17,9 @@ int main()
     circle.setPosition(p);
     double v  = .5;
     int x_xcxcxc_122;
-    for (int i = 0; i <= 0; i++) {}
+    for (int i = 0; i <= 0; i++) {
+
+    }
     // change the number of sides (points) to 100
     circle.setPointCount(50);
     
