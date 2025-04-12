@@ -1,27 +1,35 @@
-name: Lint Code Base
+name: Lint C++ Code
 
 on:
   push:
     branches: [ "master" ]
+    paths:
+      - 'src/**'  
   pull_request:
     branches: [ "master" ]
 
 jobs:
-  run-lint:
+  lint-cpp:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Нужен для анализа изменённых файлов
+          fetch-depth: 0
 
-      - name: Lint Code Base
+      - name: Run Super-Linter
         uses: github/super-linter@v4
         env:
-          VALIDATE_ALL_CODEBASE: false  # Проверяем только изменённые файлы
+          VALIDATE_ALL_CODEBASE: false
           DEFAULT_BRANCH: "master"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
-          # Включаем проверку C++
-          VALIDATE_CPP: true           # Основной линтер для C++ (clang-tidy)
-          VALIDATE_CLANG_FORMAT: true   # Проверка форматирования (если нужно)
+          # C++ Linters
+          VALIDATE_CPP: true
+          VALIDATE_CLANG_FORMAT: true
+          
+         
+          FILTER_REGEX_INCLUDE: "src/.*"
+          
+         
+          CPP_CLANG_TIDY_ARGUMENTS: "--checks=modernize-*,readability-*"
