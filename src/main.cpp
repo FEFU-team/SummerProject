@@ -4,12 +4,12 @@
 
 int main()
 {
-    auto window = sf::RenderWindow(sf::VideoMode ({ 1920u, 1080u }),
+    auto window = sf::RenderWindow(sf::VideoMode({ 1920u, 1080u }),
                                     "CMake SFML Project");
     window.setFramerateLimit(144);
 
     sf::CircleShape shape(50.f);
-    shape.setFillColor(sf::Color (150, 50, 250));
+    shape.setFillColor(sf::Color(150, 50, 250));
     shape.setPosition({ 200, 400 });
 
     sf::CircleShape circle(200.f);
