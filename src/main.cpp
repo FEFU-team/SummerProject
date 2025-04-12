@@ -17,6 +17,7 @@ int main()
     sf::Vector2f p = { 100,100 };
     circle.setPosition(p);
     double v  = .5;
+    int x;
     // change the number of sides (points) to 100
     circle.setPointCount(50);
     
