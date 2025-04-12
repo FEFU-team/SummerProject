@@ -4,7 +4,8 @@ on:
   push:
     branches: [ "master" ]
     paths:
-      - 'src/**'  
+      - 'src/**'
+      - '.clang-format'
   pull_request:
     branches: [ "master" ]
 
@@ -17,19 +18,25 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Run Super-Linter
+      - name: Set up clang-tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang-format clang-tidy
+
+      - name: Verify config files
+        run: |
+          [ -f .clang-format ] || { echo ".clang-format not found!"; exit 1; }
+
+      - name: Run clang-format check
+        run: |
+          find src/ -name '*.cpp' -o -name '*.hpp' | xargs clang-format --style=file --dry-run --Werror
+
+      - name: Run Super-Linter (basic checks)
         uses: github/super-linter@v4
         env:
           VALIDATE_ALL_CODEBASE: false
           DEFAULT_BRANCH: "master"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
-          # C++ Linters
           VALIDATE_CPP: true
-          VALIDATE_CLANG_FORMAT: true
-          
-         
+          VALIDATE_CLANG_FORMAT: false     
           FILTER_REGEX_INCLUDE: "src/.*"
-          
-         
-          CPP_CLANG_TIDY_ARGUMENTS: "--checks=modernize-*,readability-*"
