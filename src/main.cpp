@@ -18,6 +18,7 @@ int main()
     circle.setPosition(p);
     double v  = .5;
     int x_xcxcxc_122;
+    for (int i = 0; i <= 0; i++) {}
     // change the number of sides (points) to 100
     circle.setPointCount(50);
     
