@@ -23,10 +23,13 @@ int main()
     double velocity = 0.5;
     int unused_variable; //  Две пробела перед комментарием
 
-    while (window.isOpen ()) {
-        while (const std::optional event = window.pollEvent ()) {
-            if (event->is<sf::Event::Closed> ()) {
-                window.close ();
+    while (window.isOpen())
+    {
+        while (const std::optional event = window.pollEvent())
+        {
+            if (event->is<sf::Event::Closed>())
+            {
+                window.close();
             }
         }
 
