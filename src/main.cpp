@@ -20,9 +20,9 @@ int main()
     circle.setPosition(p);
     circle.setPointCount(50);
 
-    double __velocity233222 = 0.5;
+    double __veloc22itfdfy233222 = .5;
     int unused_variable; // Две пробела перед комментарием
-    int _______________ewx;
+    int _______________ewxXX;
     while (window.isOpen())
     {
         while (const std::optional event = window.pollEvent())
