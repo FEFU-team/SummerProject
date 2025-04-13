@@ -1,29 +1,28 @@
 name: cpp-linter
-
-push:
-    branches: [ "dev" ]
+on:
   pull_request:
-    branches: [ "dev" ]
-
+    branches: [main, master, develop, dev]
+    paths: ['**.c', '**.cpp', '**.h', '**.hpp', '**.cxx', '**.hxx', '**.cc', '**.hh', '**CMakeLists.txt', 'meson.build', '**.cmake']
+  push:
+    branches: [main, master, develop, dev]
+    paths: ['**.c', '**.cpp', '**.h', '**.hpp', '**.cxx', '**.hxx', '**.cc', '**.hh', '**CMakeLists.txt', 'meson.build', '**.cmake']
 
 jobs:
   cpp-linter:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: cpp-linter/cpp-linter-action@main
+
+      # ... optionally setup build env to create a compilation database
+
+      - uses: cpp-linter/cpp-linter-action@v2
         id: linter
-        continue-on-error: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          style: file
-          files-changed-only: false
-          thread-comments: false
+          style: ''  # disable clang-format checks. 
+          tidy-checks: '' # Use .clang-tidy config file. 
 
       - name: Fail fast?!
-        if: steps.linter.outputs.checks-failed != 0
-        run: |
-          echo "some linter checks failed. ${{ steps.linter.outputs.checks-failed }}"
-        # for actual deployment
-        # run: exit 1
+        if: steps.linter.outputs.clang-tidy-checks-failed > 5
+        run: exit 1
