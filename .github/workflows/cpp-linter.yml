@@ -1,12 +1,9 @@
 name: cpp-linter
 
-on:
-  push:
-    paths:
-      - "docs/examples/demo/*"
+push:
+    branches: [ "dev" ]
   pull_request:
-    paths:
-      - "docs/examples/demo/*"
+    branches: [ "dev" ]
 
 
 jobs:
