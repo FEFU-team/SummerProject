@@ -22,7 +22,7 @@ int main()
 
     double velocity23 = 0.5;
     int unused_variable; // Две пробела перед комментарием
-    int _________ewx;
+    int _______________ewx;
     while (window.isOpen())
     {
         while (const std::optional event = window.pollEvent())
