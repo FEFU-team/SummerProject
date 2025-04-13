@@ -20,7 +20,7 @@ int main()
     circle.setPosition(p);
     circle.setPointCount(50);
 
-    double __veloc22ity233222 = .5;
+    double __veloc22itfdfy233222 = .5;
     int unused_variable; // Две пробела перед комментарием
     int _______________ewx;
     while (window.isOpen())
