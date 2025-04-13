@@ -1,4 +1,4 @@
----
+
 # Project
 Standard: c++17
 ColumnLimit: 120
@@ -167,7 +167,6 @@ UseCRLF: false
 QualifierAlignment: Custom
 QualifierOrder: ['static', 'inline', 'constexpr', 'const', 'volatile', 'type']
 
----
 Language: ObjC
 IndentWidth: 4
 BreakBeforeBraces: Custom
@@ -179,5 +178,3 @@ ObjCBlockIndentWidth: 4
 ObjCBreakBeforeNestedBlockParam: true
 ObjCSpaceAfterProperty: true
 ObjCSpaceBeforeProtocolList: false
-
-...
