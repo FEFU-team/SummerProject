@@ -21,8 +21,7 @@ int main()
     circle.setPointCount(50);
 
     double __veloc22itfdfy233222 = .5;
-    int unused_variable; // Две пробела перед комментарием
-    int _______________ewxXX;
+    int x = 10;
     while (window.isOpen())
     {
         while (const std::optional event = window.pollEvent())
