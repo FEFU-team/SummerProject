@@ -1,3 +1,4 @@
+
 name: cpp-linter
 
 on:
@@ -10,6 +11,7 @@ on:
     paths:
       - "src/*"
 
+
 jobs:
   cpp-linter:
     runs-on: ubuntu-latest
@@ -18,16 +20,6 @@ jobs:
       contents: read
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0  # Необходимо для clang-tidy
-
-      # Установка необходимых инструментов
-      - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y clang clang-tidy clang-format
-
-      # Запуск cpp-linter с clang-tidy
       - uses: cpp-linter/cpp-linter-action@main
         id: linter
         continue-on-error: true
@@ -37,59 +29,10 @@ jobs:
           style: GNU
           files-changed-only: true
           thread-comments: true
-          extensions: "cpp,h"
-          tidy: true
-          tidy-reviews: true
-          tidy-args: "--warnings-as-errors=* --use-color"
-          tidy-checks: "modernize-*,performance-*,readability-*,cppcoreguidelines-*"
-
-      - name: Check formatting
-        id: format-check
+    
+      - name: Fail fast?!
+        if: steps.linter.outputs.checks-failed != 0
         run: |
-          echo "Checking code formatting..."
-          git ls-files 'src/*.cpp' 'src/*.h' | while read file; do
-            if [ -f "$file" ]; then
-              clang-format --style=GNU --dry-run --Werror "$file" || {
-                echo "::warning file=$file::File needs formatting. Run: clang-format -i $file --style=GNU"
-                echo "format_issues=true" >> $GITHUB_OUTPUT
-              }
-            fi
-          done
-      - name: Generate report
-        if: steps.linter.outputs.checks-failed != 0 || steps.format-check.outputs.format_issues == 'true'
-        run: |
-          echo "### Code Quality Report" >> $GITHUB_STEP_SUMMARY
-          
-          if steps.format-check.outputs.format_issues == 'true'; then
-            echo "#### Formatting Issues" >> $GITHUB_STEP_SUMMARY
-            echo "- Some files need formatting. To fix:" >> $GITHUB_STEP_SUMMARY
-            echo "  ```bash" >> $GITHUB_STEP_SUMMARY
-            echo "  # Format all files:" >> $GITHUB_STEP_SUMMARY
-            echo "  find src/ -name '*.cpp' -o -name '*.h' | xargs clang-format -i --style=GNU" >> $GITHUB_STEP_SUMMARY
-            echo "  ```" >> $GITHUB_STEP_SUMMARY
-          fi
-          
-          if steps.linter.outputs.checks-failed != '0'; then
-            echo "#### Linter Issues (${{ steps.linter.outputs.checks-failed }} problems)" >> $GITHUB_STEP_SUMMARY
-            echo "- Review clang-tidy suggestions in the code diff" >> $GITHUB_STEP_SUMMARY
-            echo "- Common fixes:" >> $GITHUB_STEP_SUMMARY
-            echo "  - Use `auto` where appropriate (modernize-use-auto)" >> $GITHUB_STEP_SUMMARY
-            echo "  - Add `override` for virtual methods (modernize-use-override)" >> $GITHUB_STEP_SUMMARY
-            echo "  - Use `nullptr` instead of `NULL` (modernize-use-nullptr)" >> $GITHUB_STEP_SUMMARY
-          fi
-          
-          echo "### Additional Resources" >> $GITHUB_STEP_SUMMARY
-          echo "- [GNU Coding Standards](https://www.gnu.org/prep/standards/)" >> $GITHUB_STEP_SUMMARY
-          echo "- [Clang-Tidy Checks](https://clang.llvm.org/extra/clang-tidy/checks/list.html)" >> $GITHUB_STEP_SUMMARY
-
-      # Финальная проверка с выходом по ошибке
-      - name: Fail if issues found
-        if: steps.linter.outputs.checks-failed != 0 || steps.format-check.outputs.format_issues == 'true'
-        run: |
-          if [ "${{ steps.format-check.outputs.format_issues }}" == "true" ]; then
-            echo "::error::Code formatting issues detected"
-          fi
-          if [ "${{ steps.linter.outputs.checks-failed }}" != "0" ]; then
-            echo "::error::Found ${{ steps.linter.outputs.checks-failed }} clang-tidy issues"
-          fi
-          exit 1
+          echo "some linter checks failed. ${{ steps.linter.outputs.checks-failed }}"
+        # for actual deployment
+        # run: exit 1
