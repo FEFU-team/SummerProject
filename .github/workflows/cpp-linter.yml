@@ -1,9 +1,13 @@
 name: cpp-linter
 
-push:
-    branches: [ "dev" ]
+on:
+  push:
+    
+    paths:
+      - "src/*"
   pull_request:
-    branches: [ "dev" ]
+    paths:
+      - "src/*"
 
 
 jobs:
