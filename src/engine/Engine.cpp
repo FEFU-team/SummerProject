@@ -1,6 +1,7 @@
 #include "Engine.h"
 #include "D:\SFML\SFML_TEST\src\Main.hpp"
 #include <iostream>
+#include "D:\SFML\SFML_TEST\src\UI\Button\Button.h"
 void Engine::Init()
 {
 	window = new sf::RenderWindow(sf::VideoMode({ HEIGHT_WINDOW, WIDTH_WINDOW }),
@@ -10,6 +11,9 @@ void Engine::Init()
 
 void Engine::Run()
 {
+    sf::Vector2f pos = { 10,100};
+    Button button(pos
+    );
     while (window->isOpen())
     {
         while (std::optional event = window->pollEvent())
@@ -20,6 +24,7 @@ void Engine::Run()
             }
         }
         window->clear();
+        button.Draw(window);
         window->display();
 
   

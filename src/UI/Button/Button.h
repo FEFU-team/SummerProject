@@ -4,9 +4,11 @@
 class Button {
 protected:
 	sf::Vector2f position;
-	float size = 10;
+	sf::Vector2f size;
+	sf::RectangleShape shape;
 public:
 	void Pressed();
-	Button(sf::Vector2f positions);
+	void Draw(sf::RenderTarget* window);
+	Button(sf::Vector2f positions, sf::Vector2f  size_button = { 100,100 });
 	~Button();
 };
