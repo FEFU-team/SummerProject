@@ -1,6 +1,7 @@
-#include "Button.h"
+
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include <UI/Button.h>
 unsigned int Button::getKey()
 {
 	return key;

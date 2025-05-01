@@ -1,5 +1,5 @@
-#include "Map.h"
 
+#include <UI/Map/Map.h>
 void Map::create()
 {
 }

@@ -1,7 +1,7 @@
-#include "Engine.h"
-#include "../Main.hpp"
+
 #include <iostream>
-#include "../UI/Button/Button.h"
+#include "../include/UI/Button.h"
+#include "../include/Engine.h"
 void Engine::Init()
 {
 	window = new sf::RenderWindow(sf::VideoMode({ HEIGHT_WINDOW, WIDTH_WINDOW }),
