@@ -20,7 +20,6 @@ int main()
     circle.setPosition(p);
     circle.setPointCount(50);
 
-    double __veloc22itfdfy233222 = .5;
     int x = 10;
     while (window.isOpen())
     {
