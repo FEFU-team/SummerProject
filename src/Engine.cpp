@@ -2,22 +2,25 @@
 #include <iostream>
 #include "../include/UI/Button.h"
 #include "../include/Engine.h"
-#include <UI/Map/Cell.h>
+#include <../include/UI/Map/Cell.h>
+#include <UI/Map/Map.h>
 void Engine::Init()
 {
 	window = new sf::RenderWindow(sf::VideoMode({ HEIGHT_WINDOW, WIDTH_WINDOW }),
 		"CMake SFML Project"); // Объект окна
 	window->setFramerateLimit(144);
+   
 }
 
 void Engine::Run()
 {
+    Map map;
     sf::Vector2f pos = { 10,100};
     Button button(pos
     );
     Button button2({50,300}
     );
-    Cell cell();
+    
     sf::Vector2i mouse_position_i;// позиция мыши 
     sf::Vector2f mouse_position_f;// позиция мыши 
     while (window->isOpen())
@@ -36,9 +39,10 @@ void Engine::Run()
             }
         }
         window->clear();
-        button.Draw(window);
-        button2.Draw(window);
-        window->display();
+       map.Draw(window);
+       button.Draw(window);
+       button2.Draw(window);
+       window->display();
 
   
 
