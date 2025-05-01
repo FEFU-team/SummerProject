@@ -3,7 +3,7 @@
 class Engine
 {
 protected:
-	sf::RenderWindow* window = nullptr;
+	sf::RenderWindow* window;
 public:
 	void Init();
 	void Run();
