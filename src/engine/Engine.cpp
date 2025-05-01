@@ -3,7 +3,7 @@
 #include <iostream>
 void Engine::Init()
 {
-	window = new sf::RenderWindow(sf::VideoMode({ 1920u, 1080u }),
+	window = new sf::RenderWindow(sf::VideoMode({ HEIGHT_WINDOW, WIDTH_WINDOW }),
 		"CMake SFML Project"); // Объект окна
 	window->setFramerateLimit(144);
 }
@@ -12,13 +12,15 @@ void Engine::Run()
 {
     while (window->isOpen())
     {
-        while (const std::optional event = window->pollEvent())
+        while (std::optional event = window->pollEvent())
         {
             if (event->is<sf::Event::Closed>())
             {
                 window->close();
             }
         }
+        window->clear();
+        window->display();
 
   
 
