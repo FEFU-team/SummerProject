@@ -1,11 +1,16 @@
 #pragma once
-class MyClass
+#include "D:\SFML\SFML_TEST\src\Main.hpp"
+class Engine
 {
 protected:
-	
+	sf::RenderWindow* window = nullptr;
 public:
-	MyClass();
-	~MyClass();
+	void Init();
+	void Run();
+
+	void End();
+	Engine();
+	~Engine();
 
 private:
 
