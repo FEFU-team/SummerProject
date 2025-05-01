@@ -10,8 +10,15 @@ void Button::Pressed()
 {
 	std::cout << "Hello" << std::endl;
 }
-bool Button::IsPressed(sf::RenderWindow* window)
+
+bool Button::IsPressed(sf::Vector2f mouse_position_f)
 {
+    if (shape.getGlobalBounds().contains(mouse_position_f)) {
+		return true;
+    }
+	else {
+		false;
+	}
 
 }
 void Button::Draw(sf::RenderTarget*  window)

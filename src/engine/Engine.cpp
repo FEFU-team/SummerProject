@@ -14,10 +14,18 @@ void Engine::Run()
     sf::Vector2f pos = { 10,100};
     Button button(pos
     );
+    sf::Vector2i mouse_position_i;// позиция мыши 
+    sf::Vector2f mouse_position_f;// позиция мыши 
     while (window->isOpen())
     {
+        mouse_position_i = sf::Mouse::getPosition(*window);
+        mouse_position_f = window->mapPixelToCoords(mouse_position_i);
         while (std::optional event = window->pollEvent())
         {
+            if (const auto* mousePressed = event->getIf<sf::Event::MouseButtonPressed>()) {
+                if (button.IsPressed(mouse_position_f)) button.Pressed();
+            
+            }
             if (event->is<sf::Event::Closed>())
             {
                 window->close();

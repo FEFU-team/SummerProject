@@ -10,7 +10,7 @@ protected:
 public:
 	unsigned  int getKey();
 	void Pressed();
-	bool IsPressed(sf::RenderWindow* window);
+	bool IsPressed(sf::Vector2f mouse_position_f);
 	void Draw(sf::RenderTarget* window);
 	Button(sf::Vector2f positions, sf::Vector2f  size_button = { 100,100 });
 	~Button();
