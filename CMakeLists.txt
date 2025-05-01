@@ -11,6 +11,6 @@ FetchContent_Declare(SFML
     SYSTEM)
 FetchContent_MakeAvailable(SFML)
 
-add_executable(main src/main.cpp "src/engine/engine.cpp"  "src/UI/Button/Button.h" "src/UI/Button/Button.cpp" "src/UI/Map/Map.h")
+add_executable(main src/main.cpp "src/engine/engine.cpp"  "src/Main.hpp"  "src/UI/Button/Button.h" "src/UI/Button/Button.cpp" "src/UI/Map/Map.h")
 target_compile_features(main PRIVATE cxx_std_17)
 target_link_libraries(main PRIVATE SFML::Graphics)
