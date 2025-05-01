@@ -1,6 +1,6 @@
 #pragma once
-#include "D:\SFML\SFML_TEST\src\Main.hpp"
 #include<string>
+#include <SFML/Graphics.hpp>
 class Button {
 protected:
 	sf::Vector2f position;

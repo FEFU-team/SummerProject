@@ -1,6 +1,6 @@
 #include "Button.h"
 #include <iostream>
-
+#include <SFML/Graphics.hpp>
 unsigned int Button::getKey()
 {
 	return key;
@@ -17,7 +17,7 @@ bool Button::IsPressed(sf::Vector2f mouse_position_f)
 		return true;
     }
 	else {
-		false;
+		 return false;
 	}
 
 }
