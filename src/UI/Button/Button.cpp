@@ -1,6 +1,16 @@
 #include "Button.h"
+#include <iostream>
+
+unsigned int Button::getKey()
+{
+	return key;
+}
 
 void Button::Pressed()
+{
+	std::cout << "Hello" << std::endl;
+}
+bool Button::IsPressed(sf::RenderWindow* window)
 {
 
 }
@@ -15,6 +25,8 @@ Button::Button(sf::Vector2f positions, sf::Vector2f  size_button)
 	shape.setPosition(position);
 	size = size_button;
 	shape.setSize(size);
+	index++;
+	key = index;
 }
 
 
