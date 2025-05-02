@@ -1,19 +1,24 @@
-#include "Engine.h"
-#include "../Main.hpp"
+
 #include <iostream>
-#include "../UI/Button/Button.h"
+#include "../include/UI/Button.h"
+#include "../include/Engine.h"
+#include <../include/UI/Map/Cell.h>
+#include <UI/Map/Map.h>
+
 void Engine::Init()
 {
 	window = new sf::RenderWindow(sf::VideoMode({ HEIGHT_WINDOW, WIDTH_WINDOW }),
 		"CMake SFML Project"); // Объект окна
 	window->setFramerateLimit(144);
+   
 }
 
 void Engine::Run()
 {
-    sf::Vector2f pos = { 10,100};
-    Button button(pos
-    );
+    
+    sf::Vector2f pos = { 5,5};
+    Map map(pos);
+    
     sf::Vector2i mouse_position_i;// позиция мыши 
     sf::Vector2f mouse_position_f;// позиция мыши 
     while (window->isOpen())
@@ -23,7 +28,7 @@ void Engine::Run()
         while (std::optional event = window->pollEvent())
         {
             if (const auto* mousePressed = event->getIf<sf::Event::MouseButtonPressed>()) {
-                if (button.IsPressed(mouse_position_f)) button.Pressed();
+                //if (button.IsPressed(mouse_position_f)) button.Pressed();
             
             }
             if (event->is<sf::Event::Closed>())
@@ -32,8 +37,10 @@ void Engine::Run()
             }
         }
         window->clear();
-        button.Draw(window);
-        window->display();
+       map.Draw(window);
+       //button.Draw(window);
+       //button2.Draw(window);
+       window->display();
 
   
 

@@ -1,6 +1,7 @@
-#include "Button.h"
+
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include <UI/Button.h>
 unsigned int Button::getKey()
 {
 	return key;
@@ -26,8 +27,10 @@ void Button::Draw(sf::RenderTarget*  window)
 	window->draw(shape);
 }
 
-Button::Button(sf::Vector2f positions, sf::Vector2f  size_button)
+Button::Button(sf::Vector2f positions, sf::Vector2f  size_button, sf::Color button_color)
 {
+	color = button_color;
+	shape.setFillColor(color);
 	position = positions;
 	shape.setPosition(position);
 	size = size_button;
