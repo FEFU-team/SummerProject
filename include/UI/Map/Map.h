@@ -6,6 +6,6 @@ using namespace std;
 class Map {
 public:
 	void Draw(sf::RenderTarget* window);
-	Map();
-	std::vector<Cell> grid;
+	Map(); 
+	std::vector<std::vector<Cell>> grid;
 };

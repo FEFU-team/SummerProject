@@ -6,3 +6,6 @@ Cell::Cell(sf::Vector2f positions):Button(positions) {
 	
 	shape.setSize({ 50,50 });
 }
+Cell::Cell():Button({0,0}) {
+
+}
