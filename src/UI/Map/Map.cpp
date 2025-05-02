@@ -3,9 +3,9 @@
 #include <iostream>
 
 void Map::draw(sf::RenderTarget* window) {
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < HEIGHT; i++)
 	{
-		for (int j = 0; j < 10; j++) {
+		for (int j = 0; j < WIDTH; j++) {
 			grid[i][j].draw(window);
 			//if (grid[i][j].is_be_checker) {
 			//	grid[i][j].checker->draw(window);
@@ -25,11 +25,11 @@ Map::Map(sf::Vector2f positions ) {
 		for (int j = position.y, w = 0; w < size_w; j++, w++) {
 			float posY = (50 + 1) * j;
 			if ((h+w)%2 == 0) {
-				line.push_back(Cell({ posX, posY },sf::Color::White, new Checker({ posX, posY }, sf::Color::Black)));
+				line.push_back(Cell({ posX, posY },sf::Color::White));
 			}
 			else {
 
-				line.push_back(Cell({ posX, posY }, sf::Color::Black, new Checker({ posX, posY },sf::Color::White)));
+				line.push_back(Cell({ posX, posY }, sf::Color::Black));
 				
 			}
 			
