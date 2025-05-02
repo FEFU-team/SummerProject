@@ -2,7 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <Elem.h>
 //Класс  обычной кнопки
-class Button:Elem {
+class Button:Element {
 protected:
 	//Размер кнопки длинна и ширина
 	sf::Vector2f size;

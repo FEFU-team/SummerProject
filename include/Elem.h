@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-class Elem {
+class Element {
 protected:
 	//Позиция
 	sf::Vector2f position;
@@ -13,6 +13,6 @@ protected:
 public:
 	//Функция отрисовки объекта
 	virtual void draw(sf::RenderTarget* window);
-	Elem();
+	Element();
 
 };

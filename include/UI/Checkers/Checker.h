@@ -1,6 +1,6 @@
 #pragma once
 #include"Elem.h"
-class Checker:public Elem
+class Checker:public Element
 {
 public:
 	void draw(sf::RenderTarget* window) override;
