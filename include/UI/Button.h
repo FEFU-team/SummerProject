@@ -17,7 +17,7 @@ public:
 	//Функция по умолчанию
 	virtual void pressed();
 	//Нажатие на кнопку
-	virtual void OnClick();
+	//void OnClick();
 	//Мышка нажала ли кнопка
 	bool isPressed(sf::Vector2f mouse_position_f);
 	//Отрисовка кнопки
