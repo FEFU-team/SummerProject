@@ -10,7 +10,7 @@ private:
 	// Ширина
 	 const  int WIDTH = 8;
 	// Сетка игрового поля
-	 std::vector<std::vector<Cell>> grid;
+	 std::vector<std::vector<std::unique_ptr<Cell>>> grid;
 public:
 	void draw(sf::RenderTarget* window) override;
 	Map(sf::Vector2f positions = {0,0});

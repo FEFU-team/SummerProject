@@ -4,11 +4,12 @@
 #include "../include/Engine.h"
 #include <../include/UI/Map/Cell.h>
 #include <UI/Map/Map.h>
+#include <memory>
 
 void Engine::init()
-{
-	window = new sf::RenderWindow(sf::VideoMode({ HEIGHT_WINDOW, WIDTH_WINDOW }),
-		"Checker"); // Объект окна
+{ 
+    window = { std::make_unique<sf::RenderWindow>(sf::RenderWindow(sf::VideoMode({ HEIGHT_WINDOW, WIDTH_WINDOW }),
+        "Checker")) };//умный указатель на окно
 	window->setFramerateLimit(144);
    
 }
@@ -37,7 +38,7 @@ void Engine::run()
             }
         }
         window->clear();
-       map.draw(window);
+       map.draw(window.get());
        //button.Draw(window);
        //button2.Draw(window);
        window->display();
@@ -49,9 +50,7 @@ void Engine::run()
 
 void Engine::end()
 {
-	if (window != nullptr) {
-		delete window;
-	}
+	
 }
 
 Engine::Engine()

@@ -1,6 +1,7 @@
 #pragma once
 #include "../include/UI/Button.h"
 #include <string>
+#include <memory>
 #include "../include/UI/Checkers/Checker.h"
 //Ячейка поля
 class Cell : public Button
@@ -10,9 +11,9 @@ public:
 	Checker* getChecker();
 	bool isBeChecker();
 	//Конструктор с параметрами позиции и цвета
-	Cell(sf::Vector2f positions,sf::Color cell_color = sf::Color::White);
+	Cell(sf::Vector2f position,sf::Color cell_color = sf::Color::White);
 	Cell();
 private:
-	Checker* checker = nullptr;
+	std::unique_ptr<Checker> checker_ptr;
 	bool is_be_checker = false;
 };

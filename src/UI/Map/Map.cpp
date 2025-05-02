@@ -6,9 +6,9 @@ void Map::draw(sf::RenderTarget* window) {
 	for (int i = 0; i < HEIGHT; i++)
 	{
 		for (int j = 0; j < WIDTH; j++) {
-			grid[i][j].draw(window);
-			//if (grid[i][j].is_be_checker) {
-			//	grid[i][j].checker->draw(window);
+			grid[i][j]->draw(window);
+			//if (grid[i][j].isBeChecker()) {
+				//grid[i][j].checker->draw(window);
 			//}
 
 		}
@@ -21,19 +21,23 @@ Map::Map(sf::Vector2f positions ) {
 	int size_w = WIDTH;
 	for (int i = position.x, h = 0; h < size_h; i++, h++) {
 		float posX = (50 + 1) * i;
-		vector<Cell> line;
+		std::vector<std::unique_ptr<Cell>> line;
 		for (int j = position.y, w = 0; w < size_w; j++, w++) {
 			float posY = (50 + 1) * j;
 			if ((h+w)%2 == 0) {
-				line.push_back(Cell({ posX, posY },sf::Color::White));
+				line.push_back(
+					std::make_unique<Cell>(sf::Vector2f(posX, posY), sf::Color::White)
+				);
 			}
 			else {
 
-				line.push_back(Cell({ posX, posY }, sf::Color::Black));
+				line.push_back(
+					std::make_unique<Cell>(sf::Vector2f(posX, posY), sf::Color::Black)
+				);
 				
 			}
 			
 		}
-		grid.push_back(line);
+		grid.push_back(std::move(line));
 	}
 }
