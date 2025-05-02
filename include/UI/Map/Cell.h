@@ -11,7 +11,7 @@ public:
 	Checker* getChecker();
 	bool isBeChecker();
 	//Конструктор с параметрами позиции и цвета
-	Cell(sf::Vector2f positions,sf::Color cell_color = sf::Color::White, Checker* checker = nullptr);
+	Cell(sf::Vector2f positions,sf::Color cell_color = sf::Color::White);
 	Cell();
 private:
 	Checker* checker;
