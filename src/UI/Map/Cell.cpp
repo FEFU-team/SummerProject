@@ -10,6 +10,7 @@ Cell::Cell(sf::Vector2f positions, sf::Color cell_color, Checker* checker) :Butt
 	
 	shape.setSize({ 50,50 });
 	
+	
 }
 Cell::Cell():Button({0,0}) {
 

@@ -7,13 +7,13 @@ class Cell : public Button
 {
 	// объект шашки . дамка или обычная
 public:
-	void setChecker();
-	Checker* checker;
-	bool is_be_checker = false;
+	void setChecker(sf::Color checker_color);
+	Checker* getChecker();
+	bool isBeChecker();
 	//Конструктор с параметрами позиции и цвета
 	Cell(sf::Vector2f positions,sf::Color cell_color = sf::Color::White, Checker* checker = nullptr);
 	Cell();
 private:
-	
-	
+	Checker* checker;
+	bool is_be_checker = false;
 };

@@ -5,11 +5,13 @@
 using namespace std;
 class Map:Elem {
 private:
+	// Длина
 	 const  int HEIGHT = 8;
+	// Ширина
 	 const  int WIDTH = 8;
+	// Сетка игрового поля
 	 std::vector<std::vector<Cell>> grid;
 public:
-	
 	void draw(sf::RenderTarget* window) override;
 	Map(sf::Vector2f positions = {0,0});
 };
