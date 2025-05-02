@@ -1,10 +1,9 @@
 #include <SFML/Graphics.hpp>
-#include <UI//Checkers/Checker.h>
+#include <UI//Checker/Checker.h>
 
 void Checker::draw(sf::RenderTarget* window)
 {
-	sf::RectangleShape b({ 10,10 });
-	window->draw(b);
+	window->draw();
 }
 Checker::Checker()
 {

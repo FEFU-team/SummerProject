@@ -1,10 +1,8 @@
 
-#include"Elem.h"
-class Checker :public Elem
+#include"#include <Elem.h>"
+class Checker
 {
-	
 public:
-	int x = 0;
 	void draw(sf::RenderTarget* window) override;
 	Checker();
 	~Checker();
