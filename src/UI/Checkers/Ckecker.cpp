@@ -2,12 +2,15 @@
 #include <UI//Checkers/Checker.h>
 void Checker::draw(sf::RenderTarget* window)
 {
-	sf::RectangleShape shape({ 10,10 });
 	window->draw(shape);
 }
-Checker::Checker()
+Checker::Checker(sf::Vector2f position, sf::Color color)
 {
-
+	this->color = color;
+	this->position = position;
+	shape.setFillColor(color);
+	shape.setRadius(25);
+	shape.setPosition(position);
 }
 Checker::~Checker()
 {

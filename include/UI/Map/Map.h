@@ -5,8 +5,8 @@
 using namespace std;
 class Map:Elem {
 private:
-	 const  int HEIGHT = 10;
-	 const  int WIDTH = 10;
+	 const  int HEIGHT = 8;
+	 const  int WIDTH = 8;
 	 std::vector<std::vector<Cell>> grid;
 public:
 	
