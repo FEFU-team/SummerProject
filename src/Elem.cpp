@@ -11,5 +11,8 @@ void Element::draw(sf::RenderTarget* window)
 {
 	
 }
+sf::FloatRect Element::getBounds() {
+	return sf::FloatRect();
+}
 Element::Element(){
 }

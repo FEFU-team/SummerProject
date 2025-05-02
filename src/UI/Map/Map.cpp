@@ -32,7 +32,7 @@ Map::Map(sf::Vector2f positions ) {
 			}
 			else {
 
-				line.emplace_back(
+				line.emplace_back(// Добавляя новый объект сразу без копирование 
 					std::make_unique<Cell>(sf::Vector2f(posX, posY), sf::Color::Black)
 				);
 				

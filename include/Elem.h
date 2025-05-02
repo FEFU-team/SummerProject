@@ -15,6 +15,8 @@ public:
 	virtual void draw(sf::RenderTarget* window);
 	sf::Vector2f getPosition();
 	void setPosition(sf::Vector2f new_position);
+	//Получение  ....
+	virtual  sf::FloatRect getBounds();
 	Element();
 
 };
