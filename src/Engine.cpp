@@ -8,7 +8,7 @@
 void Engine::Init()
 {
 	window = new sf::RenderWindow(sf::VideoMode({ HEIGHT_WINDOW, WIDTH_WINDOW }),
-		"CMake SFML Project"); // Объект окна
+		"Checker"); // Объект окна
 	window->setFramerateLimit(144);
    
 }
