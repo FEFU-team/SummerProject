@@ -13,7 +13,6 @@ protected:
 public:
 	//Функция отрисовки объекта
 	virtual void draw(sf::RenderTarget* window);
-	virtual void getBounds();
 	Elem();
 
 };

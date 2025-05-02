@@ -5,7 +5,6 @@
 //Ячейка поля
 class Cell : public Button
 {
-	// объект шашки . дамка или обычная
 public:
 	void setChecker(sf::Color checker_color);
 	Checker* getChecker();
@@ -14,6 +13,6 @@ public:
 	Cell(sf::Vector2f positions,sf::Color cell_color = sf::Color::White);
 	Cell();
 private:
-	Checker* checker;
+	Checker* checker = nullptr;
 	bool is_be_checker = false;
 };
