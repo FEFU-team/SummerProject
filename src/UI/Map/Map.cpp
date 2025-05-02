@@ -26,7 +26,7 @@ Map::Map(sf::Vector2f positions ) {
 			line.reserve(size_w); // Выделяет сразу память на размер вектора
 			float posY = (50 + 1) * j;
 			if ((h+w)%2 == 0) {
-				line.emplace_back(
+				line.emplace_back(// Добавляя новый объект сразу без копирование 
 					std::make_unique<Cell>(sf::Vector2f(posX, posY), sf::Color::White)
 				);
 			}
@@ -39,6 +39,6 @@ Map::Map(sf::Vector2f positions ) {
 			}
 			
 		}
-		grid.emplace_back(std::move(line));
+		grid.emplace_back(std::move(line));//  move перемещает вектор line .а не копирует его.
 	}
 }
