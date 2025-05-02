@@ -3,9 +3,12 @@
 #include "Cell.h"
 #include<vector>
 using namespace std;
-class Map {
+class Map:Elem {
+private:
+	 const  int HEIGHT = 10;
+	 const  int WIDTH = 10;
 public:
-	void Draw(sf::RenderTarget* window);
-	Map(); 
+	void Draw(sf::RenderTarget* window) override;
+	Map(sf::Vector2f positions = {0,0});
 	std::vector<std::vector<Cell>> grid;
 };
