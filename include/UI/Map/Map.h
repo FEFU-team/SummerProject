@@ -3,7 +3,7 @@
 #include "Cell.h"
 #include<vector>
 using namespace std;
-class Map:Elem {
+class Map: public Elem {
 private:
 	 const  int HEIGHT = 10;
 	 const  int WIDTH = 10;
