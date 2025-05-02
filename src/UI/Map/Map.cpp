@@ -20,7 +20,14 @@ Map::Map(sf::Vector2f positions ) {
 		vector<Cell> line;
 		for (int j = position.y, w = 0; w < size_w; j++, w++) {
 			float posY = (50 + 1) * j;
-			line.push_back(Cell({ posX, posY }));
+			if ((h+w)%2 == 0) {
+				line.push_back(Cell({ posX, posY },sf::Color::White));
+			}
+			else {
+				line.push_back(Cell({ posX, posY }, sf::Color::Black));
+				
+			}
+			
 		}
 		grid.push_back(line);
 	}

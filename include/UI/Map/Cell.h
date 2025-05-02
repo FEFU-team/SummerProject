@@ -7,7 +7,7 @@ class Cell : public Button
 
 public:
 	//Конструктор
-	Cell(sf::Vector2f positions);
+	Cell(sf::Vector2f positions,sf::Color cell_color = sf::Color::White);
 	Cell();
 private:
 
