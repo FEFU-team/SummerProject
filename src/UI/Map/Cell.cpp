@@ -2,7 +2,11 @@
 #include <UI/Map/Cell.h>
 #include <UI/Button.h>
 #include <iostream>
-Cell::Cell(sf::Vector2f positions, sf::Color cell_color) :Button(positions, size, cell_color) {
+Cell::Cell(sf::Vector2f positions, sf::Color cell_color, Checker* checker) :Button(positions, size, cell_color) {
+	this->checker = checker;
+	if (checker != nullptr) {
+		is_be_checker = true;
+	}
 	
 	shape.setSize({ 50,50 });
 	
