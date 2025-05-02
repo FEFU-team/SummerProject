@@ -7,9 +7,6 @@ void Map::draw(sf::RenderTarget* window) {
 	{
 		for (int j = 0; j < 10; j++) {
 			grid[i][j].draw(window);
-			if (grid[i][j].is_be_checker) {
-				grid[i][j].checker->draw(window);
-			}
 		}
 		
 	}
@@ -27,8 +24,7 @@ Map::Map(sf::Vector2f positions ) {
 				line.push_back(Cell({ posX, posY },sf::Color::White));
 			}
 			else {
-				Checker* ch = new Checker;
-				line.push_back(Cell({ posX, posY }, sf::Color::Black,ch));
+				line.push_back(Cell({ posX, posY }, sf::Color::Black));
 				
 			}
 			
