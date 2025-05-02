@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "Cell.h"
+#include "Cell.h">
+#include <Elem.h>
 #include<vector>
 using namespace std;
 class Map:Elem {
