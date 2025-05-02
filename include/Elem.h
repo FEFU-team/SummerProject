@@ -11,7 +11,7 @@ protected:
 	sf::Texture texture;
 public:
 	//Функция отрисовки объекта
-	virtual void Draw(sf::RenderTarget* window);
+	virtual void draw(sf::RenderTarget* window);
 	Elem();
 
 };

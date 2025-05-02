@@ -10,6 +10,6 @@ private:
 	 std::vector<std::vector<Cell>> grid;
 public:
 	
-	void Draw(sf::RenderTarget* window) override;
+	void draw(sf::RenderTarget* window) override;
 	Map(sf::Vector2f positions = {0,0});
 };

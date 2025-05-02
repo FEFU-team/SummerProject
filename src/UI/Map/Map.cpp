@@ -2,11 +2,11 @@
 #include <UI/Map/Map.h>
 #include <iostream>
 
-void Map::Draw(sf::RenderTarget* window) {
+void Map::draw(sf::RenderTarget* window) {
 	for (int i = 0; i < 10; i++)
 	{
 		for (int j = 0; j < 10; j++) {
-			grid[i][j].Draw(window);
+			grid[i][j].draw(window);
 		}
 		
 	}

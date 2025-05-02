@@ -5,7 +5,7 @@
 #include <../include/UI/Map/Cell.h>
 #include <UI/Map/Map.h>
 
-void Engine::Init()
+void Engine::init()
 {
 	window = new sf::RenderWindow(sf::VideoMode({ HEIGHT_WINDOW, WIDTH_WINDOW }),
 		"Checker"); // Объект окна
@@ -13,7 +13,7 @@ void Engine::Init()
    
 }
 
-void Engine::Run()
+void Engine::run()
 {
     
     sf::Vector2f pos = { 5,5};
@@ -37,7 +37,7 @@ void Engine::Run()
             }
         }
         window->clear();
-       map.Draw(window);
+       map.draw(window);
        //button.Draw(window);
        //button2.Draw(window);
        window->display();
@@ -47,7 +47,7 @@ void Engine::Run()
     }
 }
 
-void Engine::End()
+void Engine::end()
 {
 	if (window != nullptr) {
 		delete window;

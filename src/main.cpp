@@ -4,8 +4,8 @@ int main()
 {
     
     Engine engine;
-    engine.Init();
-    engine.Run();
-    engine.End();
+    engine.init();
+    engine.run();
+    engine.end();
     return 0;
 }

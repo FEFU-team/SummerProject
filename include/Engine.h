@@ -8,11 +8,11 @@ protected:
 	sf::RenderWindow* window = nullptr;
 public:
 	//Инициализация
-	void Init();
+	void init();
 	//Работа в окне
-	void Run();
+	void run();
 	//Завершение
-	void End();
+	void end();
 	Engine();
 	~Engine();
 
