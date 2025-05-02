@@ -23,21 +23,22 @@ Map::Map(sf::Vector2f positions ) {
 		float posX = (50 + 1) * i;
 		std::vector<std::unique_ptr<Cell>> line;
 		for (int j = position.y, w = 0; w < size_w; j++, w++) {
+			line.reserve(size_w); // Выделяет сразу память на размер вектора
 			float posY = (50 + 1) * j;
 			if ((h+w)%2 == 0) {
-				line.push_back(
+				line.emplace_back(
 					std::make_unique<Cell>(sf::Vector2f(posX, posY), sf::Color::White)
 				);
 			}
 			else {
 
-				line.push_back(
+				line.emplace_back(
 					std::make_unique<Cell>(sf::Vector2f(posX, posY), sf::Color::Black)
 				);
 				
 			}
 			
 		}
-		grid.push_back(std::move(line));
+		grid.emplace_back(std::move(line));
 	}
 }
