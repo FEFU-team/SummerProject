@@ -7,8 +7,11 @@ class Engine
 protected:
 	sf::RenderWindow* window = nullptr;
 public:
+	//Инициализация
 	void Init();
+	//Работа в окне
 	void Run();
+	//Завершение
 	void End();
 	Engine();
 	~Engine();

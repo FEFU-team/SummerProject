@@ -1,9 +1,13 @@
 #include <SFML/Graphics.hpp>
 class Elem {
 protected:
+	//Позиция
 	sf::Vector2f position;
-	int  scale;
+	//Размер
+	int  scale = 0;
+	//Цвет
 	sf::Color color;
+	//Текстура
 	sf::Texture texture;
 public:
 	//Функция отрисовки объекта

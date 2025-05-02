@@ -4,6 +4,7 @@
 #include "../include/Engine.h"
 #include <../include/UI/Map/Cell.h>
 #include <UI/Map/Map.h>
+
 void Engine::Init()
 {
 	window = new sf::RenderWindow(sf::VideoMode({ HEIGHT_WINDOW, WIDTH_WINDOW }),
