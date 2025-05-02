@@ -20,7 +20,7 @@ public:
 	bool IsPressed(sf::Vector2f mouse_position_f);
 	//Отрисовка кнопки
 	void Draw(sf::RenderTarget* window) override;
-	//Конструктор
+	//Конструктор с параметрами позиции . размера {длина ширина} и цвет 
 	Button(sf::Vector2f positions, sf::Vector2f  size_button = { 100,100 } ,sf::Color button_color = sf::Color::White);
 	~Button();
 private:
