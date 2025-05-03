@@ -9,6 +9,7 @@ class Cell : public Button
 public:
 	void setChecker(sf::Color color);
 	Checker* getChecker();
+	//Есть ли шашпка в ячейке
 	bool isBeChecker();
 	//Конструктор с параметрами позиции и цвета
 	Cell(sf::Vector2f position,sf::Color cell_color = sf::Color::White);

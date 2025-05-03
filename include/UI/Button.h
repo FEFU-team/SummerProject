@@ -2,12 +2,12 @@
 #include <SFML/Graphics.hpp>
 #include <Elem.h>
 //Класс  обычной кнопки
-class Button:Element {
+class Button: public Element {
 protected:
-	//Размер кнопки длинна и ширина
-	sf::Vector2f size;
 	//Прямоугольник
 	sf::RectangleShape shape;
+	//Размер кнопки длинна и ширина
+	sf::Vector2f size;
 	//Унификатор
 	unsigned  int key{};
 
@@ -27,5 +27,6 @@ public:
 	~Button();
 private:
 	static inline unsigned index{};
+	
 	 
 };

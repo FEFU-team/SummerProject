@@ -5,7 +5,7 @@
 
 
 void Cell::setChecker(sf::Color color) {
-   checker_ptr = std::make_unique<Checker>(shape.getPosition(),color); 
+   checker_ptr = std::make_unique<Checker>(getPosition(), color);
 	is_be_checker = true;
 }
 Checker* Cell::getChecker() {

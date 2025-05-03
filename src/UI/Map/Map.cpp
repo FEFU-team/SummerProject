@@ -33,12 +33,43 @@ Map::Map(sf::Vector2f positions ) {
 			else {
 
 				line.emplace_back(// Добавляя новый объект сразу без копирование 
-					std::make_unique<Cell>(sf::Vector2f(posX, posY), sf::Color::Yellow)
+					std::make_unique<Cell>(sf::Vector2f(posX, posY), sf::Color::Black)
 				);
 			}
+			//Раставнока поля
+			if (w < 3) {
+				if ((h + w) % 2 == 1) {
+
+					//line[w]->setChecker(sf::Color::White);
+
+
+				}
+				else {
+
+					line[w]->setChecker(sf::Color::Black);
+
+
+				}
+			}
+			if (w > 4) {
+				if ((h + w) % 2 == 1) {
+
+					line[w]->setChecker(sf::Color::Green);
+
+
+				}
+				else {
+
+					//line[w]->setChecker(sf::Color::Black);
+
+
+				}
+			}
+			
+			
 			
 		}
-		line[h].get()->setChecker(sf::Color::Black);
+		
 		grid.emplace_back(std::move(line));//  move перемещает вектор line .а не копирует его.
 	}
 }
