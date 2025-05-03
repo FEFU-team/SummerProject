@@ -1,8 +1,18 @@
 #include <SFML/Graphics.hpp>
 #include <Elem.h>
-void Elem::Draw(sf::RenderTarget* window)
+
+ sf::Vector2f Element::getPosition() {
+	 return position;
+}
+void Element::setPosition(sf::Vector2f new_position) {
+	position = new_position;
+ }
+void Element::draw(sf::RenderTarget* window)
 {
 	
 }
-Elem::Elem(){
+sf::FloatRect Element::getBounds() {
+	return sf::FloatRect();
+}
+Element::Element(){
 }

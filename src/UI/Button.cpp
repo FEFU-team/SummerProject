@@ -7,22 +7,17 @@ unsigned int Button::getKey()
 	return key;
 }
 
-void Button::Pressed()
+void Button::pressed()
 {
 	std::cout << "Hello" << std::endl;
 }
 
-bool Button::IsPressed(sf::Vector2f mouse_position_f)
+bool Button::isPressed(sf::Vector2f mouse_position_f)
 {
-    if (shape.getGlobalBounds().contains(mouse_position_f)) {
-		return true;
-    }
-	else {
-		 return false;
-	}
+	return shape.getGlobalBounds().contains(mouse_position_f);
 
 }
-void Button::Draw(sf::RenderTarget*  window)
+void Button::draw(sf::RenderTarget*  window)
 {
 	window->draw(shape);
 }

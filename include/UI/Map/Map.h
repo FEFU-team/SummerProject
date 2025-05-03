@@ -3,13 +3,16 @@
 #include "Cell.h"
 #include<vector>
 using namespace std;
-class Map:Elem {
+class Map:Element {
 private:
-	 const  int HEIGHT = 10;
-	 const  int WIDTH = 10;
+	// Длина поля
+	 const  int HEIGHT = 8;
+	// Ширина поля
+	 const  int WIDTH = 8;
+	// Сетка игрового поля
+	 std::vector<std::vector<std::unique_ptr<Cell>>> grid;
 public:
-	
-	void Draw(sf::RenderTarget* window) override;
+	//Функция отрисовки Поля
+	void draw(sf::RenderTarget* window) override;
 	Map(sf::Vector2f positions = {0,0});
-	std::vector<std::vector<Cell>> grid;
 };

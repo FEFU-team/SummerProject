@@ -1,18 +1,19 @@
 #pragma once
 #include "Main.hpp"
+#include <memory>
 const unsigned int HEIGHT_WINDOW = 1920;//размер высоты окна
 const unsigned  int WIDTH_WINDOW = 1080;//размер  ширины окна 
 class Engine
 {
 protected:
-	sf::RenderWindow* window = nullptr;
+	std::unique_ptr<sf::RenderWindow> window;
 public:
 	//Инициализация
-	void Init();
+	void init();
 	//Работа в окне
-	void Run();
+	void run();
 	//Завершение
-	void End();
+	void end();
 	Engine();
 	~Engine();
 

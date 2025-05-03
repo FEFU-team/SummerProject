@@ -2,11 +2,15 @@
 #include <UI/Map/Map.h>
 #include <iostream>
 
-void Map::Draw(sf::RenderTarget* window) {
-	for (int i = 0; i < 10; i++)
+void Map::draw(sf::RenderTarget* window) {
+	for (int i = 0; i < HEIGHT; i++)
 	{
-		for (int j = 0; j < 10; j++) {
-			grid[i][j].Draw(window);
+		for (int j = 0; j < WIDTH; j++) {
+			grid[i][j]->draw(window);
+			if (grid[i][j]->isBeChecker()) {
+				grid[i][j]->getChecker()->draw(window);
+			}
+
 		}
 		
 	}
@@ -17,11 +21,55 @@ Map::Map(sf::Vector2f positions ) {
 	int size_w = WIDTH;
 	for (int i = position.x, h = 0; h < size_h; i++, h++) {
 		float posX = (50 + 1) * i;
-		vector<Cell> line;
+		std::vector<std::unique_ptr<Cell>> line;
 		for (int j = position.y, w = 0; w < size_w; j++, w++) {
+			line.reserve(size_w); // Выделяет сразу память на размер вектора
 			float posY = (50 + 1) * j;
-			line.push_back(Cell({ posX, posY }));
+			if ((h+w)%2 == 0) {
+				line.emplace_back(// Добавляя новый объект сразу без копирование 
+					std::make_unique<Cell>(sf::Vector2f(posX, posY), sf::Color::White)
+				);
+			}
+			else {
+
+				line.emplace_back(// Добавляя новый объект сразу без копирование 
+					std::make_unique<Cell>(sf::Vector2f(posX, posY), sf::Color::Black)
+				);
+			}
+			//Раставнока поля
+			if (w < 3) {
+				if ((h + w) % 2 == 1) {
+
+					//line[w]->setChecker(sf::Color::White);
+
+
+				}
+				else {
+
+					line[w]->setChecker(sf::Color::Black);
+
+
+				}
+			}
+			if (w > 4) {
+				if ((h + w) % 2 == 1) {
+
+					line[w]->setChecker(sf::Color::Green);
+
+
+				}
+				else {
+
+					//line[w]->setChecker(sf::Color::Black);
+
+
+				}
+			}
+			
+			
+			
 		}
-		grid.push_back(line);
+		
+		grid.emplace_back(std::move(line));//  move перемещает вектор line .а не копирует его.
 	}
 }
