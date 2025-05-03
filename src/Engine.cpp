@@ -20,7 +20,7 @@ void Engine::run()
     
     sf::Vector2f pos = { 5,5};
     Map map(pos);
-    Controller controller;
+    //Controller controller;
     sf::Vector2i mouse_position_i;// позиция мыши 
     sf::Vector2f mouse_position_f;// позиция мыши 
     while (window->isOpen())
@@ -30,15 +30,8 @@ void Engine::run()
         while (std::optional event = window->pollEvent())
         {
             if (const auto* mousePressed = event->getIf<sf::Event::MouseButtonPressed>()) {
-                controller.update();
+            
                 //if (button.IsPressed(mouse_position_f)) button.Pressed();
-               /*
-                if (map.grid[0][0]->isPressed(mouse_position_f)) {
-                    controller.changeColor(map.grid[1][1].get());
-                    
-                }
-                */
-               
             }
             if (event->is<sf::Event::Closed>())
             {
