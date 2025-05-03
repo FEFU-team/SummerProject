@@ -7,9 +7,9 @@ void Map::draw(sf::RenderTarget* window) {
 	{
 		for (int j = 0; j < WIDTH; j++) {
 			grid[i][j]->draw(window);
-			//if (grid[i][j].isBeChecker()) {
-				//grid[i][j].checker->draw(window);
-			//}
+			if (grid[i][j]->isBeChecker()) {
+				grid[i][j]->getChecker()->draw(window);
+			}
 
 		}
 		
@@ -33,12 +33,12 @@ Map::Map(sf::Vector2f positions ) {
 			else {
 
 				line.emplace_back(// Добавляя новый объект сразу без копирование 
-					std::make_unique<Cell>(sf::Vector2f(posX, posY), sf::Color::Black)
+					std::make_unique<Cell>(sf::Vector2f(posX, posY), sf::Color::Yellow)
 				);
-				
 			}
 			
 		}
+		line[h].get()->setChecker(sf::Color::Black);
 		grid.emplace_back(std::move(line));//  move перемещает вектор line .а не копирует его.
 	}
 }

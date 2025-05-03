@@ -4,9 +4,15 @@
 #include <iostream>
 
 
-
-void Cell::setChecker(sf::Color checker_color) {
-	
+void Cell::setChecker(sf::Color color) {
+   checker_ptr = std::make_unique<Checker>(shape.getPosition(),color); 
+	is_be_checker = true;
+}
+Checker* Cell::getChecker() {
+	return checker_ptr.get();
+}
+bool Cell::isBeChecker() {
+	return is_be_checker;
 }
 Cell::Cell(sf::Vector2f position, sf::Color cell_color) :Button(position, {50,50}, cell_color) {
 }

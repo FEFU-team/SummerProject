@@ -7,7 +7,7 @@
 class Cell : public Button
 {
 public:
-	void setChecker(sf::Color checker_color);
+	void setChecker(sf::Color color);
 	Checker* getChecker();
 	bool isBeChecker();
 	//Конструктор с параметрами позиции и цвета
