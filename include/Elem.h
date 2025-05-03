@@ -17,7 +17,7 @@ public:
 	void setPosition(sf::Vector2f new_position);
 	//Получение  ....
 	virtual  sf::FloatRect getBounds();
-	virtual sf::Color getColor();
+	sf::Color getColor();
 	virtual void setColor(sf::Color color);
 	Element();
 

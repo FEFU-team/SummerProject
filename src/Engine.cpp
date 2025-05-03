@@ -30,9 +30,15 @@ void Engine::run()
         while (std::optional event = window->pollEvent())
         {
             if (const auto* mousePressed = event->getIf<sf::Event::MouseButtonPressed>()) {
+                controller.update();
                 //if (button.IsPressed(mouse_position_f)) button.Pressed();
-                
-                if (map.grid[0][0]->isPressed(mouse_position_f)) controller.changeColor(map.grid[0][0].get());
+               /*
+                if (map.grid[0][0]->isPressed(mouse_position_f)) {
+                    controller.changeColor(map.grid[1][1].get());
+                    
+                }
+                */
+               
             }
             if (event->is<sf::Event::Closed>())
             {

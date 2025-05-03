@@ -16,6 +16,11 @@ Checker::Checker(sf::Vector2f position, sf::Color color)
 	//shape.setOutlineThickness(5);
 	shape.setPosition(position);
 }
+void Checker::setColor(sf::Color color)
+{
+	this->color = color;
+	shape.setFillColor(color);
+}
 Checker::~Checker()
 {
 }
