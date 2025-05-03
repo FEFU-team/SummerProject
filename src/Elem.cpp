@@ -14,5 +14,9 @@ void Element::draw(sf::RenderTarget* window)
 sf::FloatRect Element::getBounds() {
 	return sf::FloatRect();
 }
+void Element::getColor(sf::Color)
+{
+
+}
 Element::Element(){
 }
