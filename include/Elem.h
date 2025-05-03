@@ -18,7 +18,7 @@ public:
 	//Получение  ....
 	virtual  sf::FloatRect getBounds();
 	virtual sf::Color getColor();
-	virtual void getColor(sf::Color);
+	virtual void setColor(sf::Color color);
 	Element();
 
 };

@@ -32,7 +32,7 @@ void Engine::run()
             if (const auto* mousePressed = event->getIf<sf::Event::MouseButtonPressed>()) {
                 //if (button.IsPressed(mouse_position_f)) button.Pressed();
                 
-                if (map.grid[0][0]->isPressed(mouse_position_f)) std::cout << "Button clicked" << std::endl;
+                if (map.grid[0][0]->isPressed(mouse_position_f)) controller.changeColor(map.grid[0][0].get());
             }
             if (event->is<sf::Event::Closed>())
             {
