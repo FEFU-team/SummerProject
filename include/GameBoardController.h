@@ -14,5 +14,7 @@ private:
 	bool cell_pressed = false;
 	//Сетка в ввиде целочисленной матрици
 	std::vector<std::vector<int>> int_grid;
+	//Возможно ли так походить
+	bool is_move_checker(std::pair<int, int> сordinat_begin, std::pair<int, int> сordinat_end);
 
 };

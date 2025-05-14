@@ -54,3 +54,10 @@ void GameBoardController::update_input(std::vector<std::vector<std::unique_ptr<C
 		}
 	}
 }
+
+bool GameBoardController::is_move_checker(std::pair<int, int> ñordinat_begin, std::pair<int, int> ñordinat_end)
+{
+
+	return false;
+}
+
