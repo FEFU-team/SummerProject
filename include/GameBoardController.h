@@ -4,7 +4,7 @@
 class GameBoardController {
 public:
 	int x = 10;
-	GameBoardController();
+	GameBoardController(std::vector<std::vector<std::unique_ptr<Cell>>>* grid);
 	void update_input(std::vector<std::vector<std::unique_ptr<Cell>>> *grid, sf::Vector2f position);
 private:
 	int xc = 10;
@@ -12,5 +12,7 @@ private:
 	bool checker_pressed = false;
 	// Нажали ли пусткая ячейка
 	bool cell_pressed = false;
+	//Сетка в ввиде целочисленной матрици
+	std::vector<std::vector<int>> int_grid;
 
 };

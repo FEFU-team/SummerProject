@@ -23,7 +23,7 @@ void Engine::run()
     //Controller controller;
     sf::Vector2i mouse_position_i;// позиция мыши 
     sf::Vector2f mouse_position_f;// позиция мыши 
-    GameBoardController game;
+    GameBoardController game(&map.grid);
     while (window->isOpen())
     {
         mouse_position_i = sf::Mouse::getPosition(*window);

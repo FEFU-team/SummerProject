@@ -1,7 +1,28 @@
 #include <GameBoardController.h>
 #include <iostream>
-GameBoardController::GameBoardController()
+GameBoardController::GameBoardController(std::vector<std::vector<std::unique_ptr<Cell>>>* grid)
 {
+	//Создание целочисленной матрицы . где 1 это есть шашка . 0 это нет шашки
+	for (int i = 0; i < grid->size(); i++) {
+		std::vector<int> line(grid->size(), 0);
+		for (int j = 0; j < grid->size(); j++) {
+			if((*grid)[i][j]->isBeChecker()){
+				line[j]=1;
+			}
+			else {
+				line[j] = 0;
+			}
+			
+		}
+		int_grid.push_back(line);
+	}
+
+	//for (int i = 0; i < grid->size(); i++) {
+		//for (int j = 0; j < grid->size(); j++) {
+		//	std::cout << int_grid[i][j] << " ";
+		//}
+		//std::cout << "" << std::endl;
+	//}
 
 }
 
@@ -11,17 +32,15 @@ void GameBoardController::update_input(std::vector<std::vector<std::unique_ptr<C
 		for (int j= 0; j < grid->size(); j++) {
 			if ((*grid)[i][j]->isPressed(position) && (*grid)[i][j]->isBeChecker()) {
 
-				checker_pressed = true;
 				if ((*grid)[i][j]->getColor() == sf::Color::Blue) {
 					(*grid)[i][j]->setColor(sf::Color::White);
 				}
 				else {
 					(*grid)[i][j]->setColor(sf::Color::Blue);
 				}
-				std::cout << "button" << std::endl;
 			}
 			else if ((*grid)[i][j]->isPressed(position)) {
-				cell_pressed = true;
+
 				if ((*grid)[i][j]->getColor() == sf::Color::Blue) {
 					(*grid)[i][j]->setColor(sf::Color::White);
 				}
@@ -30,8 +49,7 @@ void GameBoardController::update_input(std::vector<std::vector<std::unique_ptr<C
 				}
 			}
 			else {
-				checker_pressed = false;
-				cell_pressed = false;
+				
 			}
 		}
 	}
