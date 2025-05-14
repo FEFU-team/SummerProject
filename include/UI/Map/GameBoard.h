@@ -3,7 +3,7 @@
 #include "Cell.h"
 #include<vector>
 using namespace std;
-class Map:Element {
+class GameBoard: public Element {
 private:
 	// Длина поля
 	 const  int HEIGHT = 8;
@@ -13,7 +13,7 @@ private:
 public:
 	//Функция отрисовки Поля
 	void draw(sf::RenderTarget* window) override;
-	Map(sf::Vector2f positions = {0,0});
+	GameBoard(sf::Vector2f positions = {0,0});
 	// Сетка игрового поля
 	std::vector<std::vector<std::unique_ptr<Cell>>> grid;
 };

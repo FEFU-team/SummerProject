@@ -1,8 +1,8 @@
 
-#include <UI/Map/Map.h>
+#include <UI/Map/GameBoard.h>
 #include <iostream>
 
-void Map::draw(sf::RenderTarget* window) {
+void GameBoard::draw(sf::RenderTarget* window) {
 	for (int i = 0; i < HEIGHT; i++)
 	{
 		for (int j = 0; j < WIDTH; j++) {
@@ -15,7 +15,7 @@ void Map::draw(sf::RenderTarget* window) {
 		
 	}
 }
-Map::Map(sf::Vector2f positions ) {
+GameBoard::GameBoard(sf::Vector2f positions ) {
 	position = positions;
 	int size_h = HEIGHT;
 	int size_w = WIDTH;

@@ -3,7 +3,7 @@
 #include "../include/UI/Button.h"
 #include "../include/Engine.h"
 #include <../include/UI/Map/Cell.h>
-#include <UI/Map/Map.h>
+#include <UI/Map/GameBoard.h>
 #include <memory>
 #include <GameBoardController.h>
 
@@ -19,7 +19,7 @@ void Engine::run()
 {
     
     sf::Vector2f pos = {0,0};
-    Map map(pos);
+    GameBoard map(pos);
     //Controller controller;
     sf::Vector2i mouse_position_i;// позиция мыши 
     sf::Vector2f mouse_position_f;// позиция мыши 
