@@ -36,7 +36,7 @@ Map::Map(sf::Vector2f positions ) {
 					std::make_unique<Cell>(sf::Vector2f(posX, posY), sf::Color::Black)
 				);
 			}
-			//Раставнока поля
+			//Расстановка поля
 			if (w < 3) {
 				if ((h + w) % 2 == 1) {
 
