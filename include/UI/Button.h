@@ -12,6 +12,7 @@ protected:
 	unsigned  int key{};
 
 public:
+	void setColor(sf::Color color) override;
 	//Получить унификатор
 	unsigned  int getKey();
 	//Функция по умолчанию

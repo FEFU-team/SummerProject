@@ -2,6 +2,11 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <UI/Button.h>
+void Button::setColor(sf::Color color)
+{
+	this->color = color;
+	shape.setFillColor(color);
+}
 unsigned int Button::getKey()
 {
 	return key;

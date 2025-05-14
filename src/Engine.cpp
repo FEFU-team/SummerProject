@@ -3,8 +3,9 @@
 #include "../include/UI/Button.h"
 #include "../include/Engine.h"
 #include <../include/UI/Map/Cell.h>
-#include <UI/Map/Map.h>
+#include <UI/Map/GameBoard.h>
 #include <memory>
+#include <GameBoardController.h>
 
 void Engine::init()
 { 
@@ -17,11 +18,12 @@ void Engine::init()
 void Engine::run()
 {
     
-    sf::Vector2f pos = { 5,5};
-    Map map(pos);
-    
+    sf::Vector2f pos = {0,0};
+    GameBoard map(pos);
+    //Controller controller;
     sf::Vector2i mouse_position_i;// позиция мыши 
     sf::Vector2f mouse_position_f;// позиция мыши 
+    GameBoardController game(&map.grid);
     while (window->isOpen())
     {
         mouse_position_i = sf::Mouse::getPosition(*window);
@@ -29,13 +31,14 @@ void Engine::run()
         while (std::optional event = window->pollEvent())
         {
             if (const auto* mousePressed = event->getIf<sf::Event::MouseButtonPressed>()) {
+                game.update_input(&map.grid, mouse_position_f);
                 //if (button.IsPressed(mouse_position_f)) button.Pressed();
-            
             }
             if (event->is<sf::Event::Closed>())
             {
                 window->close();
             }
+            
         }
         window->clear();
        map.draw(window.get());
