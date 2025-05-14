@@ -14,7 +14,7 @@ Checker* Cell::getChecker() {
 bool Cell::isBeChecker() {
 	return is_be_checker;
 }
-Cell::Cell(sf::Vector2f position, sf::Color cell_color) :Button(position, {50,50}, cell_color) {
+Cell::Cell(sf::Vector2f position, sf::Color cell_color) :Button(position, {100,100}, cell_color) {
 }
 Cell::Cell():Button({0,0}) {
 }

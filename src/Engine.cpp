@@ -18,7 +18,7 @@ void Engine::init()
 void Engine::run()
 {
     
-    sf::Vector2f pos = { 5,5};
+    sf::Vector2f pos = {0,0};
     Map map(pos);
     //Controller controller;
     sf::Vector2i mouse_position_i;// позиция мыши 
