@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <UI//Checkers/Checker.h>
 #include <iostream>
+
 void Checker::draw(sf::RenderTarget* window)
 {
 	window->draw(shape);
@@ -27,7 +28,12 @@ void Checker::setPosition(sf::Vector2f new_position)
 	this->position = new_position;
 	shape.setPosition(new_position);
 }
-
+void Checker::move(sf::Vector2f vector)
+{
+	
+	this->shape.move(vector);
+	position = shape.getPosition();
+}
 Checker::~Checker()
 {
 }

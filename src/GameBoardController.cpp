@@ -77,11 +77,13 @@ void GameBoardController::move_checker()
 {
 	// Получаем владение от исходной ячейки
 	auto checker = (*grid_ptr)[coordinate_begin.first][coordinate_begin.second]->releaseChecker();
+	// Анимация перемещения
+	
+	
 	// Передаем в целевую ячейку
 	(*grid_ptr)[coordinate_end.first][coordinate_end.second]->transferChecker(std::move(checker));
-	// Анимация перемещения
-	// 
-	// Передаем кординаты для новой пешки
+	
+	// Передаем координаты для новой пешки
 	(*grid_ptr)[coordinate_end.first][coordinate_end.second]->getChecker()->setPosition((*grid_ptr)[coordinate_end.first][coordinate_end.second]->getPosition());
 }
 
