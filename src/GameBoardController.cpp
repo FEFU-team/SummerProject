@@ -79,6 +79,8 @@ void GameBoardController::move_checker()
 	auto checker = (*grid_ptr)[coordinate_begin.first][coordinate_begin.second]->releaseChecker();
 	// Передаем в целевую ячейку
 	(*grid_ptr)[coordinate_end.first][coordinate_end.second]->transferChecker(std::move(checker));
+	// Анимация перемещения
+	// 
 	// Передаем кординаты для новой пешки
 	(*grid_ptr)[coordinate_end.first][coordinate_end.second]->getChecker()->setPosition((*grid_ptr)[coordinate_end.first][coordinate_end.second]->getPosition());
 }
