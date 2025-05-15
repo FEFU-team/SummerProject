@@ -27,18 +27,6 @@ GameBoardController::GameBoardController(std::vector<std::vector<std::unique_ptr
 
 }
 
-void GameBoardController::update_time(float time)
-{
-	delta_time = time;
-	for (int i = 0; i < grid_ptr->size(); i++) {
-		for (int j = 0; j < grid_ptr->size(); j++) {
-			if ((*grid_ptr)[i][j]->isBeChecker()) {
-				(*grid_ptr)[i][j]->getChecker()->update_move(delta_time);
-			}
-		}
-	}
-}
-
 void GameBoardController::update_input(sf::Vector2f position)
 {
 	for (int i = 0; i < grid_ptr->size(); i++) {
@@ -75,10 +63,10 @@ void GameBoardController::update_input(sf::Vector2f position)
 			else {
 				
 			}
-			
 		}
 	}
 }
+
 bool GameBoardController::is_move_checker()
 {
 
@@ -89,13 +77,13 @@ void GameBoardController::move_checker()
 {
 	// ѕолучаем владение от исходной €чейки
 	auto checker = (*grid_ptr)[coordinate_begin.first][coordinate_begin.second]->releaseChecker();
-
+	// јнимаци€ перемещени€
+	
+	
 	// ѕередаем в целевую €чейку
 	(*grid_ptr)[coordinate_end.first][coordinate_end.second]->transferChecker(std::move(checker));
 	
-	(*grid_ptr)[coordinate_end.first][coordinate_end.second]->getChecker()->start_move((*grid_ptr)[coordinate_end.first][coordinate_end.second]->getPosition());
-	
 	// ѕередаем координаты дл€ новой пешки
-	//(*grid_ptr)[coordinate_end.first][coordinate_end.second]->getChecker()->setPosition((*grid_ptr)[coordinate_end.first][coordinate_end.second]->getPosition());
+	(*grid_ptr)[coordinate_end.first][coordinate_end.second]->getChecker()->setPosition((*grid_ptr)[coordinate_end.first][coordinate_end.second]->getPosition());
 }
 
