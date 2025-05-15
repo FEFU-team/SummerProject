@@ -93,7 +93,7 @@ void GameBoardController::move_checker()
 	// ѕередаем в целевую €чейку
 	(*grid_ptr)[coordinate_end.first][coordinate_end.second]->transferChecker(std::move(checker));
 	
-	(*grid_ptr)[coordinate_end.first][coordinate_end.second]->getChecker()->start_move({100,100});
+	(*grid_ptr)[coordinate_end.first][coordinate_end.second]->getChecker()->start_move((*grid_ptr)[coordinate_end.first][coordinate_end.second]->getPosition());
 	
 	// ѕередаем координаты дл€ новой пешки
 	//(*grid_ptr)[coordinate_end.first][coordinate_end.second]->getChecker()->setPosition((*grid_ptr)[coordinate_end.first][coordinate_end.second]->getPosition());

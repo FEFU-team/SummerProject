@@ -11,7 +11,7 @@ void Engine::init()
 { 
     window = { std::make_unique<sf::RenderWindow>(sf::RenderWindow(sf::VideoMode({ HEIGHT_WINDOW, WIDTH_WINDOW }),
         "Checker")) };//умный указатель на окно
-	window->setFramerateLimit(144);
+	window->setFramerateLimit(60);
    
 }
 
