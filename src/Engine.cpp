@@ -19,14 +19,12 @@ void Engine::run()
 {
     
     sf::Vector2f pos = {0,0};
-   // GameBoard map(pos);
+    GameBoard map(pos);
     //Controller controller;
-    sf::Clock clock;
     sf::Vector2i mouse_position_i;// позиция мыши 
     sf::Vector2f mouse_position_f;// позиция мыши 
-   // GameBoardController game(&map.grid);
-    float delta_time;
-   Checker checker(sf::Vector2f(900,0), sf::Color::Yellow);
+    GameBoardController game(&map.grid);
+    //Checker checker(sf::Vector2f(900,0), sf::Color::Yellow);
     while (window->isOpen())
     {
         mouse_position_i = sf::Mouse::getPosition(*window);
@@ -34,8 +32,7 @@ void Engine::run()
         while (std::optional event = window->pollEvent())
         {
             if (const auto* mousePressed = event->getIf<sf::Event::MouseButtonPressed>()) {
-               
-                //game.update_input(mouse_position_f);
+                game.update_input(mouse_position_f);
                 //if (button.IsPressed(mouse_position_f)) button.Pressed();
                 //checker.move(sf::Vector2f(10, 10));
             }
@@ -47,8 +44,8 @@ void Engine::run()
         }
         
         window->clear();
-        checker.draw(window.get());
-      // map.draw(window.get());
+        //checker.draw(window.get());
+       map.draw(window.get());
        //button.Draw(window);
        //button2.Draw(window);
        window->display();
