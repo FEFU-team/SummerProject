@@ -28,11 +28,37 @@ void Checker::setPosition(sf::Vector2f new_position)
 	this->position = new_position;
 	shape.setPosition(new_position);
 }
-void Checker::move(sf::Vector2f vector)
+void Checker::update_move(float time)
 {
-	
-	this->shape.move(vector);
-	position = shape.getPosition();
+	if (!is_moving) {
+		return;
+	}
+
+    // Расчёт направления движения
+    sf::Vector2f direction = target - position;
+    float distance = std::hypot(direction.x, direction.y);
+
+    // Если достигли цели
+    if (distance < 10.f) {
+        position = target;
+        shape.setPosition(position);
+		end_move();
+        return;
+    }
+
+    // Нормализация направления и умножение на скорость
+    sf::Vector2f offset = (direction / distance)  * (time*100);
+
+	shape.move(offset);
+}
+void Checker::start_move(sf::Vector2f vector)
+{
+    target = vector;
+	is_moving = true;
+}
+void Checker::end_move()
+{
+	is_moving = false;
 }
 Checker::~Checker()
 {
