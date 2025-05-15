@@ -3,7 +3,8 @@
 class Checker:public Element
 {
 public:
-	void move(sf::Vector2f vector);
+	void update_move(float delta_time);
+	void start_move(sf::Vector2f target);
 	void draw(sf::RenderTarget* window) override;
 	Checker(sf::Vector2f position,sf::Color color);
 	void setColor(sf::Color color) override;

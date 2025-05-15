@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-class Element {
+ class Element {
 protected:
 	// Позиция
 	sf::Vector2f position;
