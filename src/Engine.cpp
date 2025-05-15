@@ -31,7 +31,7 @@ void Engine::run()
         while (std::optional event = window->pollEvent())
         {
             if (const auto* mousePressed = event->getIf<sf::Event::MouseButtonPressed>()) {
-                game.update_input(&map.grid, mouse_position_f);
+                game.update_input(mouse_position_f);
                 //if (button.IsPressed(mouse_position_f)) button.Pressed();
             }
             if (event->is<sf::Event::Closed>())

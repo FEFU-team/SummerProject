@@ -21,6 +21,13 @@ void Checker::setColor(sf::Color color)
 	this->color = color;
 	shape.setFillColor(color);
 }
+
+void Checker::setPosition(sf::Vector2f new_position)
+{
+	this->position = new_position;
+	shape.setPosition(new_position);
+}
+
 Checker::~Checker()
 {
 }
