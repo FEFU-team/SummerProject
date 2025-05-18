@@ -43,13 +43,8 @@ void Engine::run()
             }
             
         }
-        //checker.update(time);
         window->clear();
-        //checker.draw(window.get());
-        //checker1.draw(window.get());
-        map.draw(window.get());
-       //button.Draw(window);
-       //button2.Draw(window);
+        map.draw(window.get(),time);
        window->display();
 
   
