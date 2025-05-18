@@ -27,7 +27,7 @@ void Engine::run()
     sf::Clock clock;
     while (window->isOpen())
     {
-        float time = clock.getElapsedTime().asMilliseconds();
+        float time = clock.getElapsedTime().asMilliseconds(); // задаем таймер
         clock.restart();
         time = time / 100;
         mouse_position_i = sf::Mouse::getPosition(*window);
