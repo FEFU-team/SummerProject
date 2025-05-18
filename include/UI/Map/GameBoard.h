@@ -13,6 +13,8 @@ private:
 public:
 	//Функция отрисовки Поля
 	void draw(sf::RenderTarget* window) override;
+	//Функция отрисовки анимаций
+	void update_animation(float delta_time);
 	GameBoard(sf::Vector2f positions = {0,0});
 	// Сетка игрового поля
 	std::vector<std::vector<std::unique_ptr<Cell>>> grid;

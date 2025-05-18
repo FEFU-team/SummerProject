@@ -68,17 +68,6 @@ void GameBoardController::update_input(sf::Vector2f position)
 	}
 }
 
-void GameBoardController::update_animation(float delta_time)
-{
-	for (int i = 0; i < grid_ptr->size(); i++) {
-		for (int j = 0; j < grid_ptr->size(); j++) {
-			if ((*grid_ptr)[i][j]->isBeChecker()) {
-				(*grid_ptr)[i][j]->getChecker()->update(delta_time);
-			}
-		}
-	}
-}
-
 void GameBoardController::update_int_grid()
 {
 

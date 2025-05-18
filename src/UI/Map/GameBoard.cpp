@@ -2,7 +2,7 @@
 #include <UI/Map/GameBoard.h>
 #include <iostream>
 
-void GameBoard::draw(sf::RenderTarget* window) {
+void GameBoard::draw(sf::RenderTarget* window, float delta_time) {
 
 	for (int i = 0; i < HEIGHT; i++)
 	{
@@ -25,6 +25,17 @@ void GameBoard::draw(sf::RenderTarget* window) {
 
 		}
 
+	}
+	update_animation(delta_time);
+}
+void GameBoard::update_animation(float delta_time)
+{
+	for (int i = 0; i < HEIGHT; i++) {
+		for (int j = 0; j < WIDTH; j++) {
+			if(grid[i][j]->isBeChecker()) {
+				grid[i][j]->getChecker()->update(delta_time);
+			}
+		}
 	}
 }
 GameBoard::GameBoard(sf::Vector2f positions ) {
