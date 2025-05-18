@@ -11,6 +11,14 @@ FetchContent_Declare(SFML
     SYSTEM)
 FetchContent_MakeAvailable(SFML)
 
-add_executable(main src/main.cpp "src/engine.cpp" "src/UI/Button.cpp" "src/UI/Map/GameBoard.cpp" "src/UI/Map/Cell.cpp"  "src/Elem.cpp" "src/UI/Checkers/Ckecker.cpp" "include/GameBoardController.h" "src/GameBoardController.cpp" "include/TextButton.h" "src/TextButton.cpp")
+add_executable(main src/main.cpp
+"src/Core/Engine.cpp" 
+"src/Core/GameBoardController.cpp" 
+"src/UI/Buttons/Button.cpp"
+"src/UI/Map/GameBoard.cpp"
+"src/UI/Map/Cell.cpp"
+"src/UI/Elem.cpp"
+"src/UI/Checkers/Ckecker.cpp"
+"src/UI/Buttons/TextButton.cpp")
 target_compile_features(main PRIVATE cxx_std_17)
 target_link_libraries(main PRIVATE SFML::Graphics)

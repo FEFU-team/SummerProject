@@ -42,7 +42,7 @@ void Checker::update(float time)
 
     sf::Vector2f direction = target- position;
     float distance = std::hypot(direction.x, direction.y);
-	std::cout << distance << std::endl;
+	//std::cout << distance << std::endl;
 	if (distance < 1.f) {
 		position = target;
 		shape.setPosition(position);

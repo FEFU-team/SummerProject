@@ -3,11 +3,16 @@
 class Checker:public Element
 {
 public:
+	// Обновление позиции шашки
 	void update(float time);
+	// Отрисовка шашки
 	void draw(sf::RenderTarget* window) override;
 	Checker(sf::Vector2f position,sf::Color color, float radius = 50);
+	// Задаем цвет
 	void setColor(sf::Color color) override;
+	// Задаем позицию 
 	void setPosition(sf::Vector2f new_position) override;
+	// Запускам анимацию перемещения
 	void start_move(sf::Vector2f target);
 	~Checker();
 private:

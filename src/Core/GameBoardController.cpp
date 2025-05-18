@@ -1,5 +1,6 @@
-#include <GameBoardController.h>
+
 #include <iostream>
+#include <Core/GameBoardController.h>
 GameBoardController::GameBoardController(std::vector<std::vector<std::unique_ptr<Cell>>>* grid)
 {
 	this->grid_ptr = grid;
@@ -63,17 +64,6 @@ void GameBoardController::update_input(sf::Vector2f position)
 			}
 			else {
 				
-			}
-		}
-	}
-}
-
-void GameBoardController::update_animation(float delta_time)
-{
-	for (int i = 0; i < grid_ptr->size(); i++) {
-		for (int j = 0; j < grid_ptr->size(); j++) {
-			if ((*grid_ptr)[i][j]->isBeChecker()) {
-				(*grid_ptr)[i][j]->getChecker()->update(delta_time);
 			}
 		}
 	}

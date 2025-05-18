@@ -2,8 +2,7 @@
 #include <UI/Map/GameBoard.h>
 #include <iostream>
 
-void GameBoard::draw(sf::RenderTarget* window) {
-
+void GameBoard::draw(sf::RenderTarget* window,float delta_time) {
 	for (int i = 0; i < HEIGHT; i++)
 	{
 		for (int j = 0; j < WIDTH; j++) {
@@ -18,6 +17,7 @@ void GameBoard::draw(sf::RenderTarget* window) {
 	{
 		for (int j = 0; j < WIDTH; j++) {
 			if (grid[i][j]->isBeChecker()) {
+				grid[i][j]->getChecker()->update(delta_time);
 				grid[i][j]->getChecker()->draw(window);
 			}
 
@@ -26,6 +26,7 @@ void GameBoard::draw(sf::RenderTarget* window) {
 		}
 
 	}
+	
 }
 GameBoard::GameBoard(sf::Vector2f positions ) {
 	position = positions;

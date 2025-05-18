@@ -13,7 +13,9 @@ protected:
 public:
 	// Функция отрисовки объекта
 	virtual void draw(sf::RenderTarget* window);
+	// Получение позиции 
 	sf::Vector2f getPosition();
+	// Задается позиция 
 	virtual void setPosition(sf::Vector2f new_position);
 	// Получение  ....
 	virtual  sf::FloatRect getBounds();
