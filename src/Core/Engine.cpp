@@ -6,6 +6,7 @@
 #include <UI/Map/GameBoard.h>
 #include <memory>
 #include <Core/GameBoardController.h>
+#include <New elem.h>
 
 
 void Engine::init()
@@ -44,7 +45,7 @@ void Engine::run()
             
         }
         window->clear();
-        game_board.draw(window.get(),time);
+       game_board.draw(window.get(),time);
         window->display();
 
   

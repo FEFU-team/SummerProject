@@ -19,6 +19,6 @@ add_executable(main src/main.cpp
 "src/UI/Map/Cell.cpp"
 "src/UI/Elem.cpp"
 "src/UI/Checkers/Ckecker.cpp"
-"src/UI/Buttons/TextButton.cpp")
+ )
 target_compile_features(main PRIVATE cxx_std_17)
 target_link_libraries(main PRIVATE SFML::Graphics)
