@@ -22,7 +22,7 @@ std::unique_ptr<Checker> Cell::releaseChecker()
 }
 
 void Cell::setChecker(sf::Color color) {
-   checker_ptr = std::make_unique<Checker>(getPosition(), color);
+   checker_ptr = std::make_unique<Checker>(position, color);
 	is_be_checker = true;
 }
 Checker* Cell::getChecker() {
@@ -32,7 +32,8 @@ bool Cell::isBeChecker() {
 	return is_be_checker;
 }
 Cell::Cell(sf::Vector2f position, sf::Color cell_color) :Button(position, {100,100}, cell_color) {
-	center = sf::Vector2f(50.f,50.f);
+	sf::FloatRect bounds = shape.getGlobalBounds();
+	center = bounds.getCenter();
 	this->position = position;
 }
 Cell::Cell():Button({0,0}) {

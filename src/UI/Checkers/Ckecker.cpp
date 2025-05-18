@@ -8,13 +8,13 @@ void Checker::draw(sf::RenderTarget* window)
 }
 Checker::Checker(sf::Vector2f position, sf::Color color, float radius)
 {
+	position.x = position.x + 1;
+	position.y = position.y + 1;
 	this->color = color;
 	this->position = position;
-//	std::cout << "D" << std::endl;
 	shape.setFillColor(color);
+	//shape.setSize({50,50});
 	shape.setRadius(radius);
-	//shape.setOutlineColor(sf::Color::Yellow);
-	//shape.setOutlineThickness(5);
 	shape.setPosition(position);
 }
 void Checker::setColor(sf::Color color)
