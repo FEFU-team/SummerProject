@@ -1,6 +1,7 @@
 #pragma once
 #include <Main.hpp>
 #include <UI/Map/Cell.h>
+#include "../include/Core/GameBoardController.h"
 class GameBoardController {
 public:
 	int x = 10;

@@ -1,11 +1,12 @@
 
 #include <iostream>
-#include "../include/UI/Button.h"
-#include "../include/Engine.h"
+#include "../include/UI//Buttons/Button.h"
+#include "../include/Core/Engine.h"
 #include <../include/UI/Map/Cell.h>
 #include <UI/Map/GameBoard.h>
 #include <memory>
-#include <GameBoardController.h>
+#include <Core/GameBoardController.h>
+
 
 void Engine::init()
 { 
@@ -18,12 +19,11 @@ void Engine::init()
 void Engine::run()
 {
     
-    sf::Vector2f pos = {0,0};
-    GameBoard map(pos);
-    //Controller controller;
+    sf::Vector2f position_board = {0,0}; //  оординаты игрового пол€
+    GameBoard game_board(position_board);
     sf::Vector2i mouse_position_i;// позици€ мыши 
     sf::Vector2f mouse_position_f;// позици€ мыши 
-    GameBoardController game(&map.grid);
+    GameBoardController game_board_controller(&game_board.grid);
     sf::Clock clock;
     while (window->isOpen())
     {
@@ -35,7 +35,7 @@ void Engine::run()
         while (std::optional event = window->pollEvent())
         {
             if (const auto* mousePressed = event->getIf<sf::Event::MouseButtonPressed>()) {
-                game.update_input(mouse_position_f);
+                game_board_controller.update_input(mouse_position_f);
             }
             if (event->is<sf::Event::Closed>())
             {
@@ -44,8 +44,8 @@ void Engine::run()
             
         }
         window->clear();
-        map.draw(window.get(),time);
-       window->display();
+        game_board.draw(window.get(),time);
+        window->display();
 
   
 

@@ -1,5 +1,6 @@
-#include <GameBoardController.h>
+
 #include <iostream>
+#include <Core/GameBoardController.h>
 GameBoardController::GameBoardController(std::vector<std::vector<std::unique_ptr<Cell>>>* grid)
 {
 	this->grid_ptr = grid;

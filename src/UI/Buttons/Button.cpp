@@ -1,7 +1,7 @@
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include <UI/Button.h>
+#include <UI/Buttons/Button.h>
 void Button::setColor(sf::Color color)
 {
 	this->color = color;
