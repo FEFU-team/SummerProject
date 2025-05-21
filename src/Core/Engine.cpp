@@ -6,28 +6,32 @@
 #include <UI/Map/GameBoard.h>
 #include <memory>
 #include <Core/GameBoardController.h>
+#include <Core/GameController.h>
+#include <filesystem>  // C++17
 
 
 void Engine::init()
 { 
+    
     window = { std::make_unique<sf::RenderWindow>(sf::RenderWindow(sf::VideoMode({ HEIGHT_WINDOW, WIDTH_WINDOW }),
-        "Checker")) };//óìíûé óêàçàòåëü íà îêíî
+        L"Checkers")) };
 	window->setFramerateLimit(60);
    
 }
 
 void Engine::run()
 {
-    
-    sf::Vector2f position_board = {0,0}; // Êîîðäèíàòû èãðîâîãî ïîëÿ
+    GameController game_controller;
+    sf::Vector2f position_board = {0,0}; 
     GameBoard game_board(position_board);
-    sf::Vector2i mouse_position_i;// ïîçèöèÿ ìûøè 
-    sf::Vector2f mouse_position_f;// ïîçèöèÿ ìûøè 
+    sf::Vector2i mouse_position_i;
+    sf::Vector2f mouse_position_f;
     GameBoardController game_board_controller(&game_board.grid);
     sf::Clock clock;
     while (window->isOpen())
     {
-        float time = clock.getElapsedTime().asMilliseconds(); // çàäàåì òàéìåð
+        GameState  current_state = game_controller.getGameState();
+        float time = clock.getElapsedTime().asMilliseconds(); 
         clock.restart();
         time = time / 100;
         mouse_position_i = sf::Mouse::getPosition(*window);
@@ -44,7 +48,25 @@ void Engine::run()
             
         }
         window->clear();
-       game_board.draw(window.get(),time);
+        if (current_state == GameState::Init) {
+            //cout << "Init" << endl;
+             sf::Font font("../../../../assets/fonts/arialmt.ttf");
+             sf::Text text(font);
+             // set the string to display
+             text.setString("Hello world");
+             text.setPosition({ 100,100 });
+             // set the character size
+             text.setCharacterSize(100); // in pixels, not points!
+
+             // set the color
+             text.setFillColor(sf::Color::Red);
+             window->draw(text);
+            //game_controller.setGameState(GameState::Start);
+        }
+        else {
+            game_board.draw(window.get(), time);
+        }
+     
         window->display();
 
   
