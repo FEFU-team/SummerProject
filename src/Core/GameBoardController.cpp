@@ -36,6 +36,7 @@ void GameBoardController::update_input(sf::Vector2f position)
 {
 	for (int i = 0; i < grid_ptr->size(); i++) {
 		for (int j= 0; j < grid_ptr->size(); j++) {
+
 			if ((*grid_ptr)[i][j]->isPressed(position) && (*grid_ptr)[i][j]->isBeChecker() && pressed_checker == false) {
 				coordinate_begin.first = i;
 				coordinate_begin.second = j;
@@ -47,6 +48,7 @@ void GameBoardController::update_input(sf::Vector2f position)
 				}
 				pressed_checker = true;
 				break;
+				
 			}
 			else if ((*grid_ptr)[i][j]->isPressed(position) && (*grid_ptr)[i][j]->isBeChecker() == false) {
 				
@@ -65,11 +67,15 @@ void GameBoardController::update_input(sf::Vector2f position)
 				pressed_checker = false;
 				break;
 			}
-			else {
-				
+			else{
 			}
 		}
 	}
+}
+
+void GameBoardController::destroy_figure(std::pair<int, int> coordinate)
+{
+	(*grid_ptr)[coordinate.first][coordinate.second]->delete_checker();
 }
 
 void GameBoardController::update_int_grid()

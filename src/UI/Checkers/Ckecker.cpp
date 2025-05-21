@@ -16,6 +16,7 @@ Checker::Checker(sf::Vector2f position, sf::Color color, float radius)
 	//shape.setSize({50,50});
 	shape.setRadius(radius);
 	shape.setPosition(position);
+	//shape.setPointCount(100000);
 	color_checker = ColorChecker::Black;
 }
 void Checker::setColor(sf::Color color)

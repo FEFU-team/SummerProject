@@ -1,11 +1,11 @@
 #pragma once
 
-enum class GameState { Init,Start, End }; // Состояние игры
+enum class GameState { Init,Start,Play,End}; // Состояние игры
 // 
 class GameController {
 public:
 	void setGameState(GameState state);
 	GameState getGameState();
 private:
-	GameState game_state = GameState::Start;
+	GameState game_state = GameState::Play;
 };

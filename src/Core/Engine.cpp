@@ -70,10 +70,24 @@ void Engine::run()
              button.draw(window.get());
              window->draw(text);
              window->draw(text1);
+
+
+             
+
+
             //game_controller.setGameState(GameState::Start);
+        }
+        else if(current_state == GameState::Start) {
+            sf::Texture texture("../../../../assets/texture/test.jpg");
+            sf::Sprite sprite(texture);
+            
+            window->draw(sprite);
+            //Checker checker({100,100},sf::Color::White);
+            //checker.draw(window.get());
         }
         else {
             game_board.draw(window.get(), time);
+            game_controller.setGameState(GameState::Play);
         }
      
         window->display();
