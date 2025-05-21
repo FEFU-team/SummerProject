@@ -7,5 +7,5 @@ public:
 	void setGameState(GameState state);
 	GameState getGameState();
 private:
-	GameState game_state = GameState::Init;
+	GameState game_state = GameState::Start;
 };
