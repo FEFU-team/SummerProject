@@ -8,11 +8,10 @@
 #include <Core/GameBoardController.h>
 
 
-
 void Engine::init()
 { 
     window = { std::make_unique<sf::RenderWindow>(sf::RenderWindow(sf::VideoMode({ HEIGHT_WINDOW, WIDTH_WINDOW }),
-        "Checker")) };//умный указатель на окно
+        "Checker")) };//ГіГ¬Г­Г»Г© ГіГЄГ Г§Г ГІГҐГ«Гј Г­Г  Г®ГЄГ­Г®
 	window->setFramerateLimit(60);
    
 }
@@ -20,15 +19,15 @@ void Engine::init()
 void Engine::run()
 {
     
-    sf::Vector2f position_board = {0,0}; // Координаты игрового поля
+    sf::Vector2f position_board = {0,0}; // ГЉГ®Г®Г°Г¤ГЁГ­Г ГІГ» ГЁГЈГ°Г®ГўГ®ГЈГ® ГЇГ®Г«Гї
     GameBoard game_board(position_board);
-    sf::Vector2i mouse_position_i;// позиция мыши 
-    sf::Vector2f mouse_position_f;// позиция мыши 
+    sf::Vector2i mouse_position_i;// ГЇГ®Г§ГЁГ¶ГЁГї Г¬Г»ГёГЁ 
+    sf::Vector2f mouse_position_f;// ГЇГ®Г§ГЁГ¶ГЁГї Г¬Г»ГёГЁ 
     GameBoardController game_board_controller(&game_board.grid);
     sf::Clock clock;
     while (window->isOpen())
     {
-        float time = clock.getElapsedTime().asMilliseconds(); // задаем таймер
+        float time = clock.getElapsedTime().asMilliseconds(); // Г§Г Г¤Г ГҐГ¬ ГІГ Г©Г¬ГҐГ°
         clock.restart();
         time = time / 100;
         mouse_position_i = sf::Mouse::getPosition(*window);
