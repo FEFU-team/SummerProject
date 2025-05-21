@@ -1,12 +1,15 @@
 
 #include <iostream>
 #include <Core/GameBoardController.h>
+
+using namespace std;
+
 GameBoardController::GameBoardController(std::vector<std::vector<std::unique_ptr<Cell>>>* grid)
 {
 	this->grid_ptr = grid;
 	//Создание целочисленной матрицы . где 1 это есть шашка . 0 это нет шашки
 	for (int i = 0; i < grid->size(); i++) {
-		std::vector<int> line(grid->size(), 0);
+		vector<int> line(grid->size(), 0);
 		for (int j = 0; j < grid->size(); j++) {
 			if((*grid)[i][j]->isBeChecker()){
 
