@@ -36,5 +36,9 @@ Cell::Cell(sf::Vector2f position, sf::Color cell_color) :Button(position, {100,1
 	center = bounds.getCenter();
 	this->position = position;
 }
+void Cell::delete_checker() {
+	checker_ptr.get_deleter();
+	is_be_checker = false;
+}
 Cell::Cell():Button({0,0}) {
 }

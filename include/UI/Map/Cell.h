@@ -7,6 +7,8 @@
 class Cell : public Button
 {
 public:
+	// Уничтожение фигуры
+	void delete_checker();
 	// Получение центра в ячейки
 	sf::Vector2f getCenter();
 	// Получение прав на указатель шашки
