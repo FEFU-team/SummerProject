@@ -18,6 +18,8 @@ void MainMenu::hello()
 		std::make_unique<TextButton>(sf::Vector2f(100, 100), "hello"));
 	widgets.push_back(
 		std::make_unique<TextButton>(sf::Vector2f(200, 200), "word"));
+	widgets.push_back(
+		std::make_unique<TextButton>(sf::Vector2f(300, 300), "C++"));
 	
 	
 	
