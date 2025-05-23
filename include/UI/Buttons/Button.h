@@ -16,7 +16,7 @@ public:
 	//Получить унификатор
 	unsigned  int getKey();
 	//Функция по умолчанию
-	virtual void pressed();
+	virtual void pressed() const;
 	//Нажатие на кнопку
 	//void OnClick();
 	//Мышка нажала ли кнопка

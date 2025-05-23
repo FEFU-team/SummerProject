@@ -5,9 +5,9 @@
 #include <../include/UI/Map/Cell.h>
 #include <UI/Map/GameBoard.h>
 #include <memory>
-#include <Core/GameBoardController.h>
-#include <Core/GameController.h>
+
 #include <filesystem>  // C++17
+#include <Core/GameBoardController.h>
 
 
 void Engine::init()
@@ -21,7 +21,7 @@ void Engine::init()
 
 void Engine::run()
 {
-    GameController game_controller;
+   
     sf::Vector2f position_board = {0,0}; 
     GameBoard game_board(position_board);
     sf::Vector2i mouse_position_i;

@@ -12,7 +12,7 @@ unsigned int Button::getKey()
 	return key;
 }
 
-void Button::pressed()
+void Button::pressed() const
 {
 	std::cout << "Hello" << std::endl;
 }

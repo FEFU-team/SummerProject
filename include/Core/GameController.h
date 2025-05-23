@@ -7,5 +7,6 @@ public:
 	void setGameState(GameState state);
 	GameState getGameState();
 private:
+	// Состояние игры
 	GameState game_state = GameState::Play;
 };
