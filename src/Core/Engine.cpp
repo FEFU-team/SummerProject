@@ -55,7 +55,7 @@ void Engine::run()
         window->clear();
         if (current_state == GameState::Init) {
             TextButton button({ 100,100 },"Hello");
-            //button.draw(window.get());
+            button.draw(window.get());
              
 
 
