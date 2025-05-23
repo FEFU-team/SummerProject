@@ -19,7 +19,9 @@ void TextButton::draw(sf::RenderTarget* window)
 	sf::Text w_text(font);
 	w_text.setFillColor(sf::Color::Black);
 	w_text.setString("Hello");
-	w_text.setPosition(position);
+	// Примерно 
+	w_text.setPosition({ position.x + 20,position.y + 25 });
+	shape.setFillColor(sf::Color::Green);
 	shape.setPosition(position);
 	window->draw(shape);
 	window->draw(w_text);

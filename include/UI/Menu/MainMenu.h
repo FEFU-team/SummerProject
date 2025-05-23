@@ -8,5 +8,5 @@ public:
 	void hello();
 	MainMenu(sf::Vector2f position);
 private:
-	std::vector<Element> widgets;
+	std::vector<std::unique_ptr<Element>> widgets;;
 };

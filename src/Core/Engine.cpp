@@ -30,6 +30,8 @@ void Engine::run()
     sf::Vector2f mouse_position_f;
     GameBoardController game_board_controller(&game_board.grid);
     sf::Clock clock;
+    MainMenu main_menu({ 0,0 });
+    main_menu.hello();
     while (window->isOpen())
     {
         GameState  current_state = game_controller.getGameState();
@@ -52,8 +54,7 @@ void Engine::run()
         }
         window->clear(sf::Color::Black);
         if (current_state == GameState::Init) {
-            MainMenu main_menu({0,0});
-            main_menu.hello();
+          
             main_menu.draw(window.get());
 
             //game_controller.setGameState(GameState::Start);
