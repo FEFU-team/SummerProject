@@ -36,15 +36,12 @@ void Engine::run()
         clock.restart();
         time = time / 100;
         mouse_position_i = sf::Mouse::getPosition(*window);
-        Button button({ 100,100 }, { 600,100 });
         mouse_position_f = window->mapPixelToCoords(mouse_position_i);
         while (std::optional event = window->pollEvent())
         {
             if (const auto* mousePressed = event->getIf<sf::Event::MouseButtonPressed>()) {
                 game_board_controller.update_input(mouse_position_f);
-                if (button.isPressed(mouse_position_f)) {
-                    game_controller.setGameState(GameState::Start);
-                }
+                
             }
             if (event->is<sf::Event::Closed>())
             {
@@ -52,10 +49,10 @@ void Engine::run()
             }
             
         }
-        window->clear();
+        window->clear(sf::Color::Black);
         if (current_state == GameState::Init) {
-            //TextButton button({ 100,100 },"Hello");
-            //button.draw(window.get());
+            TextButton button({ 100,100 },"Hello");
+            button.draw(window.get());
              
 
 
