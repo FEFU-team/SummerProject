@@ -16,7 +16,7 @@ void Engine::init()
     
     window = { std::make_unique<sf::RenderWindow>(sf::RenderWindow(sf::VideoMode({ HEIGHT_WINDOW, WIDTH_WINDOW }),
         L"Checkers")) };
-	window->setFramerateLimit(60);
+	window->setFramerateLimit(144);
    
 }
 
@@ -54,8 +54,8 @@ void Engine::run()
         }
         window->clear();
         if (current_state == GameState::Init) {
-            TextButton button({ 100,100 },"Hello");
-            button.draw(window.get());
+            //TextButton button({ 100,100 },"Hello");
+            //button.draw(window.get());
              
 
 
