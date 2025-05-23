@@ -8,6 +8,7 @@
 
 #include <filesystem>  // C++17
 #include <Core/GameBoardController.h>
+#include <UI/Buttons/TextButton.h>
 
 
 void Engine::init()
@@ -53,37 +54,12 @@ void Engine::run()
         }
         window->clear();
         if (current_state == GameState::Init) {
-            //cout << "Init" << endl;
-             sf::Font font("../../../../assets/fonts/arialmt.ttf");
-             sf::Text text(font);
-             sf::Text text1(font);
-             // set the string to display
-             text.setString("Hello Start");
-             text1.setString("Hello");
-             text.setPosition({ 100,100 });
-             // set the character size
-             text.setCharacterSize(100); // in pixels, not points!
-           
-             // set the color
-             text.setFillColor(sf::Color::Red);
-             
-             button.draw(window.get());
-             window->draw(text);
-             window->draw(text1);
-
-
+            TextButton button({ 100,100 },"Hello");
+            //button.draw(window.get());
              
 
 
             //game_controller.setGameState(GameState::Start);
-        }
-        else if(current_state == GameState::Start) {
-            sf::Texture texture("../../../../assets/texture/test.jpg");
-            sf::Sprite sprite(texture);
-            
-            window->draw(sprite);
-            //Checker checker({100,100},sf::Color::White);
-            //checker.draw(window.get());
         }
         else {
             game_board.draw(window.get(), time);

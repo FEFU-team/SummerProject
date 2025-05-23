@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <Elem.h>
-//Класс  обычной кнопки
+//Класс  обычной прямоугольной  кнопки
 class Button: public Element {
 protected:
 	//Прямоугольник
