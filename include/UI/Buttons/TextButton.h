@@ -2,7 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <UI/Buttons/Button.h>
 #include<string>
-class TextButton:Button {
+class TextButton: public Button {
 public:
 	// Допилить много чего
 	// Получаем текст

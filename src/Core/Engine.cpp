@@ -9,6 +9,7 @@
 #include <filesystem>  // C++17
 #include <Core/GameBoardController.h>
 #include <UI/Buttons/TextButton.h>
+#include <UI/Menu/MainMenu.h>
 
 
 void Engine::init()
@@ -51,10 +52,9 @@ void Engine::run()
         }
         window->clear(sf::Color::Black);
         if (current_state == GameState::Init) {
-            TextButton button({ 100,100 },"Hello");
-            button.draw(window.get());
-             
-
+            MainMenu main_menu({0,0});
+            main_menu.hello();
+            main_menu.draw(window.get());
 
             //game_controller.setGameState(GameState::Start);
         }
