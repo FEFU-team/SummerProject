@@ -8,11 +8,11 @@ MainMenu::MainMenu(sf::Vector2f position, unsigned int height, unsigned int widt
 	this->position = position;
 	this->game_controller_ptr = game_controller_ptr;
 	widgets.push_back(
-		std::make_unique<TextButton>(sf::Vector2f((height / 2) -100, (width / 2) -200), "Checkers", sf::Vector2f(200, 100),sf::Color::Black, sf::Color::White,60));
+		std::make_unique<TextButton>(sf::Vector2f((height / 2) -100, (width / 2) -200), L"Шашки", sf::Vector2f(200, 100),sf::Color::Black, sf::Color::White,60));
 	widgets.push_back(
-		std::make_unique<TextButton>(sf::Vector2f((height / 2) - 100, (width / 2) - 100), "Start", sf::Vector2f(200, 100)));
+		std::make_unique<TextButton>(sf::Vector2f((height / 2) - 100, (width / 2) - 100), L"Играть", sf::Vector2f(200, 100)));
 	widgets.push_back(
-		std::make_unique<TextButton>(sf::Vector2f((height / 2) -100, (width / 2) + 50), "Exit", sf::Vector2f(200, 100)));
+		std::make_unique<TextButton>(sf::Vector2f((height / 2) -100, (width / 2) + 50), L"Выход", sf::Vector2f(200, 100)));
 
 }
 void MainMenu::draw(sf::RenderTarget* window)  {
