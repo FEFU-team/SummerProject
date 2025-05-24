@@ -8,6 +8,9 @@ void Checker::draw(sf::RenderTarget* window)
 }
 Checker::Checker(sf::Vector2f position, sf::Color color, float radius)
 {
+	texture.loadFromFile(R"(../../../../assets/texture/checkers.jpg)");
+	texture.setSmooth(true);
+	shape.setTexture(&texture);
 	position.x = position.x + 1;
 	position.y = position.y + 1;
 	this->color = color;
@@ -17,14 +20,23 @@ Checker::Checker(sf::Vector2f position, sf::Color color, float radius)
 	shape.setRadius(radius);
 	shape.setPosition(position);
 	//shape.setPointCount(100000);
-	color_checker = ColorChecker::Black;
+	if (color == sf::Color::Yellow) { // Тут нужно еще цвет менять для шашки
+		color_checker = ColorChecker::Black;
+	}
+	else {
+		color_checker = ColorChecker::White;
+	}
+	
+	
 }
 void Checker::setColor(sf::Color color)
 {
 	this->color = color;
 	shape.setFillColor(color);
 }
-
+ColorChecker Checker::getColorChecker() {
+	return color_checker;
+}
 void Checker::setPosition(sf::Vector2f new_position)
 {
 	this->position = new_position;
@@ -53,7 +65,6 @@ void Checker::update(float time)
 	}
 	sf::Vector2f offset = (direction / distance) *( 15 * time);
 	shape.move(offset);
-
     position = shape.getPosition();
 }
 Checker::~Checker()

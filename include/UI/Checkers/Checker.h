@@ -1,8 +1,15 @@
 #pragma once
 #include"Elem.h"
+// Состояние шашки
+enum ColorChecker {
+	White,
+	Black,
+};
 class Checker:public Element
 {
 public:
+	// Получение цвета шашки
+	ColorChecker getColorChecker();
 	// Обновление позиции шашки
 	void update(float time);
 	// Отрисовка шашки
@@ -15,15 +22,12 @@ public:
 	// Запускам анимацию перемещения
 	void start_move(sf::Vector2f target);
 	~Checker();
-private:
+protected:
+	enum ColorChecker color_checker;
 	sf::CircleShape shape;
+private:
 	bool is_moving = false;
 	sf::Vector2f target;
-	enum ColorChecker color_checker;
+	
 
-};
-// Состояние шашки
-enum ColorChecker {
-	White,
-	Black,
 };

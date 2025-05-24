@@ -40,12 +40,18 @@ void GameBoardController::update_input(sf::Vector2f position)
 			if ((*grid_ptr)[i][j]->isPressed(position) && (*grid_ptr)[i][j]->isBeChecker() && pressed_checker == false) {
 				coordinate_begin.first = i;
 				coordinate_begin.second = j;
+				color_checker = (*grid_ptr)[i][j]->getChecker()->getColorChecker();
+				/*
 				if ((*grid_ptr)[i][j]->getColor() == sf::Color::Blue) {
 					(*grid_ptr)[i][j]->setColor(sf::Color::White);
+					
+					
 				}
 				else {
 					(*grid_ptr)[i][j]->setColor(sf::Color::Blue);
 				}
+				*/
+	
 				pressed_checker = true;
 				break;
 				
@@ -54,14 +60,15 @@ void GameBoardController::update_input(sf::Vector2f position)
 				
 				coordinate_end.first = i;
 				coordinate_end.second = j;
-				
+				/* 
 				if ((*grid_ptr)[i][j]->getColor() == sf::Color::Blue) {
 					(*grid_ptr)[i][j]->setColor(sf::Color::White);
 				}
 				else {
 					(*grid_ptr)[i][j]->setColor(sf::Color::Blue);
 				}
-				if (pressed_checker) {
+				*/
+				if (pressed_checker && is_move_checker(color_checker)) {
 					move_checker();
 				}
 				pressed_checker = false;
@@ -83,14 +90,39 @@ void GameBoardController::update_int_grid()
 
 }
 
-bool GameBoardController::is_move_checker()
+bool GameBoardController::is_move_checker(ColorChecker color_checker)
 {
-
+	// Правила хода обычные
+	if ((coordinate_begin.first + 1 == coordinate_end.first && coordinate_begin.second + 1 == coordinate_end.second)&&color_checker == ColorChecker::Black) {
+		return true;
+	}
+	else if ((coordinate_begin.first - 1 == coordinate_end.first && coordinate_begin.second - 1 == coordinate_end.second) && color_checker == ColorChecker::White) {
+		return true;
+	}
+	else if ((coordinate_begin.first - 1 == coordinate_end.first && coordinate_begin.second + 1 == coordinate_end.second) && color_checker == ColorChecker::Black) {
+		return true;
+	}
+	else if ((coordinate_begin.first + 1 == coordinate_end.first && coordinate_begin.second - 1 == coordinate_end.second) && color_checker == ColorChecker::White) {
+		return true;
+	}
+	else {
+		return false;
+	}
+	/*
+	for (int i = 0; i < int_grid.size(); i++) {
+		for (int j = 0; j < int_grid.size(); j++) {
+			std::cout << int_grid[i][j] << " ";
+		}
+		std::cout << "" << std::endl;
+	}
+	*/
 	return true;
 }
 
 void GameBoardController::move_checker()
 {
+	int_grid[coordinate_begin.first][coordinate_begin.second] = 0;
+	int_grid[coordinate_end.first][coordinate_end.second] = 1;
 	// Получаем владение от исходной ячейки
 	auto checker = (*grid_ptr)[coordinate_begin.first][coordinate_begin.second]->releaseChecker();
 	// Анимация перемещения
