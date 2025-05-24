@@ -83,15 +83,15 @@ GameBoard::GameBoard(sf::Vector2f positions ) {
 
 				}
 				else {
-
-					line[w]->setChecker(sf::Color::Black);
+					// Цвет шашки
+					line[w]->setChecker(sf::Color::Yellow);
 
 
 				}
 			}
 			if (w > 4) {
 				if ((h + w) % 2 == 1) {
-
+					// Цвет шашки
 					line[w]->setChecker(sf::Color::Green);
 
 
