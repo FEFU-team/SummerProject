@@ -48,3 +48,9 @@ Button::Button(sf::Vector2f positions, sf::Vector2f  size_button, sf::Color butt
 Button::~Button()
 {
 }
+
+void Button::setPosition(sf::Vector2f new_position)
+{
+	this->position = new_position;
+	shape.setPosition(position);
+}
