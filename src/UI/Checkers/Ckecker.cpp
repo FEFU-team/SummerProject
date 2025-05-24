@@ -17,14 +17,22 @@ Checker::Checker(sf::Vector2f position, sf::Color color, float radius)
 	shape.setRadius(radius);
 	shape.setPosition(position);
 	//shape.setPointCount(100000);
-	color_checker = ColorChecker::Black;
+	if (color == sf::Color::Black) {
+		color_checker = ColorChecker::Black;
+	}
+	else {
+		color_checker = ColorChecker::White;
+	}
+	
 }
 void Checker::setColor(sf::Color color)
 {
 	this->color = color;
 	shape.setFillColor(color);
 }
-
+ColorChecker Checker::getColorChecker() {
+	return color_checker;
+}
 void Checker::setPosition(sf::Vector2f new_position)
 {
 	this->position = new_position;
