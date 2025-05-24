@@ -2,6 +2,10 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <UI/Buttons/Button.h>
+sf::FloatRect Button::getBounds()
+{
+	return shape.getGlobalBounds();
+}
 void Button::setColor(sf::Color color)
 {
 	this->color = color;
@@ -22,6 +26,7 @@ bool Button::isPressed(sf::Vector2f mouse_position_f)
 	return shape.getGlobalBounds().contains(mouse_position_f);
 
 }
+
 void Button::draw(sf::RenderTarget*  window)
 {
 	window->draw(shape);

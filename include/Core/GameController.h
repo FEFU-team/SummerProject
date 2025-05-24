@@ -8,5 +8,5 @@ public:
 	GameState getGameState();
 private:
 	// Состояние игры
-	GameState game_state = GameState::Play;
+	GameState game_state = GameState::Init;
 };

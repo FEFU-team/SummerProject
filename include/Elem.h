@@ -12,7 +12,7 @@ protected:
 	sf::Texture texture;
 public:
 	// Функция отрисовки объекта
-	virtual void draw(sf::RenderTarget* window);
+	virtual void draw(sf::RenderTarget* window) = 0;
 	// Получение позиции 
 	sf::Vector2f getPosition();
 	// Задается позиция 
@@ -24,5 +24,6 @@ public:
 	// Задаем цвет
 	virtual void setColor(sf::Color color);
 	Element();
+	virtual ~Element() = default;
 
 };

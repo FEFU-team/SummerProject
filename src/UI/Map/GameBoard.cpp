@@ -28,6 +28,31 @@ void GameBoard::draw(sf::RenderTarget* window,float delta_time) {
 	}
 	
 }
+void GameBoard::draw(sf::RenderTarget* window) {
+	for (int i = 0; i < HEIGHT; i++)
+	{
+		for (int j = 0; j < WIDTH; j++) {
+			grid[i][j]->draw(window);
+
+
+
+		}
+
+	}
+	for (int i = 0; i < HEIGHT; i++)
+	{
+		for (int j = 0; j < WIDTH; j++) {
+			if (grid[i][j]->isBeChecker()) {
+				grid[i][j]->getChecker()->draw(window);
+			}
+
+
+
+		}
+
+	}
+
+}
 GameBoard::GameBoard(sf::Vector2f positions ) {
 	position = positions;
 	int size_h = HEIGHT;

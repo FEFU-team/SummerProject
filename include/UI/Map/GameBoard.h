@@ -11,6 +11,7 @@ private:
 	 const  int WIDTH = 8;
 	
 public:
+	void draw(sf::RenderTarget* window) override;
 	//Функция отрисовки Поля
 	void draw(sf::RenderTarget* window, float delta_time);
 	GameBoard(sf::Vector2f positions = {0,0});

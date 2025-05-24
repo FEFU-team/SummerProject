@@ -30,8 +30,7 @@ void Engine::run()
     sf::Vector2f mouse_position_f;
     GameBoardController game_board_controller(&game_board.grid);
     sf::Clock clock;
-    MainMenu main_menu({ 0,0 });
-    main_menu.hello();
+    MainMenu main_menu({ 0,0 }, HEIGHT_WINDOW,WIDTH_WINDOW, &game_controller);
     while (window->isOpen())
     {
         GameState  current_state = game_controller.getGameState();
@@ -43,7 +42,13 @@ void Engine::run()
         while (std::optional event = window->pollEvent())
         {
             if (const auto* mousePressed = event->getIf<sf::Event::MouseButtonPressed>()) {
-                game_board_controller.update_input(mouse_position_f);
+                if (current_state == GameState::Init) {
+                    main_menu.update_input(mouse_position_f);
+                }
+                else {
+                    game_board_controller.update_input(mouse_position_f);
+                }
+               
                 
             }
             if (event->is<sf::Event::Closed>())
@@ -58,6 +63,9 @@ void Engine::run()
             main_menu.draw(window.get());
 
             //game_controller.setGameState(GameState::Start);
+        }
+        else if (current_state == GameState::End) {
+            window->close();
         }
         else {
             game_board.draw(window.get(), time);
