@@ -12,6 +12,7 @@ protected:
 	unsigned  int key{};
 
 public:
+	sf::FloatRect getBounds() override;
 	void setColor(sf::Color color) override;
 	//Получить унификатор
 	unsigned  int getKey();
@@ -26,8 +27,9 @@ public:
 	//Конструктор с параметрами позиции . размера {длина ширина} и цвет 
 	Button(sf::Vector2f positions, sf::Vector2f  size_button = { 100,100 } ,sf::Color button_color = sf::Color::White);
 	~Button();
+	// Унаследовано через Element
+	void setPosition(sf::Vector2f new_position) override;
 private:
 	static inline unsigned index{};
-	
-	 
+
 };
