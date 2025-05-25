@@ -76,7 +76,7 @@ GameBoard::GameBoard(sf::Vector2f positions ) {
 			}
 			//Расстановка поля
 			if (w < 3) {
-				if ((h + w) % 2 == 1) {
+				if ((h + w) % 2 == 0) {
 
 					//line[w]->setChecker(sf::Color::White);
 
