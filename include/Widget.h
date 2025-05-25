@@ -18,7 +18,7 @@ public:
 	// Задается позиция 
 	virtual void setPosition(sf::Vector2f new_position) = 0;
 	// Получение  ....
-	virtual  sf::FloatRect getBounds();
+	virtual  sf::FloatRect getBounds(); // нужно сделать чистой виртуальной
 	// Получение цвета
 	sf::Color getColor();
 	// Задаем цвет

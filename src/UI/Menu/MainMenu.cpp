@@ -28,7 +28,7 @@ void MainMenu::update_input(sf::Vector2f mouse_position) {
 	
 }
 
-*/
+
 /*
 widgets.push_back(
 std::make_unique<TextButton>(sf::Vector2f((height / 2) - 100, (width / 2) - 100), "Start", sf::Vector2f(100, 100)));
