@@ -1,8 +1,8 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include <Elem.h>
+#include <Widget.h>
 //Класс  обычной прямоугольной  кнопки
-class Button: public Element {
+class Button: public Widget {
 protected:
 	//Прямоугольник
 	sf::RectangleShape shape;

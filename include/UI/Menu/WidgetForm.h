@@ -3,11 +3,10 @@
 #include <Widget.h>
 #include<vector>
 #include <Core/GameController.h>
-class MainMenu:public Widget {
+class WidgetForm :public Widget {
 public:
-	void update_input(sf::Vector2f mouse_position);
-	void draw(sf::RenderTarget* window) override;
-	MainMenu(sf::Vector2f position, unsigned int height, unsigned int  width,GameController* game_controller_ptr);
+	virtual void update_input(sf::Vector2f mouse_position) = 0;
+	void draw(sf::RenderTarget* window);
 	// Унаследовано через Widget
 	void setPosition(sf::Vector2f new_position) override;
 private:

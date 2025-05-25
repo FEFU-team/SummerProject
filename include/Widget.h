@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-class Element{
+class Widget {
 protected:
 	// Позиция
 	sf::Vector2f position;
@@ -23,7 +23,7 @@ public:
 	sf::Color getColor();
 	// Задаем цвет
 	virtual void setColor(sf::Color color);
-	Element();
-	virtual ~Element() = default;
+	Widget();
+	virtual ~Widget() = default;
 
 };

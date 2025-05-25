@@ -1,11 +1,11 @@
 #pragma once
-#include"Elem.h"
+#include"Widget.h"
 // Состояние шашки
 enum ColorChecker {
 	White,
 	Black,
 };
-class Checker:public Element
+class Checker:public Widget
 {
 public:
 	// Получение цвета шашки
