@@ -21,6 +21,7 @@ public:
 	void setPosition(sf::Vector2f new_position) override;
 	// Запускам анимацию перемещения
 	void start_move(sf::Vector2f target);
+	bool is_move();
 	~Checker();
 protected:
 	enum ColorChecker color_checker;

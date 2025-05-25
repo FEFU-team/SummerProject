@@ -7,16 +7,17 @@ void GameBoard::draw(sf::RenderTarget* window,float delta_time) {
 	{
 		for (int j = 0; j < WIDTH; j++) {
 			grid[i][j]->draw(window);
-			
-			
-
+			if (grid[i][j]->isBeChecker()) {
+				grid[i][j]->getChecker()->draw(window);
+			}
 		}
 		
-	}
+	}//
+	
 	for (int i = 0; i < HEIGHT; i++)
 	{
 		for (int j = 0; j < WIDTH; j++) {
-			if (grid[i][j]->isBeChecker()) {
+			if (grid[i][j]->isBeChecker() && (grid[i][j]->getChecker()->is_move())) {
 				grid[i][j]->getChecker()->update(delta_time);
 				grid[i][j]->getChecker()->draw(window);
 			}
@@ -26,7 +27,6 @@ void GameBoard::draw(sf::RenderTarget* window,float delta_time) {
 		}
 
 	}
-	
 }
 void GameBoard::draw(sf::RenderTarget* window) {
 	for (int i = 0; i < HEIGHT; i++)

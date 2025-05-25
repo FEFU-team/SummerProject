@@ -2,9 +2,12 @@
 #include <Main.hpp>
 #include <UI/Map/Cell.h>
 #include "../include/Core/GameBoardController.h"
+// Цвет игрока
 enum  class ColorPlayer {
 	White, Black
 };
+// Управление игровым полем
+// Контролирование правил игры
 class GameBoardController {
 public:
 	GameBoardController(std::vector<std::vector<std::unique_ptr<Cell>>>* grid);
