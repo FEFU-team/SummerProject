@@ -80,6 +80,11 @@ void GameBoardController::update_input(sf::Vector2f position)
 	}
 }
 
+ColorPlayer GameBoardController::getCurrentPlayer()
+{
+	return current_player;
+}
+
 void GameBoardController::destroy_figure(std::pair<int, int> coordinate)
 {
 	(*grid_ptr)[coordinate.first][coordinate.second]->delete_checker();

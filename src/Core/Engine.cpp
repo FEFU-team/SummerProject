@@ -24,7 +24,7 @@ void Engine::init()
 void Engine::run()
 {
    
-    sf::Vector2f position_board = {0,0}; 
+    sf::Vector2f position_board = {2,1}; 
     GameBoard game_board(position_board);
     sf::Vector2i mouse_position_i;
     sf::Vector2f mouse_position_f;

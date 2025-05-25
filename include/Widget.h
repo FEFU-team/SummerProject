@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-class Element{
+class Widget {
 protected:
 	// Позиция
 	sf::Vector2f position;
@@ -18,12 +18,12 @@ public:
 	// Задается позиция 
 	virtual void setPosition(sf::Vector2f new_position) = 0;
 	// Получение  ....
-	virtual  sf::FloatRect getBounds();
+	virtual  sf::FloatRect getBounds(); // нужно сделать чистой виртуальной
 	// Получение цвета
 	sf::Color getColor();
 	// Задаем цвет
 	virtual void setColor(sf::Color color);
-	Element();
-	virtual ~Element() = default;
+	Widget();
+	virtual ~Widget() = default;
 
 };

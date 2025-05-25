@@ -17,10 +17,10 @@ add_executable(main src/main.cpp
 "src/UI/Buttons/Button.cpp"
 "src/UI/Map/GameBoard.cpp"
 "src/UI/Map/Cell.cpp"
-"src/UI/Elem.cpp"
+"src/UI/Widget.cpp"
 "src/UI/Checkers/Ckecker.cpp"
    "src/Core/GameController.cpp"
    "src/UI/Menu/MainMenu.cpp" 
-   "src/UI/Buttons/TextButton.cpp" "src/UI/Results/ResultGame.cpp")
+   "src/UI/Buttons/TextButton.cpp" "src/UI/Results/ResultGame.cpp" "include/WidgetForm.h" "src/UI/WidgetForm.cpp" "include/Core/AssetManager.h" "src/Core/AssetManager.cpp")
 target_compile_features(main PRIVATE cxx_std_17)
 target_link_libraries(main PRIVATE SFML::Graphics)

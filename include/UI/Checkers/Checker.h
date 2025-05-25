@@ -1,11 +1,11 @@
 #pragma once
-#include"Elem.h"
+#include"Widget.h"
 // Состояние шашки
 enum ColorChecker {
 	White,
 	Black,
 };
-class Checker:public Element
+class Checker:public Widget
 {
 public:
 	// Получение цвета шашки
@@ -21,6 +21,7 @@ public:
 	void setPosition(sf::Vector2f new_position) override;
 	// Запускам анимацию перемещения
 	void start_move(sf::Vector2f target);
+	bool is_move();
 	~Checker();
 protected:
 	enum ColorChecker color_checker;

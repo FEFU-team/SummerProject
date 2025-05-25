@@ -67,6 +67,10 @@ void Checker::update(float time)
 	shape.move(offset);
     position = shape.getPosition();
 }
+ 
+bool Checker::is_move(){
+	return is_moving;
+}
 Checker::~Checker()
 {
 }

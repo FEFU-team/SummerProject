@@ -1,7 +1,7 @@
 #pragma once
 
 enum class GameState { Init,Start,Play,End}; // Состояние игры
-// 
+// Управление состоянием игры
 class GameController {
 public:
 	void setGameState(GameState state);
