@@ -15,12 +15,6 @@ MainMenu::MainMenu(sf::Vector2f position, unsigned int height, unsigned int widt
 		std::make_unique<TextButton>(sf::Vector2f((height / 2) -100, (width / 2) + 50), L"Выход", sf::Vector2f(200, 100)));
 
 }
-void MainMenu::draw(sf::RenderTarget* window)  {
-	//widgets[0]->
-	for (int i = 0; i < widgets.size(); i++) {
-		widgets[i]->draw(window);
-	}
-}
 void MainMenu::update_input(sf::Vector2f mouse_position) {
 	if (widgets[1]->getBounds().contains(mouse_position)) {
 		(*game_controller_ptr).setGameState(GameState::Play);
@@ -31,12 +25,10 @@ void MainMenu::update_input(sf::Vector2f mouse_position) {
 		(*game_controller_ptr).setGameState(GameState::End);
 		std::cout << "Exit" << std::endl;
 	}
-	//if(widgets[)
+	
 }
-void MainMenu::setPosition(sf::Vector2f new_position)
-{
-	position = new_position;
-}
+
+*/
 /*
 widgets.push_back(
 std::make_unique<TextButton>(sf::Vector2f((height / 2) - 100, (width / 2) - 100), "Start", sf::Vector2f(100, 100)));
