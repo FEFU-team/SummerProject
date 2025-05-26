@@ -77,7 +77,7 @@ void GameBoardController::update_input(sf::Vector2f position)
 
 				
 				if (pressed_checker) {
-					CaptureMove cor = check_grid(color_checker);
+					CaptureMove cor = check_grid();
 					pair<int, int> check = { -1,-1 };
 					if ((is_move_checker(color_checker)) && cor.coordinate_start==check) {
 						move_checker();
@@ -117,6 +117,7 @@ CaptureMove GameBoardController::check_grid()
 	coordinate.coordinate_start = { -1,-1 };
 	coordinate.coordinate_end = { -1,-1 };
 	if (color_checker == ColorChecker::White) {
+		/*
 		for (int i = 0; i < int_grid.size(); i++) {
 			for (int j = 0; j < int_grid.size(); j++) {
 				if (int_grid[i][j] == 1 && i - 2 >= 0 && j - 2 >= 0 && int_grid[i - 1][j - 1] == 2 && int_grid[i - 2][j - 2] == 0) {
@@ -136,16 +137,24 @@ CaptureMove GameBoardController::check_grid()
 
 			}
 		}
+		*/
 	}
 	else {
 		for (int i = 0; i < int_grid.size(); i++) {
 			for (int j = 0; j < int_grid.size(); j++) {
-				if (int_grid[i][j] == 1 && i - 2 >= 0 && j - 2 >= 0 && int_grid[i - 1][j - 1] == 2 && int_grid[i - 2][j - 2] == 0) {
+				if (int_grid[i][j] == 2 && i+2< int_grid.size() && j + 2 < int_grid.size() && int_grid[i + 1][j + 1] == 1 && int_grid[i + 2][j + 2] == 0) {
 					coordinate.coordinate_start = { i,j };
-					coordinate.coordinate_end = { i - 2,j - 2 };
-					coordinate.coordinate_take = { i - 1,j - 1 };
+					coordinate.coordinate_end = { i + 2,j + 2 };
+					coordinate.coordinate_take = { i + 1,j +  1 };
 					return coordinate;
 				}
+				if (int_grid[i][j] == 2 && j + 2 < int_grid.size() && i - 2  >= 0 && int_grid[i - 1][j + 1] == 1 && int_grid[i-2][j+2] == 0) {
+					coordinate.coordinate_start = { i,j };
+					coordinate.coordinate_end = { i-2 ,j + 2 };
+					coordinate.coordinate_take = { i-1,j +1 };
+					return coordinate;
+				}
+
 				
 
 
