@@ -2,18 +2,24 @@
 #include <iostream>
 #include <Core/GameBoardController.h>
 
+
 using namespace std;
 
 GameBoardController::GameBoardController(std::vector<std::vector<std::unique_ptr<Cell>>>* grid)
 {
 	this->grid_ptr = grid;
-	//Создание целочисленной матрицы . где 1 это есть шашка . 0 это нет шашки
+	//Создание целочисленной матрицы . где 1 . 0 это нет шашки
 	for (int i = 0; i < grid->size(); i++) {
 		vector<int> line(grid->size(), 0);
 		for (int j = 0; j < grid->size(); j++) {
 			if((*grid)[i][j]->isBeChecker()){
-
-				line[j]=1;
+				if ((*grid)[i][j]->getChecker()->getColorChecker() == ColorChecker::White) {
+					line[j] = 1;
+				}
+				else {
+					line[j] = 2;
+				}
+				
 			}
 			else {
 				line[j] = 0;
@@ -38,8 +44,8 @@ void GameBoardController::update_input(sf::Vector2f position)
 		for (int j= 0; j < grid_ptr->size(); j++) {
 
 			if ((*grid_ptr)[i][j]->isPressed(position) && (*grid_ptr)[i][j]->isBeChecker() && pressed_checker == false) {
-				coordinate_begin.first = i;
-				coordinate_begin.second = j;
+				coordinate_start.first = i;
+				coordinate_start.second = j;
 				color_checker = (*grid_ptr)[i][j]->getChecker()->getColorChecker();
 				/*
 				if ((*grid_ptr)[i][j]->getColor() == sf::Color::Blue) {
@@ -68,8 +74,23 @@ void GameBoardController::update_input(sf::Vector2f position)
 					(*grid_ptr)[i][j]->setColor(sf::Color::Blue);
 				}
 				*/
-				if (pressed_checker && is_move_checker(color_checker)) {
-					move_checker();
+
+				
+				if (pressed_checker) {
+					CaptureMove cor = check_grid(color_checker);
+					pair<int, int> check = { -1,-1 };
+					if ((is_move_checker(color_checker)) && cor.coordinate_start==check) {
+						move_checker();
+					}
+					else {
+						if (cor.coordinate_start==coordinate_start && cor.coordinate_end == coordinate_end) {
+
+							move_checker();
+							destroy_figure(cor.coordinate_take);
+						}
+					}
+
+
 				}
 				pressed_checker = false;
 				break;
@@ -90,24 +111,68 @@ void GameBoardController::destroy_figure(std::pair<int, int> coordinate)
 	(*grid_ptr)[coordinate.first][coordinate.second]->delete_checker();
 }
 
-void GameBoardController::update_int_grid()
+CaptureMove GameBoardController::check_grid()
 {
+	CaptureMove coordinate;
+	coordinate.coordinate_start = { -1,-1 };
+	coordinate.coordinate_end = { -1,-1 };
+	if (color_checker == ColorChecker::White) {
+		for (int i = 0; i < int_grid.size(); i++) {
+			for (int j = 0; j < int_grid.size(); j++) {
+				if (int_grid[i][j] == 1 && i - 2 >= 0 && j - 2 >= 0 && int_grid[i - 1][j - 1] == 2 && int_grid[i - 2][j - 2] == 0) {
+					coordinate.coordinate_start = { i,j };
+					coordinate.coordinate_end = { i - 2,j - 2 };
+					coordinate.coordinate_take = { i - 1,j - 1 };
+					return coordinate;
+				}
+				if (int_grid[i][j] == 1 && i + 2 < int_grid.size() && j - 2 >= 0 && int_grid[i + 1][j - 1] == 2 && int_grid[i + 2][j - 2] == 0) {
+					coordinate.coordinate_start = { i,j };
+					coordinate.coordinate_end = { i + 2,j - 2 };
+					coordinate.coordinate_take = { i + 1,j - 1 };
+					return coordinate;
+				}
 
+
+
+			}
+		}
+	}
+	else {
+		for (int i = 0; i < int_grid.size(); i++) {
+			for (int j = 0; j < int_grid.size(); j++) {
+				if (int_grid[i][j] == 1 && i - 2 >= 0 && j - 2 >= 0 && int_grid[i - 1][j - 1] == 2 && int_grid[i - 2][j - 2] == 0) {
+					coordinate.coordinate_start = { i,j };
+					coordinate.coordinate_end = { i - 2,j - 2 };
+					coordinate.coordinate_take = { i - 1,j - 1 };
+					return coordinate;
+				}
+				
+
+
+
+			}
+		}
+	}
+	return coordinate;
+	//return { -1,-1 };
 }
+
+
 
 bool GameBoardController::is_move_checker(ColorChecker color_checker)
 {
+	
 	// Правила хода обычные
-	if ((coordinate_begin.first + 1 == coordinate_end.first && coordinate_begin.second + 1 == coordinate_end.second)&&color_checker == ColorChecker::Black) {
+	if ((coordinate_start.first + 1 == coordinate_end.first && coordinate_start.second + 1 == coordinate_end.second)&&color_checker == ColorChecker::Black) {
 		return true;
 	}
-	else if ((coordinate_begin.first - 1 == coordinate_end.first && coordinate_begin.second - 1 == coordinate_end.second) && color_checker == ColorChecker::White) {
+	else if ((coordinate_start.first - 1 == coordinate_end.first && coordinate_start.second + 1 == coordinate_end.second) && color_checker == ColorChecker::Black) {
 		return true;
 	}
-	else if ((coordinate_begin.first - 1 == coordinate_end.first && coordinate_begin.second + 1 == coordinate_end.second) && color_checker == ColorChecker::Black) {
+	else if ((coordinate_start.first - 1 == coordinate_end.first && coordinate_start.second - 1 == coordinate_end.second) && color_checker == ColorChecker::White) {
 		return true;
 	}
-	else if ((coordinate_begin.first + 1 == coordinate_end.first && coordinate_begin.second - 1 == coordinate_end.second) && color_checker == ColorChecker::White) {
+	else if ((coordinate_start.first + 1 == coordinate_end.first && coordinate_start.second - 1 == coordinate_end.second) && color_checker == ColorChecker::White) {
 		return true;
 	}
 	else {
@@ -124,12 +189,19 @@ bool GameBoardController::is_move_checker(ColorChecker color_checker)
 	return true;
 }
 
-void GameBoardController::move_checker()
+void GameBoardController::move_checker(int speed)
 {
-	int_grid[coordinate_begin.first][coordinate_begin.second] = 0;
-	int_grid[coordinate_end.first][coordinate_end.second] = 1;
+	int_grid[coordinate_start.first][coordinate_start.second] = 0;
+	
 	// Получаем владение от исходной ячейки
-	auto checker = (*grid_ptr)[coordinate_begin.first][coordinate_begin.second]->releaseChecker();
+	auto checker = (*grid_ptr)[coordinate_start.first][coordinate_start.second]->releaseChecker();
+	if (checker->getColorChecker() == ColorChecker::Black) {
+		int_grid[coordinate_end.first][coordinate_end.second] = 2;
+	}
+	else {
+		int_grid[coordinate_end.first][coordinate_end.second] = 1;
+	}
+	
 	// Анимация перемещения
 	checker->start_move((*grid_ptr)[coordinate_end.first][coordinate_end.second]->getPosition());
 
