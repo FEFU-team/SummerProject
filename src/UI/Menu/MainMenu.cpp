@@ -4,10 +4,9 @@
 
 #include <memory>
 #include <UI/Map/Cell.h>
-MainMenu::MainMenu(sf::Vector2f position, int height, int width,  sf::Font& font, GameController* game_controller_ptr) {
+MainMenu::MainMenu(sf::Vector2f position, int height, int width,  sf::Font font, GameController* game_controller_ptr) {
 	this->position = position;
 	this->game_controller_ptr = game_controller_ptr;
-	
 	
 	widgets.push_back(
 		std::make_unique<TextButton>(sf::Vector2f((height / 2) - 100, (width / 2) - 200), L"Игра", font));
