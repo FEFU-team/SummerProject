@@ -5,9 +5,9 @@
 class TextLabel : public Widget {
 public:
 
-	TextLabel(sf::Font font,sf::String text);
+	TextLabel(sf::Vector2f position, sf::Font font, sf::String text);
 
-
+	void setText(sf::String text);
 	// Унаследовано через Widget
 	void draw(sf::RenderTarget* window) override;
 

@@ -10,6 +10,7 @@
 #include <Core/GameBoardController.h>
 #include <UI/Buttons/TextButton.h>
 #include <UI/Menu/MainMenu.h>
+#include <UI/Info/Info.h>
 
 
 void Engine::init()
@@ -31,6 +32,7 @@ void Engine::run()
     GameBoardController game_board_controller(&game_board.grid);
     sf::Clock clock;
     MainMenu main_menu({ 0,0 }, HEIGHT_WINDOW, WIDTH_WINDOW, assets.getFont("arial"), &game_controller);
+    Info info({ 1000,0 }, assets.getFont("arial"));
     while (window->isOpen())
     {
         GameState  current_state = game_controller.getGameState();
@@ -59,7 +61,7 @@ void Engine::run()
         }
         window->clear(sf::Color::Black);
         if (current_state == GameState::Init) {
-          
+            
             main_menu.draw(window.get());
 
             //game_controller.setGameState(GameState::Start);
@@ -68,8 +70,18 @@ void Engine::run()
             window->close();
         }
         else {
-            game_board.draw(window.get(), time);
+            
+            
+            ColorChecker ch= game_board_controller.getCurrentPlayer();
+            if (ch == ColorChecker::Black) {
+                info.update_info("Black");
+            }
+            else {
+                info.update_info("White");
+            }
             game_controller.setGameState(GameState::Play);
+            game_board.draw(window.get(), time);
+            info.draw(window.get());
         }
      
         window->display();

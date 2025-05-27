@@ -78,7 +78,7 @@ void GameBoardController::update_input(sf::Vector2f position)
 				*/
 
 				pair<int, int> check = { -1,-1 };
-				if (pressed_checker && current_player != previous_player) {
+				if (pressed_checker) {
 					CaptureMove cor = check_grid(current_player);
 					if ((is_move_checker(current_player)) && cor.coordinate_start==check) {
 						move_checker();
