@@ -14,7 +14,7 @@
 
 void Engine::init()
 { 
-    
+    assets.uploadFont("arial", "../../../../assets/fonts/arialmt.ttf");
     window = { std::make_unique<sf::RenderWindow>(sf::RenderWindow(sf::VideoMode({ HEIGHT_WINDOW, WIDTH_WINDOW }),
         L"Checkers")) };
 	window->setFramerateLimit(144);
@@ -30,7 +30,7 @@ void Engine::run()
     sf::Vector2f mouse_position_f;
     GameBoardController game_board_controller(&game_board.grid);
     sf::Clock clock;
-    MainMenu main_menu({ 0,0 }, HEIGHT_WINDOW,WIDTH_WINDOW, &game_controller);
+    MainMenu main_menu({ 0,0 }, HEIGHT_WINDOW, WIDTH_WINDOW, assets.getFont("arial"), &game_controller);
     while (window->isOpen())
     {
         GameState  current_state = game_controller.getGameState();

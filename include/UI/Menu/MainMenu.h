@@ -5,8 +5,8 @@
 #include <Core/GameController.h>
 class MainMenu:public WidgetForm {
 public:
-	//void draw(sf::RenderTarget* window) override;
 	void update_input(sf::Vector2f mouse_position) override;
-	MainMenu(sf::Vector2f position, unsigned int height, unsigned int  width,GameController* game_controller_ptr);
+	MainMenu(sf::Vector2f position, int height,int width, sf::Font font, GameController* game_controller_ptr);
+private:
 	GameController* game_controller_ptr;
 };

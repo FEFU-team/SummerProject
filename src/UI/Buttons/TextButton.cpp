@@ -33,10 +33,10 @@ void TextButton::draw(sf::RenderTarget* window)
 	window->draw(w_text);
 }
 
-TextButton::TextButton(sf::Vector2f position, sf::String text,  sf::Vector2f size, sf::Color button_color, sf::Color text_color, unsigned int text_size):Button(position, size, button_color)
+TextButton::TextButton(sf::Vector2f position, sf::String text,  sf::Vector2f size, sf::Color button_color, sf::Color text_color, unsigned int text_size, sf::Font font):Button(position, size, button_color)
 {
 	this->position = position;
-	font = sf::Font("../../../../assets/fonts/arialmt.ttf");
+	this->font = font;
 	this->text = text;
 	shape.setSize(size);
 	this->text_color = text_color;

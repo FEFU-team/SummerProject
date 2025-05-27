@@ -15,7 +15,7 @@ public:
 	void setTextColor(sf::Color text_color);
 	// Отрисовка кнопки
 	void draw(sf::RenderTarget* window) override;
-	TextButton(sf::Vector2f position, sf::String text, sf::Vector2f size = { 100,100 }, sf::Color button_color = sf::Color::White, sf::Color text_color = sf::Color::Black, unsigned int text_size = 30);
+	TextButton(sf::Vector2f position, sf::String text, sf::Vector2f size = { 100,100 }, sf::Color button_color = sf::Color::White, sf::Color text_color = sf::Color::Black, unsigned int text_size = 30,sf::Font font );
 private:
 	sf::Font font;
 	sf::String text;

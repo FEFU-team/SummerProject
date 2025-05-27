@@ -46,7 +46,7 @@ void GameBoardController::update_input(sf::Vector2f position)
 			if ((*grid_ptr)[i][j]->isPressed(position) && (*grid_ptr)[i][j]->isBeChecker() && pressed_checker == false) {
 				coordinate_start.first = i;
 				coordinate_start.second = j;
-				color_checker = (*grid_ptr)[i][j]->getChecker()->getColorChecker();
+				current_player = (*grid_ptr)[i][j]->getChecker()->getColorChecker();
 				/*
 				if ((*grid_ptr)[i][j]->getColor() == sf::Color::Blue) {
 					(*grid_ptr)[i][j]->setColor(sf::Color::White);
@@ -59,6 +59,8 @@ void GameBoardController::update_input(sf::Vector2f position)
 				*/
 	
 				pressed_checker = true;
+				
+				
 				break;
 				
 			}
@@ -75,17 +77,17 @@ void GameBoardController::update_input(sf::Vector2f position)
 				}
 				*/
 
-				
-				if (pressed_checker) {
-					CaptureMove cor = check_grid();
-					pair<int, int> check = { -1,-1 };
-					if ((is_move_checker(color_checker)) && cor.coordinate_start==check) {
+				pair<int, int> check = { -1,-1 };
+				if (pressed_checker && current_player != previous_player) {
+					CaptureMove cor = check_grid(current_player);
+					if ((is_move_checker(current_player)) && cor.coordinate_start==check) {
 						move_checker();
+						cout << "S" << endl;
 					}
 					else {
 						if (cor.coordinate_start==coordinate_start && cor.coordinate_end == coordinate_end) {
-
-							move_checker();
+							move_checker(); 
+							cout << "D" << endl;
 							destroy_figure(cor.coordinate_take);
 						}
 					}
@@ -93,6 +95,7 @@ void GameBoardController::update_input(sf::Vector2f position)
 
 				}
 				pressed_checker = false;
+				previous_player = current_player;
 				break;
 			}
 			else{
@@ -101,7 +104,7 @@ void GameBoardController::update_input(sf::Vector2f position)
 	}
 }
 
-ColorPlayer GameBoardController::getCurrentPlayer()
+ColorChecker GameBoardController::getCurrentPlayer()
 {
 	return current_player;
 }
@@ -111,12 +114,12 @@ void GameBoardController::destroy_figure(std::pair<int, int> coordinate)
 	(*grid_ptr)[coordinate.first][coordinate.second]->delete_checker();
 }
 
-CaptureMove GameBoardController::check_grid()
+CaptureMove GameBoardController::check_grid(ColorChecker current_player)
 {
 	CaptureMove coordinate;
 	coordinate.coordinate_start = { -1,-1 };
 	coordinate.coordinate_end = { -1,-1 };
-	if (color_checker == ColorChecker::White) {
+	if (current_player == ColorChecker::White) {
 		
 		for (int i = 0; i < int_grid.size(); i++) {
 			for (int j = 0; j < int_grid.size(); j++) {
