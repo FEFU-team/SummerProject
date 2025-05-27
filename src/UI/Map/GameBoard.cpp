@@ -2,7 +2,7 @@
 #include <UI/Map/GameBoard.h>
 #include <iostream>
 
-void GameBoard::draw(sf::RenderTarget* window) {
+void GameBoard::draw(sf::RenderTarget* window,float delta_time) {
 	for (int i = 0; i < HEIGHT; i++)
 	{
 		for (int j = 0; j < WIDTH; j++) {
@@ -10,10 +10,48 @@ void GameBoard::draw(sf::RenderTarget* window) {
 			if (grid[i][j]->isBeChecker()) {
 				grid[i][j]->getChecker()->draw(window);
 			}
-
 		}
 		
+	}//
+	
+	for (int i = 0; i < HEIGHT; i++)
+	{
+		for (int j = 0; j < WIDTH; j++) {
+			if (grid[i][j]->isBeChecker() && (grid[i][j]->getChecker()->is_move())) {
+				grid[i][j]->getChecker()->update(delta_time);
+				grid[i][j]->getChecker()->draw(window);
+			}
+
+
+
+		}
+
 	}
+}
+void GameBoard::draw(sf::RenderTarget* window) {
+	for (int i = 0; i < HEIGHT; i++)
+	{
+		for (int j = 0; j < WIDTH; j++) {
+			grid[i][j]->draw(window);
+
+
+
+		}
+
+	}
+	for (int i = 0; i < HEIGHT; i++)
+	{
+		for (int j = 0; j < WIDTH; j++) {
+			if (grid[i][j]->isBeChecker()) {
+				grid[i][j]->getChecker()->draw(window);
+			}
+
+
+
+		}
+
+	}
+
 }
 GameBoard::GameBoard(sf::Vector2f positions ) {
 	position = positions;
@@ -38,22 +76,22 @@ GameBoard::GameBoard(sf::Vector2f positions ) {
 			}
 			//Расстановка поля
 			if (w < 3) {
-				if ((h + w) % 2 == 1) {
+				if ((h + w) % 2 == 0) {
 
 					//line[w]->setChecker(sf::Color::White);
 
 
 				}
 				else {
-
-					line[w]->setChecker(sf::Color::Black);
+					// Цвет шашки
+					line[w]->setChecker(sf::Color::Yellow);
 
 
 				}
 			}
 			if (w > 4) {
 				if ((h + w) % 2 == 1) {
-
+					// Цвет шашки
 					line[w]->setChecker(sf::Color::Green);
 
 
@@ -72,4 +110,8 @@ GameBoard::GameBoard(sf::Vector2f positions ) {
 		
 		grid.emplace_back(std::move(line));//  move перемещает вектор line .а не копирует его.
 	}
+}
+void GameBoard::setPosition(sf::Vector2f new_position)
+{
+	this->position = new_position;
 }

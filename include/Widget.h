@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-class Element {
+class Widget {
 protected:
 	// Позиция
 	sf::Vector2f position;
@@ -12,15 +12,18 @@ protected:
 	sf::Texture texture;
 public:
 	// Функция отрисовки объекта
-	virtual void draw(sf::RenderTarget* window);
+	virtual void draw(sf::RenderTarget* window) = 0;
+	// Получение позиции 
 	sf::Vector2f getPosition();
-	void setPosition(sf::Vector2f new_position);
+	// Задается позиция 
+	virtual void setPosition(sf::Vector2f new_position) = 0;
 	// Получение  ....
-	virtual  sf::FloatRect getBounds();
+	virtual  sf::FloatRect getBounds(); // нужно сделать чистой виртуальной
 	// Получение цвета
 	sf::Color getColor();
 	// Задаем цвет
 	virtual void setColor(sf::Color color);
-	Element();
+	Widget();
+	virtual ~Widget() = default;
 
 };
