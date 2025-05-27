@@ -12,31 +12,26 @@ struct CaptureMove
 
 
 };
-// Цвет игрока
-enum  class ColorPlayer {
-	White, Black
-};
 // Управление игровым полем
 // Контролирование правил игры
 class GameBoardController {
 public:
 	GameBoardController(std::vector<std::vector<std::unique_ptr<Cell>>>* grid);
 	void update_input(sf::Vector2f position);
-	ColorPlayer getCurrentPlayer();
+	ColorChecker getCurrentPlayer();
 private:
 	// Цвет текущего игрока
-	ColorPlayer current_player = ColorPlayer::White;
+	ColorChecker current_player;
+	ColorChecker previous_player = ColorChecker::Black;
 	// Уничтожение фигуры
 	void destroy_figure(std::pair<int, int>coordinate);
-	CaptureMove check_grid();
+	CaptureMove check_grid(ColorChecker current_player);
 	// Указатель на игровое поле
 	std::vector<std::vector<std::unique_ptr<Cell>>>* grid_ptr;
 	// Координаты выбора шашки
 	std::pair<int, int> coordinate_start;
 	// Координаты хода шашки
 	std::pair<int, int> coordinate_end;
-	// Цвет шашки
-	ColorChecker color_checker;
 	// Нажата ли шашка
 	bool pressed_checker = false;
 	std::vector<std::vector<int>> int_grid;

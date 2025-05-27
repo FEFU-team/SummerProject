@@ -11,7 +11,7 @@ class Engine
 private:
 	std::unique_ptr<sf::RenderWindow> window;
 	GameController game_controller;
-	AssetManager asset_manager;
+	AssetManager assets;
 
 public:
 	//Инициализация

@@ -17,6 +17,7 @@ public:
 protected:
 	// Вектор виджетов
 	std::vector<std::unique_ptr<Widget>> widgets;
+	sf::Font font;
 	
 
 };
