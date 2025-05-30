@@ -93,7 +93,11 @@ void GameBoardController::update_input(sf::Vector2f position)
 							cout << "D" << endl;
 							int_grid[cor.coordinate_take.first][cor.coordinate_take.second] = 0;
 							destroy_figure(cor.coordinate_take);
-							previous_player = current_player;
+							if (check_grid(current_player).coordinate_start == check) {
+								previous_player = current_player;
+							}
+							
+							
 						}
 						
 					}
