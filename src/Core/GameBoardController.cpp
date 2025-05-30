@@ -47,7 +47,7 @@ void GameBoardController::update_input(sf::Vector2f position)
 				coordinate_start.first = i;
 				coordinate_start.second = j;
 				current_player = (*grid_ptr)[i][j]->getChecker()->getColorChecker();
-				/*
+				
 				if ((*grid_ptr)[i][j]->getColor() == sf::Color::Blue) {
 					(*grid_ptr)[i][j]->setColor(sf::Color::White);
 					
@@ -56,7 +56,7 @@ void GameBoardController::update_input(sf::Vector2f position)
 				else {
 					(*grid_ptr)[i][j]->setColor(sf::Color::Blue);
 				}
-				*/
+				
 	
 				pressed_checker = true;
 				
@@ -68,34 +68,40 @@ void GameBoardController::update_input(sf::Vector2f position)
 				
 				coordinate_end.first = i;
 				coordinate_end.second = j;
-				/* 
+				
 				if ((*grid_ptr)[i][j]->getColor() == sf::Color::Blue) {
 					(*grid_ptr)[i][j]->setColor(sf::Color::White);
 				}
 				else {
 					(*grid_ptr)[i][j]->setColor(sf::Color::Blue);
 				}
-				*/
+				
 
 				pair<int, int> check = { -1,-1 };
 				if (pressed_checker) {
 					CaptureMove cor = check_grid(current_player);
+					//cout << cor.coordinate_take.first << endl;
+					//cout << cor.coordinate_take.second << endl;
 					if ((is_move_checker(current_player)) && cor.coordinate_start==check) {
 						move_checker();
 						cout << "S" << endl;
+						previous_player = current_player;
 					}
 					else {
 						if (cor.coordinate_start==coordinate_start && cor.coordinate_end == coordinate_end) {
 							move_checker(); 
 							cout << "D" << endl;
+							int_grid[cor.coordinate_take.first][cor.coordinate_take.second] = 0;
 							destroy_figure(cor.coordinate_take);
+							previous_player = current_player;
 						}
+						
 					}
 
 
 				}
 				pressed_checker = false;
-				previous_player = current_player;
+				
 				break;
 			}
 			else{
@@ -140,6 +146,27 @@ CaptureMove GameBoardController::check_grid(ColorChecker current_player)
 
 			}
 		}
+		for (int i = 0; i < int_grid.size(); i++) {
+			for (int j = 0; j < int_grid.size(); j++) {
+				if (int_grid[i][j] == 1 && i + 2 < int_grid.size() && j + 2 < int_grid.size() && int_grid[i + 1][j + 1] == 2 && int_grid[i + 2][j + 2] == 0) {
+					coordinate.coordinate_start = { i,j };
+					coordinate.coordinate_end = { i + 2,j + 2 };
+					coordinate.coordinate_take = { i + 1,j + 1 };
+					return coordinate;
+				}
+				if (int_grid[i][j] == 1 && j + 2 < int_grid.size() && i - 2 >= 0 && int_grid[i - 1][j + 1] == 2 && int_grid[i - 2][j + 2] == 0) {
+					coordinate.coordinate_start = { i,j };
+					coordinate.coordinate_end = { i - 2 ,j + 2 };
+					coordinate.coordinate_take = { i - 1,j + 1 };
+					return coordinate;
+				}
+
+
+
+
+
+			}
+		}
 		
 	}
 	else {
@@ -159,6 +186,25 @@ CaptureMove GameBoardController::check_grid(ColorChecker current_player)
 				}
 
 				
+
+
+
+			}
+		}
+		for (int i = 0; i < int_grid.size(); i++) {
+			for (int j = 0; j < int_grid.size(); j++) {
+				if (int_grid[i][j] == 2 && i - 2 >= 0 && j - 2 >= 0 && int_grid[i - 1][j - 1] == 1 && int_grid[i - 2][j - 2] == 0) {
+					coordinate.coordinate_start = { i,j };
+					coordinate.coordinate_end = { i - 2,j - 2 };
+					coordinate.coordinate_take = { i - 1,j - 1 };
+					return coordinate;
+				}
+				if (int_grid[i][j] == 2 && i + 2 < int_grid.size() && j - 2 >= 0 && int_grid[i + 1][j - 1] == 1 && int_grid[i + 2][j - 2] == 0) {
+					coordinate.coordinate_start = { i,j };
+					coordinate.coordinate_end = { i + 2,j - 2 };
+					coordinate.coordinate_take = { i + 1,j - 1 };
+					return coordinate;
+				}
 
 
 
