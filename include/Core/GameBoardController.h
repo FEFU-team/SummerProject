@@ -6,8 +6,11 @@
 
 struct CaptureMove
 {
+	// Координаты выбора фигуры 
 	std::pair<int, int> coordinate_start;
+	// Координаты   ...
 	std::pair<int, int> coordinate_end;
+	// Координаты взятия фигуры 
 	std::pair<int, int> coordinate_take;
 
 
@@ -25,7 +28,13 @@ private:
 	ColorChecker previous_player = ColorChecker::Black;
 	// Уничтожение фигуры
 	void destroy_figure(std::pair<int, int>coordinate);
-	CaptureMove check_grid(ColorChecker current_player);
+
+
+
+	std::vector<CaptureMove>  check_grid(ColorChecker current_player);
+
+
+
 	// Указатель на игровое поле
 	std::vector<std::vector<std::unique_ptr<Cell>>>* grid_ptr;
 	// Координаты выбора шашки
