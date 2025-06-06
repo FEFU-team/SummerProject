@@ -5,7 +5,8 @@
 
 // состояние конца игры
 enum CheckersResult {
-	WIN,
+	WINWHITE,
+	WINBLACK,
 	LOSE,
 	PAT,
 	CONTINUE
@@ -55,5 +56,7 @@ private:
 	bool is_move_checker(ColorChecker color_checker);
 	// Функция хода шашки из координат начала в координаты конца
 	void move_checker( int speed = 30);
-
+	// Проверка конца игры
+	void update_GameState();
+	CheckersResult gameBoardState = CONTINUE;
 };
