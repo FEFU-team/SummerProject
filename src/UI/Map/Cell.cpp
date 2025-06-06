@@ -22,7 +22,7 @@ std::unique_ptr<Checker> Cell::releaseChecker()
 }
 
 void Cell::create_figures(sf::Color color, sf::Texture texture) {
-   checker_ptr = std::make_unique<Checker>(position, color);
+   checker_ptr = std::make_unique<Checker>(position, color,texture);
 	is_be_checker = true;
 }
 Checker* Cell::getChecker() {

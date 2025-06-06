@@ -16,6 +16,7 @@
 void Engine::init()
 { 
     assets.uploadFont("arial", "../../../../assets/fonts/arialmt.ttf");
+    assets.uploadTexture("checker1", "../../../../assets/texture/checkers.jpg");
     window = { std::make_unique<sf::RenderWindow>(sf::RenderWindow(sf::VideoMode({ HEIGHT_WINDOW, WIDTH_WINDOW }),
         L"Checkers")) };
 	window->setFramerateLimit(144);

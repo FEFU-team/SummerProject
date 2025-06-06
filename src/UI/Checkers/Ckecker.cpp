@@ -6,17 +6,15 @@ void Checker::draw(sf::RenderTarget* window)
 {
 	window->draw(shape);
 }
-Checker::Checker(sf::Vector2f position, sf::Color color, float radius, sf::Texture texture)
+Checker::Checker(sf::Vector2f position, sf::Color color, sf::Texture texture, float radius)
 {
-	//texture.loadFromFile(R"(../../../../assets/texture/checkers.jpg)");
-	//texture.setSmooth(true);
 	this->texture = texture;
-	shape.setTexture(&texture);
 	position.x = position.x + 1;
 	position.y = position.y + 1;
 	this->color = color;
 	this->position = position;
 	shape.setFillColor(color);
+	shape.setTexture(&this->texture);
 	//shape.setSize({50,50});
 	shape.setRadius(radius);
 	shape.setPosition(position);
