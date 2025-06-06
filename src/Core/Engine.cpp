@@ -16,6 +16,7 @@
 void Engine::init()
 { 
     assets.uploadFont("arial", "../../../../assets/fonts/arialmt.ttf");
+    assets.uploadTexture("checker1", "../../../../assets/texture/checkers.jpg");
     window = { std::make_unique<sf::RenderWindow>(sf::RenderWindow(sf::VideoMode({ HEIGHT_WINDOW, WIDTH_WINDOW }),
         L"Checkers")) };
 	window->setFramerateLimit(144);
@@ -26,7 +27,7 @@ void Engine::run()
 {
    
     sf::Vector2f position_board = {2,1}; 
-    GameBoard game_board(position_board);
+    GameBoard game_board(position_board,&assets);
     sf::Vector2i mouse_position_i;
     sf::Vector2f mouse_position_f;
     GameBoardController game_board_controller(&game_board.grid);

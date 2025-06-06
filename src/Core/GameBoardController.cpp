@@ -1,6 +1,7 @@
 
 #include <iostream>
 #include <Core/GameBoardController.h>
+#include <set>
 
 
 using namespace std;
@@ -47,7 +48,7 @@ void GameBoardController::update_input(sf::Vector2f position)
 				coordinate_start.first = i;
 				coordinate_start.second = j;
 				current_player = (*grid_ptr)[i][j]->getChecker()->getColorChecker();
-				/*
+				
 				if ((*grid_ptr)[i][j]->getColor() == sf::Color::Blue) {
 					(*grid_ptr)[i][j]->setColor(sf::Color::White);
 					
@@ -56,9 +57,10 @@ void GameBoardController::update_input(sf::Vector2f position)
 				else {
 					(*grid_ptr)[i][j]->setColor(sf::Color::Blue);
 				}
-				*/
+				
 	
 				pressed_checker = true;
+				// test gordey
 				
 				
 				break;
@@ -68,34 +70,47 @@ void GameBoardController::update_input(sf::Vector2f position)
 				
 				coordinate_end.first = i;
 				coordinate_end.second = j;
-				/* 
+				
 				if ((*grid_ptr)[i][j]->getColor() == sf::Color::Blue) {
 					(*grid_ptr)[i][j]->setColor(sf::Color::White);
 				}
 				else {
 					(*grid_ptr)[i][j]->setColor(sf::Color::Blue);
 				}
-				*/
+				
 
-				pair<int, int> check = { -1,-1 };
-				if (pressed_checker) {
-					CaptureMove cor = check_grid(current_player);
-					if ((is_move_checker(current_player)) && cor.coordinate_start==check) {
+				
+				if (pressed_checker&&current_player!=previous_player) {
+					vector<CaptureMove> cor = check_grid(current_player);
+					//cout << cor.coordinate_take.first << endl;
+					//cout << cor.coordinate_take.second << endl;
+					if ((is_move_checker(current_player)) &&(cor.size() == 0)) {
 						move_checker();
 						cout << "S" << endl;
+						previous_player = current_player;
 					}
 					else {
-						if (cor.coordinate_start==coordinate_start && cor.coordinate_end == coordinate_end) {
-							move_checker(); 
-							cout << "D" << endl;
-							destroy_figure(cor.coordinate_take);
+						for (int i = 0; i < cor.size(); i++) {
+							if (cor[i].coordinate_start == coordinate_start && cor[i].coordinate_end == coordinate_end) {
+								move_checker();
+								cout << "D" << endl;
+								int_grid[cor[i].coordinate_take.first][cor[i].coordinate_take.second] = 0;
+								destroy_figure(cor[i].coordinate_take);
+								if (check_grid(current_player).size() == 0) {
+									previous_player = current_player;
+								}
+
+
+							}
 						}
+						
+						
 					}
 
 
 				}
 				pressed_checker = false;
-				previous_player = current_player;
+				
 				break;
 			}
 			else{
@@ -114,27 +129,47 @@ void GameBoardController::destroy_figure(std::pair<int, int> coordinate)
 	(*grid_ptr)[coordinate.first][coordinate.second]->delete_checker();
 }
 
-CaptureMove GameBoardController::check_grid(ColorChecker current_player)
+vector<CaptureMove> GameBoardController::check_grid(ColorChecker current_player)
 {
-	CaptureMove coordinate;
-	coordinate.coordinate_start = { -1,-1 };
-	coordinate.coordinate_end = { -1,-1 };
+	vector<CaptureMove> coordinate;
+	CaptureMove coordinate_elem;
 	if (current_player == ColorChecker::White) {
 		
 		for (int i = 0; i < int_grid.size(); i++) {
 			for (int j = 0; j < int_grid.size(); j++) {
 				if (int_grid[i][j] == 1 && i - 2 >= 0 && j - 2 >= 0 && int_grid[i - 1][j - 1] == 2 && int_grid[i - 2][j - 2] == 0) {
-					coordinate.coordinate_start = { i,j };
-					coordinate.coordinate_end = { i - 2,j - 2 };
-					coordinate.coordinate_take = { i - 1,j - 1 };
-					return coordinate;
+					coordinate_elem.coordinate_start = { i,j };
+					coordinate_elem.coordinate_end = { i - 2,j - 2 };
+					coordinate_elem.coordinate_take = { i - 1,j - 1 };
+					coordinate.push_back(coordinate_elem);
 				}
 				if (int_grid[i][j] == 1 && i + 2 < int_grid.size() && j - 2 >= 0 && int_grid[i + 1][j - 1] == 2 && int_grid[i + 2][j - 2] == 0) {
-					coordinate.coordinate_start = { i,j };
-					coordinate.coordinate_end = { i + 2,j - 2 };
-					coordinate.coordinate_take = { i + 1,j - 1 };
-					return coordinate;
+					coordinate_elem.coordinate_start = { i,j };
+					coordinate_elem.coordinate_end = { i + 2,j - 2 };
+					coordinate_elem.coordinate_take = { i + 1,j - 1 };
+					coordinate.push_back(coordinate_elem);
 				}
+
+
+
+			}
+		}
+		for (int i = 0; i < int_grid.size(); i++) {
+			for (int j = 0; j < int_grid.size(); j++) {
+				if (int_grid[i][j] == 1 && i + 2 < int_grid.size() && j + 2 < int_grid.size() && int_grid[i + 1][j + 1] == 2 && int_grid[i + 2][j + 2] == 0) {
+					coordinate_elem.coordinate_start = { i,j };
+					coordinate_elem.coordinate_end = { i + 2,j + 2 };
+					coordinate_elem.coordinate_take = { i + 1,j + 1 };
+					coordinate.push_back(coordinate_elem);
+				}
+				if (int_grid[i][j] == 1 && j + 2 < int_grid.size() && i - 2 >= 0 && int_grid[i - 1][j + 1] == 2 && int_grid[i - 2][j + 2] == 0) {
+					coordinate_elem.coordinate_start = { i,j };
+					coordinate_elem.coordinate_end = { i - 2 ,j + 2 };
+					coordinate_elem.coordinate_take = { i - 1,j + 1 };
+					coordinate.push_back(coordinate_elem);
+				}
+
+
 
 
 
@@ -146,19 +181,38 @@ CaptureMove GameBoardController::check_grid(ColorChecker current_player)
 		for (int i = 0; i < int_grid.size(); i++) {
 			for (int j = 0; j < int_grid.size(); j++) {
 				if (int_grid[i][j] == 2 && i+2< int_grid.size() && j + 2 < int_grid.size() && int_grid[i + 1][j + 1] == 1 && int_grid[i + 2][j + 2] == 0) {
-					coordinate.coordinate_start = { i,j };
-					coordinate.coordinate_end = { i + 2,j + 2 };
-					coordinate.coordinate_take = { i + 1,j +  1 };
-					return coordinate;
+					coordinate_elem.coordinate_start = { i,j };
+					coordinate_elem.coordinate_end = { i + 2,j + 2 };
+					coordinate_elem.coordinate_take = { i + 1,j +  1 };
+					coordinate.push_back(coordinate_elem);
 				}
 				if (int_grid[i][j] == 2 && j + 2 < int_grid.size() && i - 2  >= 0 && int_grid[i - 1][j + 1] == 1 && int_grid[i-2][j+2] == 0) {
-					coordinate.coordinate_start = { i,j };
-					coordinate.coordinate_end = { i-2 ,j + 2 };
-					coordinate.coordinate_take = { i-1,j +1 };
-					return coordinate;
+					coordinate_elem.coordinate_start = { i,j };
+					coordinate_elem.coordinate_end = { i-2 ,j + 2 };
+					coordinate_elem.coordinate_take = { i-1,j +1 };
+					coordinate.push_back(coordinate_elem);
 				}
 
 				
+
+
+
+			}
+		}
+		for (int i = 0; i < int_grid.size(); i++) {
+			for (int j = 0; j < int_grid.size(); j++) {
+				if (int_grid[i][j] == 2 && i - 2 >= 0 && j - 2 >= 0 && int_grid[i - 1][j - 1] == 1 && int_grid[i - 2][j - 2] == 0) {
+					coordinate_elem.coordinate_start = { i,j };
+					coordinate_elem.coordinate_end = { i - 2,j - 2 };
+					coordinate_elem.coordinate_take = { i - 1,j - 1 };
+					coordinate.push_back(coordinate_elem);
+				}
+				if (int_grid[i][j] == 2 && i + 2 < int_grid.size() && j - 2 >= 0 && int_grid[i + 1][j - 1] == 1 && int_grid[i + 2][j - 2] == 0) {
+					coordinate_elem.coordinate_start = { i,j };
+					coordinate_elem.coordinate_end = { i + 2,j - 2 };
+					coordinate_elem.coordinate_take = { i + 1,j - 1 };
+					coordinate.push_back(coordinate_elem);
+				}
 
 
 

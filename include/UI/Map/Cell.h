@@ -16,7 +16,7 @@ public:
 	// Передача прав на указатель шашки
 	std::unique_ptr<Checker> releaseChecker();
 	// Установка фигуры в ячейку
-	void setChecker(sf::Color color);
+	void create_figures(sf::Color color,sf::Texture texture);
 	// Получение обычного указателя
 	Checker* getChecker();
 	//Есть ли шапка в ячейке
