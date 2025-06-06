@@ -60,6 +60,7 @@ void GameBoardController::update_input(sf::Vector2f position)
 				
 	
 				pressed_checker = true;
+				// test gordey
 				
 				
 				break;
