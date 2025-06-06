@@ -53,10 +53,11 @@ void GameBoard::draw(sf::RenderTarget* window) {
 	}
 
 }
-GameBoard::GameBoard(sf::Vector2f positions ) {
+GameBoard::GameBoard(sf::Vector2f positions, AssetManager* assets) {
 	position = positions;
 	int size_h = HEIGHT;
 	int size_w = WIDTH;
+	this->assets = assets;
 	for (int i = position.x, h = 0; h < size_h; i++, h++) {
 		float posX = (100 + 1) * i;
 		std::vector<std::unique_ptr<Cell>> line;
@@ -84,7 +85,7 @@ GameBoard::GameBoard(sf::Vector2f positions ) {
 				}
 				else {
 					// Цвет шашки
-					line[w]->setChecker(sf::Color::Yellow);
+					line[w]->create_figures(sf::Color::Yellow,assets->getTexture("checker1"));
 
 
 				}
@@ -92,13 +93,13 @@ GameBoard::GameBoard(sf::Vector2f positions ) {
 			if (w > 4) {
 				if ((h + w) % 2 == 1) {
 					// Цвет шашки
-					line[w]->setChecker(sf::Color::Green);
+					line[w]->create_figures(sf::Color::Green, assets->getTexture("checker1"));
 
 
 				}
 				else {
 
-					//line[w]->setChecker(sf::Color::Black);
+					//line[w]-> create_figures(sf::Color::Black);
 
 
 				}

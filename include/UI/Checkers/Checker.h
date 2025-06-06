@@ -14,7 +14,7 @@ public:
 	void update(float time);
 	// Отрисовка шашки
 	void draw(sf::RenderTarget* window) override;
-	Checker(sf::Vector2f position,sf::Color color, float radius = 49);
+	Checker(sf::Vector2f position,sf::Color color, float radius = 49,sf::Texture texture);
 	// Задаем цвет
 	void setColor(sf::Color color) override;
 	// Задаем позицию 

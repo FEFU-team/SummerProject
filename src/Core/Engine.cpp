@@ -26,7 +26,7 @@ void Engine::run()
 {
    
     sf::Vector2f position_board = {2,1}; 
-    GameBoard game_board(position_board);
+    GameBoard game_board(position_board,&assets);
     sf::Vector2i mouse_position_i;
     sf::Vector2f mouse_position_f;
     GameBoardController game_board_controller(&game_board.grid);
