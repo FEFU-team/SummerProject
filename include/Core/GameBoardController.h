@@ -3,6 +3,13 @@
 #include <UI/Map/Cell.h>
 #include "../include/Core/GameBoardController.h"
 
+// состояние конца игры
+enum CheckersResult {
+	WIN,
+	LOSE,
+	PAT,
+	CONTINUE
+};
 
 struct CaptureMove
 {
