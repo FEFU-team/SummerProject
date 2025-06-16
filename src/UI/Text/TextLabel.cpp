@@ -1,24 +1,22 @@
 
 #include <UI/Text/TextLabel.h>
 
-TextLabel::TextLabel(sf::Vector2f position,sf::Font font, sf::String text)
+TextLabel::TextLabel(sf::Vector2f position, const sf::Font* font, sf::String text_str) :text(*font ,text_str)
 {
-	this->text = text;
-	this->font = font;
 	this->position = position;
-
+	text.setPosition(position);
 }
+
 
 void TextLabel::setText(sf::String text)
 {
-	this->text = text;
+	
 }
 
 void TextLabel::draw(sf::RenderTarget* window)
 {
-	sf::Text w_text(font, text);
-	w_text.setPosition(position);
-	window->draw(w_text);
+	window->draw(text);
+	
 }
 
 void TextLabel::setPosition(sf::Vector2f new_position)

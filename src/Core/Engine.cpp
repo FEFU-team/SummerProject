@@ -34,6 +34,8 @@ void Engine::run()
     sf::Clock clock;
     MainMenu main_menu({ 0,0 }, HEIGHT_WINDOW, WIDTH_WINDOW, assets.getFont("arial"), &game_controller);
     Info info({ 1000,0 }, assets.getFont("arial"));
+    //TextLabel label({ 100,100 }, assets.getFont("arial"), "Hello");
+   // sf::Text text(assets.getFont("arial"),"hello");
     while (window->isOpen())
     {
         GameState  current_state = game_controller.getGameState();
@@ -47,6 +49,7 @@ void Engine::run()
             if (const auto* mousePressed = event->getIf<sf::Event::MouseButtonPressed>()) {
                 if (current_state == GameState::Init) {
                     main_menu.update_input(mouse_position_f);
+                    
                 }
                 else {
                     game_board_controller.update_input(mouse_position_f);
@@ -62,7 +65,7 @@ void Engine::run()
         }
         window->clear(sf::Color::Black);
         if (current_state == GameState::Init) {
-            
+          // label.draw(window.get());
             main_menu.draw(window.get());
 
             //game_controller.setGameState(GameState::Start);
@@ -78,7 +81,7 @@ void Engine::run()
                 info.update_info("Black");
             }
             else {
-                info.update_info("White");
+               info.update_info("White");
             }
             game_controller.setGameState(GameState::Play);
             game_board.draw(window.get(), time);

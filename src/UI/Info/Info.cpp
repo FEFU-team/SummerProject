@@ -2,7 +2,7 @@
 #include "../include/UI//Info/Info.h"
 #include <UI/Text/TextLabel.h>
 #include <UI/Buttons/TextButton.h>
-Info::Info(sf::Vector2f position, sf::Font font)
+Info::Info(sf::Vector2f position, sf::Font* font)
 {
 	widgets.push_back(
 		std::make_unique<TextLabel>(position,font,text));

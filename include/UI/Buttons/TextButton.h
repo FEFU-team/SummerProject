@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <UI/Buttons/Button.h>
 #include<string>
+#include <UI/Text/TextLabel.h>
 class TextButton: public Button {
 public:
 
@@ -16,14 +17,15 @@ public:
 	// Отрисовка кнопки
 	void draw(sf::RenderTarget* window) override;
 
-	TextButton(sf::Vector2f positon, sf::String text, sf::Font& font);
+	TextButton(sf::Vector2f positon, sf::String text, sf::Font* font);
 
-	TextButton(sf::Vector2f position, sf::String text,  sf::Font& font, unsigned int text_size,sf::Vector2f size_button,sf::Color button_color, sf::Color text_color);
+	TextButton(sf::Vector2f position, sf::String text,  sf::Font* font, unsigned int text_size,sf::Vector2f size_button,sf::Color button_color, sf::Color text_color);
 
 private:
 	sf::Font font;
 	sf::String text;
 	sf::Color text_color;
 	unsigned int text_size = 30;
+	
 
 };

@@ -5,14 +5,13 @@
 class TextLabel : public Widget {
 public:
 
-	TextLabel(sf::Vector2f position, sf::Font font, sf::String text);
+	TextLabel(sf::Vector2f position, const sf::Font* font, sf::String text_str);
 
 	void setText(sf::String text);
 	// Унаследовано через Widget
 	void draw(sf::RenderTarget* window) override;
-
 	void setPosition(sf::Vector2f new_position) override;
 private:
-	sf::String text;
-	sf::Font font;
+	sf::FloatRect sizeRect;
+	sf::Text text;
 };
