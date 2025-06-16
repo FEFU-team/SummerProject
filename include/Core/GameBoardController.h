@@ -3,6 +3,14 @@
 #include <UI/Map/Cell.h>
 #include "../include/Core/GameBoardController.h"
 
+// состояние конца игры
+enum CheckersResult {
+	WINWHITE,
+	WINBLACK,
+	LOSE,
+	PAT,
+	CONTINUE
+};
 
 struct CaptureMove
 {
@@ -48,5 +56,7 @@ private:
 	bool is_move_checker(ColorChecker color_checker);
 	// Функция хода шашки из координат начала в координаты конца
 	void move_checker( int speed = 30);
-
+	// Проверка конца игры
+	void update_GameState();
+	CheckersResult gameBoardState = CONTINUE;
 };

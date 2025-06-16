@@ -82,6 +82,7 @@ void GameBoardController::update_input(sf::Vector2f position)
 				
 				if (pressed_checker&&current_player!=previous_player) {
 					vector<CaptureMove> cor = check_grid(current_player);
+					update_GameState();
 					//cout << cor.coordinate_take.first << endl;
 					//cout << cor.coordinate_take.second << endl;
 					if ((is_move_checker(current_player)) &&(cor.size() == 0)) {
@@ -276,5 +277,40 @@ void GameBoardController::move_checker(int speed)
 	
 	// Передаем координаты для новой пешки
 	//(*grid_ptr)[coordinate_end.first][coordinate_end.second]->getChecker()->setPosition((*grid_ptr)[coordinate_end.first][coordinate_end.second]->getPosition());
+}
+
+void GameBoardController::update_GameState()
+{
+	int BlackCheckerCount = 0;
+	int WhiteCheckerCount = 0;
+
+	for (int i = 0; i < int_grid.size(); i++) {
+		for (int j = 0; j < int_grid.size(); j++) {
+			if (int_grid[i][j] == 1) {
+				WhiteCheckerCount++;
+			}
+			else if (int_grid[i][j] == 2) {
+				BlackCheckerCount++;
+			}
+			else {
+				// TODO
+			}
+		}
+	}
+
+	if (WhiteCheckerCount == 0 && BlackCheckerCount != 0) {
+		gameBoardState = CheckersResult::WINBLACK;
+	}
+
+	if (WhiteCheckerCount != 0 && BlackCheckerCount == 0) {
+		gameBoardState = CheckersResult::WINWHITE;
+	}
+
+	// ситуацию для пата реализовать
+
+	cout << "Count white checker: " << WhiteCheckerCount << endl;
+	cout << "Count black checker: " << BlackCheckerCount << endl;
+
+	//return CheckersResult::CONTINUE;
 }
 
