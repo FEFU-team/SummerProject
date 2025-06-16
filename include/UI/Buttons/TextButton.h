@@ -22,10 +22,9 @@ public:
 	TextButton(sf::Vector2f position, sf::String text,  sf::Font* font, unsigned int text_size,sf::Vector2f size_button,sf::Color button_color, sf::Color text_color);
 
 private:
-	sf::Font font;
 	sf::String text;
 	sf::Color text_color;
 	unsigned int text_size = 30;
-	
+	TextLabel text_label;
 
 };

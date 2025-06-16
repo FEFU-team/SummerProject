@@ -6,7 +6,7 @@ class TextLabel : public Widget {
 public:
 
 	TextLabel(sf::Vector2f position, const sf::Font* font, sf::String text_str);
-
+	void setCenter();
 	void setText(sf::String text);
 	// Унаследовано через Widget
 	void draw(sf::RenderTarget* window) override;
