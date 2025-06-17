@@ -20,7 +20,7 @@ MainMenu::MainMenu(sf::Vector2f position, int height, int width,  sf::Font* font
 	widgets.push_back(
 		std::make_unique<TextButton>(
 			sf::Vector2f((height / 2) - 100, (width / 2) + 50),
-			L"Нормально?", font, 30, sf::Vector2f(200, 100),
+			L"Exit", font, 30, sf::Vector2f(200, 100),
 			sf::Color::Green,
 			sf::Color::Green));
 			
