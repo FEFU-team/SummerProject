@@ -6,15 +6,14 @@ void Checker::draw(sf::RenderTarget* window)
 {
 	window->draw(shape);
 }
-Checker::Checker(sf::Vector2f position, sf::Color color, sf::Texture texture, float radius)
+Checker::Checker(sf::Vector2f position, sf::Color color, sf::Texture* texture, float radius)
 {
-	this->texture = texture;
 	position.x = position.x + 1;
 	position.y = position.y + 1;
 	this->color = color;
 	this->position = position;
 	shape.setFillColor(color);
-	shape.setTexture(&this->texture);
+	shape.setTexture(texture);
 	//shape.setSize({50,50});
 	shape.setRadius(radius);
 	shape.setPosition(position);
@@ -69,6 +68,10 @@ void Checker::update(float time)
  
 bool Checker::is_move(){
 	return is_moving;
+}
+void Checker::update_texture(sf::Texture* texture)
+{
+	shape.setTexture(texture);
 }
 Checker::~Checker()
 {

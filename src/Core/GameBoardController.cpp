@@ -2,12 +2,14 @@
 #include <iostream>
 #include <Core/GameBoardController.h>
 #include <set>
+#include <Core/AssetManager.h>
 
 
 using namespace std;
 
-GameBoardController::GameBoardController(std::vector<std::vector<std::unique_ptr<Cell>>>* grid)
+GameBoardController::GameBoardController(std::vector<std::vector<std::unique_ptr<Cell>>>* grid, AssetManager* assets)
 {
+	this->assets = assets;
 	this->grid_ptr = grid;
 	//—оздание целочисленной матрицы . где 1 . 0 это нет шашки
 	for (int i = 0; i < grid->size(); i++) {
@@ -48,7 +50,7 @@ void GameBoardController::update_input(sf::Vector2f position)
 				coordinate_start.first = i;
 				coordinate_start.second = j;
 				current_player = (*grid_ptr)[i][j]->getChecker()->getColorChecker();
-				
+				(*grid_ptr)[i][j]->getChecker()->update_texture(assets->getTexture("checker_active"));
 				if ((*grid_ptr)[i][j]->getColor() == sf::Color::Blue) {
 					(*grid_ptr)[i][j]->setColor(sf::Color::White);
 					

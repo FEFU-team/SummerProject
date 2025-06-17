@@ -27,7 +27,7 @@ struct CaptureMove
 // Контролирование правил игры
 class GameBoardController {
 public:
-	GameBoardController(std::vector<std::vector<std::unique_ptr<Cell>>>* grid);
+	GameBoardController(std::vector<std::vector<std::unique_ptr<Cell>>>* grid,AssetManager* assets);
 	void update_input(sf::Vector2f position);
 	ColorChecker getCurrentPlayer();
 private:
@@ -40,7 +40,7 @@ private:
 
 
 	std::vector<CaptureMove>  check_grid(ColorChecker current_player);
-
+	
 
 
 	// Указатель на игровое поле
@@ -59,4 +59,6 @@ private:
 	// Проверка конца игры
 	void update_GameState();
 	CheckersResult gameBoardState = CONTINUE;
+	// Указатель на менеджер пакетов
+	AssetManager* assets = nullptr;
 };

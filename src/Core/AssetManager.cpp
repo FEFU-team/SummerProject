@@ -23,9 +23,9 @@ void AssetManager::uploadTexture(const std::string& name, std::string path)
     }
 }
 
-sf::Texture AssetManager::getTexture(const std::string& name)
+sf::Texture* AssetManager::getTexture(const std::string& name)
 {
-    return textures.at(name);
+    return &textures.at(name);
 }
 
 

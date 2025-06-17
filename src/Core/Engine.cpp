@@ -17,6 +17,7 @@ void Engine::init()
 { 
     assets.uploadFont("arial", "../../../../assets/fonts/arialmt.ttf");
     assets.uploadTexture("checker1", "../../../../assets/texture/checkers2.png");
+    assets.uploadTexture("checker_active", "../../../../assets/texture/checkers3.png");
     window = { std::make_unique<sf::RenderWindow>(sf::RenderWindow(sf::VideoMode({ HEIGHT_WINDOW, WIDTH_WINDOW }),
         L"Шашки FEFU")) };
 	window->setFramerateLimit(144);
@@ -30,7 +31,7 @@ void Engine::run()
     GameBoard game_board(position_board,&assets);
     sf::Vector2i mouse_position_i;
     sf::Vector2f mouse_position_f;
-    GameBoardController game_board_controller(&game_board.grid);
+    GameBoardController game_board_controller(&game_board.grid, &assets);
     sf::Clock clock;
     MainMenu main_menu({ 0,0 }, HEIGHT_WINDOW, WIDTH_WINDOW, assets.getFont("arial"), &game_controller);
     Info info({ 1000,0 }, assets.getFont("arial"));

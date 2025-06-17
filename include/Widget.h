@@ -8,8 +8,6 @@ protected:
 	int  scale = 0;
 	// Цвет
 	sf::Color color;
-	// Текстура
-	sf::Texture texture;
 public:
 	// Функция отрисовки объекта
 	virtual void draw(sf::RenderTarget* window) = 0;
