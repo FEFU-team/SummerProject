@@ -2,7 +2,7 @@
 #include <iostream>
 #include <Core/GameBoardController.h>
 #include <set>
-#include <Core/AssetManager.h>
+
 
 
 using namespace std;
@@ -50,18 +50,21 @@ void GameBoardController::update_input(sf::Vector2f position)
 				coordinate_start.first = i;
 				coordinate_start.second = j;
 				current_player = (*grid_ptr)[i][j]->getChecker()->getColorChecker();
-				(*grid_ptr)[i][j]->getChecker()->update_texture(assets->getTexture("checker_active"));
-				if ((*grid_ptr)[i][j]->getColor() == sf::Color::Blue) {
-					(*grid_ptr)[i][j]->setColor(sf::Color::White);
-					
-					
-				}
-				else {
-					(*grid_ptr)[i][j]->setColor(sf::Color::Blue);
+				
+				if ((*grid_ptr)[i][j]->isBeChecker()) {
+					if ((*grid_ptr)[i][j]->getChecker()->is_active()) {
+
+						(*grid_ptr)[i][j]->getChecker()->update_texture(assets->getTexture("checker1"), false);
+						pressed_checker = false;
+					}
+					else {
+						(*grid_ptr)[i][j]->getChecker()->update_texture(assets->getTexture("checker_active"), true);
+						pressed_checker = true;
+					}
 				}
 				
-	
-				pressed_checker = true;
+				
+				
 				// test gordey
 				
 				
@@ -73,17 +76,12 @@ void GameBoardController::update_input(sf::Vector2f position)
 				coordinate_end.first = i;
 				coordinate_end.second = j;
 				
-				if ((*grid_ptr)[i][j]->getColor() == sf::Color::Blue) {
-					(*grid_ptr)[i][j]->setColor(sf::Color::White);
-				}
-				else {
-					(*grid_ptr)[i][j]->setColor(sf::Color::Blue);
-				}
 				
 
 				
 				if (pressed_checker&&current_player!=previous_player) {
 					vector<CaptureMove> cor = check_grid(current_player);
+					//(*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->update_texture(assets->getTexture("checker2"), false);
 					update_GameState();
 					//cout << cor.coordinate_take.first << endl;
 					//cout << cor.coordinate_take.second << endl;

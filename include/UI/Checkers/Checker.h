@@ -22,7 +22,8 @@ public:
 	// Запускам анимацию перемещения
 	void start_move(sf::Vector2f target);
 	bool is_move();
-	void update_texture(sf::Texture* texture);
+	void update_texture(sf::Texture* texture,bool active);
+	bool is_active();
 	~Checker();
 protected:
 	enum ColorChecker color_checker;
@@ -30,6 +31,7 @@ protected:
 private:
 	bool is_moving = false;
 	sf::Vector2f target;
+	bool active = false;;
 	
 
 };

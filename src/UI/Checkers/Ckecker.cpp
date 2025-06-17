@@ -69,10 +69,15 @@ void Checker::update(float time)
 bool Checker::is_move(){
 	return is_moving;
 }
-void Checker::update_texture(sf::Texture* texture)
+void Checker::update_texture(sf::Texture* texture, bool active)
 {
+	this->active = active;
 	shape.setTexture(texture);
 }
 Checker::~Checker()
 {
+}
+bool Checker::is_active()
+{
+	return active;
 }
