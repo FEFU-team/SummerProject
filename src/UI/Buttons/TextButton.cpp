@@ -43,7 +43,7 @@ TextButton::TextButton(sf::Vector2f position, sf::String text, sf::Font* font, u
 	this->text = text;
 	this->text_size = text_size;
 	this->text_color = text_color;
-	text_label.setCenter();
+	text_label.setCenter(getBounds().getCenter());
 
 }
 

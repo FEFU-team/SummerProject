@@ -5,21 +5,23 @@
 TextLabel::TextLabel(sf::Vector2f position, const sf::Font* font, sf::String text_str) :text(*font ,text_str)
 {
 	this->position = position;
-	text.setPosition(position);
+	//text.setPosition(position);
+	text.setCharacterSize(40);
 }
 
-void TextLabel::setCenter()
+void TextLabel::setCenter(sf::Vector2f center)
 {
 	sf::FloatRect textBounds = text.getGlobalBounds();
-	position = textBounds.getCenter();
-
-	std::cout <<"Button" << std::endl;
-	std::cout << text.getLetterSpacing() << std::endl;
-	std::cout << text.getCharacterSize() << std::endl;
-	std::cout << text.getLineSpacing() << std::endl;
-	std::cout << text.getOutlineThickness() << std::endl;
-
-	text.setPosition(position);
+	sf::FloatRect textBounds_l = text.getLocalBounds();
+	
+	sf::Vector2f  pos = textBounds.position;
+	sf::Vector2f  pos2 = textBounds_l.getCenter();
+	center.x -= (textBounds.getCenter().x-text.getString().toWideString().length());
+	center.y -= (textBounds.getCenter().y);
+	//text.setOrigin(textBounds.getCenter());
+	//position = position - sf::Vector2f(textBounds.size.x/2, textBounds.size.y / 2);
+	//text.setOrigin(center);
+	text.setPosition(center);
 }
 
 
