@@ -4,12 +4,13 @@
 
 #include <memory>
 #include <UI/Map/Cell.h>
-MainMenu::MainMenu(sf::Vector2f position, int height, int width,  sf::Font font, GameController* game_controller_ptr) {
+#include <UI/Text/TextLabel.h>
+MainMenu::MainMenu(sf::Vector2f position, int height, int width,  sf::Font* font, GameController* game_controller_ptr) {
 	this->position = position;
 	this->game_controller_ptr = game_controller_ptr;
-	
 	widgets.push_back(
-		std::make_unique<TextButton>(sf::Vector2f((height / 2) - 100, (width / 2) - 200), L"Игра", font));
+		std::make_unique<TextLabel>(sf::Vector2f((height / 2)-100, (width / 2) - 200), font, L"Шашки",Orientation::Center));
+	//dynamic_cast<TextLabel*>(widgets[0].get())->setCenter(shape.getGlobalBounds());
 	widgets.push_back(
 		std::make_unique<TextButton>(
 			sf::Vector2f((height / 2) - 100, (width / 2) - 100),

@@ -9,7 +9,7 @@ public:
 	// name имя текста для map
 	void uploadFont( const std::string& name,std::string path);
 	// Получение шрифта по имени
-	sf::Font getFont(const std::string& name);
+	sf::Font* getFont(const std::string& name);
 	// Загрузка текструры 
 	// name имя текструра 
 	void uploadTexture(const std::string& name,std::string path);
