@@ -16,9 +16,10 @@ void TextLabel::setCenter(sf::Vector2f center)
 	
 	sf::Vector2f  pos = textBounds.position;
 	sf::Vector2f  pos2 = textBounds_l.getCenter();
+	sf::Vector2f firstPos = text.findCharacterPos(0);
+	sf::Vector2f lastPos = text.findCharacterPos(text.getString().getSize());
 
-
-	center.x -= (textBounds.getCenter().x-(text.getString().toWideString().length()));
+	center.x -= (textBounds.getCenter().x- firstPos.x);
 	center.y -= (textBounds.getCenter().y);
 	//text.setOrigin(textBounds.getCenter());
 	//position = position - sf::Vector2f(textBounds.size.x/2, textBounds.size.y / 2);
