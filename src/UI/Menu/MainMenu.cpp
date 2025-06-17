@@ -9,20 +9,20 @@ MainMenu::MainMenu(sf::Vector2f position, int height, int width,  sf::Font* font
 	this->position = position;
 	this->game_controller_ptr = game_controller_ptr;
 	widgets.push_back(
-		std::make_unique<TextLabel>(sf::Vector2f((height / 2) - 100, (width / 2) - 200), font, L"Шашки",Orientation::Center));
+		std::make_unique<TextLabel>(sf::Vector2f((height / 2)-100, (width / 2) - 200), font, L"Шашки",Orientation::Center));
 	//dynamic_cast<TextLabel*>(widgets[0].get())->setCenter(shape.getGlobalBounds());
 	widgets.push_back(
 		std::make_unique<TextButton>(
 			sf::Vector2f((height / 2) - 100, (width / 2) - 100),
 			L"Играть", font,30,sf::Vector2f(200,100),
-			sf::Color::Green,
-			sf::Color::Green));
+			sf::Color::White,
+			sf::Color::Black));
 	widgets.push_back(
 		std::make_unique<TextButton>(
 			sf::Vector2f((height / 2) - 100, (width / 2) + 50),
 			L"Выход", font, 30, sf::Vector2f(200, 100),
-			sf::Color::Green,
-			sf::Color::Green));
+			sf::Color::White,
+			sf::Color::Black));
 			
 	/*
 	widgets.push_back(
