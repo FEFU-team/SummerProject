@@ -5,7 +5,7 @@
 Info::Info(sf::Vector2f position, sf::Font* font)
 {
 	widgets.push_back(
-		std::make_unique<TextLabel>(position,font,text));
+		std::make_unique<TextLabel>(position,font,text,sf::Color::White));
 	widgets.push_back(
 		std::make_unique<TextButton>(
 			sf::Vector2f(position.x+100, position.y),
