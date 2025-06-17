@@ -3,7 +3,13 @@
 #include "../include/UI//Buttons/Button.h"
 #include <iostream>
 
-
+bool Cell::is_active()
+{
+	return active;
+}
+void Cell::set_active() {
+	active = true;
+}
 sf::Vector2f Cell::getCenter()
 {
 	return center;

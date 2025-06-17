@@ -16,9 +16,9 @@
 void Engine::init()
 { 
     assets.uploadFont("arial", "../../../../assets/fonts/arialmt.ttf");
-    assets.uploadTexture("checker1", "../../../../assets/texture/checkers2.jpg");
+    assets.uploadTexture("checker1", "../../../../assets/texture/checkers2.png");
     window = { std::make_unique<sf::RenderWindow>(sf::RenderWindow(sf::VideoMode({ HEIGHT_WINDOW, WIDTH_WINDOW }),
-        L"Checkers")) };
+        L"Шашки FEFU")) };
 	window->setFramerateLimit(144);
    
 }
