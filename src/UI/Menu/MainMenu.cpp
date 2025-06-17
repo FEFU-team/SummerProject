@@ -9,7 +9,7 @@ MainMenu::MainMenu(sf::Vector2f position, int height, int width,  sf::Font* font
 	this->position = position;
 	this->game_controller_ptr = game_controller_ptr;
 	widgets.push_back(
-		std::make_unique<TextLabel>(sf::Vector2f((height / 2) - 100, (width / 2) - 200), font, L"Шашки"));
+		std::make_unique<TextLabel>(sf::Vector2f((height / 2) - 100, (width / 2) - 200), font, L"Шашки",Orientation::Center));
 	//dynamic_cast<TextLabel*>(widgets[0].get())->setCenter(shape.getGlobalBounds());
 	widgets.push_back(
 		std::make_unique<TextButton>(

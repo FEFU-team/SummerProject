@@ -3,6 +3,7 @@
 #include <Widget.h>
 enum class Orientation
 {
+	Normal,
 	Center,
 	Right,
 	Left
@@ -12,8 +13,11 @@ enum class Orientation
 class TextLabel : public Widget {
 public:
 
-	TextLabel(sf::Vector2f position, const sf::Font* font, sf::String text_str);
+	TextLabel(sf::Vector2f position, const sf::Font* font, sf::String text_str, Orientation orientation = Orientation::Normal);
+	// Задаем центр относительно центра другого обьекта
 	void setCenter(sf::Vector2f center);
+	// Задаем центр относительно координат 
+	void setCenter();
 	void setText(sf::String text);
 	// Унаследовано через Widget
 	void draw(sf::RenderTarget* window) override;

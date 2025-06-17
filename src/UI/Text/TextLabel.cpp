@@ -2,11 +2,17 @@
 #include <UI/Text/TextLabel.h>
 #include <iostream>
 
-TextLabel::TextLabel(sf::Vector2f position, const sf::Font* font, sf::String text_str) :text(*font ,text_str)
+TextLabel::TextLabel(sf::Vector2f position, const sf::Font* font, sf::String text_str, Orientation orientation) :text(*font ,text_str)
 {
 	this->position = position;
-	//text.setPosition(position);
 	text.setCharacterSize(30);
+	if (orientation == Orientation::Normal) {
+
+	}
+	else if (orientation == Orientation::Center) {
+		setCenter();
+	}
+
 }
 
 void TextLabel::setCenter(sf::Vector2f center)
@@ -25,6 +31,16 @@ void TextLabel::setCenter(sf::Vector2f center)
 	//position = position - sf::Vector2f(textBounds.size.x/2, textBounds.size.y / 2);
 	//text.setOrigin(center);
 	text.setPosition(center);
+}
+
+void TextLabel::setCenter()
+{
+	sf::FloatRect textBounds = text.getGlobalBounds();
+	sf::Vector2f center = textBounds.getCenter();
+	sf::Vector2f firstPos = text.findCharacterPos(0);
+	sf::Vector2f lastPos = text.findCharacterPos(text.getString().getSize());
+	center.x += text.getString().toWideString().length();
+	text.setPosition(center+position);
 }
 
 
