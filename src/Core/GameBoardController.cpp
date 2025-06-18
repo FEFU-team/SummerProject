@@ -45,7 +45,7 @@ void GameBoardController::update_input(sf::Vector2f position)
 {
 	for (int i = 0; i < grid_ptr->size(); i++) {
 		for (int j= 0; j < grid_ptr->size(); j++) {
-
+			
 			if ((*grid_ptr)[i][j]->isPressed(position) && (*grid_ptr)[i][j]->isBeChecker() && pressed_checker == false) {
 				coordinate_start.first = i;
 				coordinate_start.second = j;
@@ -62,26 +62,23 @@ void GameBoardController::update_input(sf::Vector2f position)
 						pressed_checker = true;
 					}
 				}
-				
-				
-				
-				// test gordey
-				
-				
 				break;
 				
 			}
+			else if ((*grid_ptr)[i][j]->isPressed(position) && (*grid_ptr)[i][j]->isBeChecker()) {
+				(*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->update_texture(assets->getTexture("checker1"), false);
+				(*grid_ptr)[i][j]->getChecker()->update_texture(assets->getTexture("checker_active"), true);
+				coordinate_start.first = i;
+				coordinate_start.second = j;
+				current_player = (*grid_ptr)[i][j]->getChecker()->getColorChecker();
+				break;
+			}
 			else if ((*grid_ptr)[i][j]->isPressed(position) && (*grid_ptr)[i][j]->isBeChecker() == false) {
-				
 				coordinate_end.first = i;
 				coordinate_end.second = j;
-				
-				
-
-				
 				if (pressed_checker&&current_player!=previous_player) {
 					vector<CaptureMove> cor = check_grid(current_player);
-					//(*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->update_texture(assets->getTexture("checker2"), false);
+					(*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->update_texture(assets->getTexture("checker1"), false);
 					update_GameState();
 					//cout << cor.coordinate_take.first << endl;
 					//cout << cor.coordinate_take.second << endl;
@@ -89,6 +86,7 @@ void GameBoardController::update_input(sf::Vector2f position)
 						move_checker();
 						cout << "S" << endl;
 						previous_player = current_player;
+						//(*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->update_texture(assets->getTexture("checker1"), false);
 					}
 					else {
 						for (int i = 0; i < cor.size(); i++) {
@@ -99,9 +97,8 @@ void GameBoardController::update_input(sf::Vector2f position)
 								destroy_figure(cor[i].coordinate_take);
 								if (check_grid(current_player).size() == 0) {
 									previous_player = current_player;
+									//(*grid_ptr)[i][j]->getChecker()->update_texture(assets->getTexture("checker1"), false);
 								}
-
-
 							}
 						}
 						
@@ -115,6 +112,7 @@ void GameBoardController::update_input(sf::Vector2f position)
 				break;
 			}
 			else{
+				
 			}
 		}
 	}
