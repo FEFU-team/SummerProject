@@ -11,5 +11,5 @@ public:
 	void update_input(sf::Vector2f mouse_position) override;
 	void update_info(sf::String inf);
 private:
-	sf::String text ;
+	sf::String color_player;
 };

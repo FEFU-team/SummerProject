@@ -16,3 +16,7 @@ SizeBox::SizeBox(sf::Vector2f position, sf::Vector2f size)
 	shape.setSize(size);
 	
 }
+sf::Vector2f SizeBox::getCenter()
+{
+	return getGlobalBounds().getCenter();
+}

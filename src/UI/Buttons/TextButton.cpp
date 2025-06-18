@@ -37,14 +37,14 @@ TextButton::TextButton(sf::Vector2f position, sf::String text,  sf::Font* font):
 
 }
 
-TextButton::TextButton(sf::Vector2f position, sf::String text, sf::Font* font, unsigned int text_size, sf::Vector2f button_size, sf::Color button_color, sf::Color text_color) :Button(position, button_size, button_color),text_label(position, font, text,text_color)
+TextButton::TextButton(sf::Vector2f position, sf::String text, sf::Font* font, unsigned int text_size, sf::Vector2f button_size, sf::Color button_color, sf::Color text_color) :Button(position, button_size, button_color),text_label(position, font, text,text_color,Orientation::Center, getBounds().getCenter())
 {
 	this->position = position;
 	this->text = text;
 	this->text_size = text_size;
 	this->text_color = text_color;
 
-	text_label.setCenter(getBounds().getCenter());
+	
 
 }
 
