@@ -90,6 +90,7 @@ void GameBoardController::update_input(sf::Vector2f position)
 					//cout << cor.coordinate_take.second << endl;
 					if ((is_move_checker(current_player)) &&(cor.size() == 0)) {
 						move_checker();
+						//changing_checkers();
 						cout << "S" << endl;
 						previous_player = current_player;
 						
@@ -98,6 +99,7 @@ void GameBoardController::update_input(sf::Vector2f position)
 						for (int i = 0; i < cor.size(); i++) {
 							if (cor[i].coordinate_start == coordinate_start && cor[i].coordinate_end == coordinate_end) {
 								move_checker();
+								//changing_checkers();
 								cout << "D" << endl;
 								int_grid[cor[i].coordinate_take.first][cor[i].coordinate_take.second] = 0;
 								destroy_figure(cor[i].coordinate_take);
@@ -326,12 +328,8 @@ void GameBoardController::update_GameState()
 
 void GameBoardController::changing_checkers()
 {
-	if (current_player == ColorChecker::Black) {
-		//coordinate_end.first, coordinate_end.second
-
-	}
-	else {
-
-	}
+	
+		
+	
 }
 
