@@ -70,7 +70,10 @@ void GameBoardController::update_input(sf::Vector2f position)
 				(*grid_ptr)[i][j]->getChecker()->update_texture(assets->getTexture("checker_active"), true);
 				coordinate_start.first = i;
 				coordinate_start.second = j;
-				current_player = (*grid_ptr)[i][j]->getChecker()->getColorChecker();
+				if (current_player != (*grid_ptr)[i][j]->getChecker()->getColorChecker()) {
+					current_player = (*grid_ptr)[i][j]->getChecker()->getColorChecker();
+				}
+				
 				break;
 			}
 			else if ((*grid_ptr)[i][j]->isPressed(position) && (*grid_ptr)[i][j]->isBeChecker() == false) {
@@ -99,6 +102,9 @@ void GameBoardController::update_input(sf::Vector2f position)
 									previous_player = current_player;
 									//(*grid_ptr)[i][j]->getChecker()->update_texture(assets->getTexture("checker1"), false);
 								}
+							}
+							else {
+
 							}
 						}
 						
