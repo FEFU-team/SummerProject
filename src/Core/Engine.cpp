@@ -11,6 +11,7 @@
 #include <UI/Buttons/TextButton.h>
 #include <UI/Menu/MainMenu.h>
 #include <UI/Info/Info.h>
+#include <UI/End/End.h>
 
 
 void Engine::init()
@@ -34,7 +35,8 @@ void Engine::run()
     GameBoardController game_board_controller(&game_board.grid,&assets);
     sf::Clock clock;
     MainMenu main_menu({ 0,0 }, HEIGHT_WINDOW, WIDTH_WINDOW, assets.getFont("arial"), &game_controller);
-    Info info({ 1000,0 }, assets.getFont("arial"));
+    Info info({ 1100,0 }, assets.getFont("arial"));
+    End end({ HEIGHT_WINDOW/2,WIDTH_WINDOW / 2 }, assets.getFont("arial"));
     //TextLabel label({ 100,100 }, assets.getFont("arial"), "Hello");
    // sf::Text text(assets.getFont("arial"),"hello");
     while (window->isOpen())
@@ -48,15 +50,15 @@ void Engine::run()
         while (std::optional event = window->pollEvent())
         {
             if (const auto* mousePressed = event->getIf<sf::Event::MouseButtonPressed>()) {
+
                 if (current_state == GameState::Init) {
                     main_menu.update_input(mouse_position_f);
                     
                 }
-                else {
+                else if(current_state == GameState::Play) {
+                    info.update_input(mouse_position_f);
                     game_board_controller.update_input(mouse_position_f);
-                }
-               
-                
+                }  
             }
             if (event->is<sf::Event::Closed>())
             {
@@ -69,26 +71,28 @@ void Engine::run()
           // label.draw(window.get());
             main_menu.draw(window.get());
 
-            //game_controller.setGameState(GameState::Start);
+            //game_controller.setGameState(GameState::End);
         }
         else if (current_state == GameState::End) {
-            window->close();
+            end.draw(window.get());
         }
-        else {
+        else if(current_state == GameState::Play){
             
-            
-            ColorChecker ch= game_board_controller.getCurrentPlayer();
+            ColorChecker ch = game_board_controller.getCurrentPlayer();
             if (ch == ColorChecker::Black) {
-                info.update_info("Black");
+                info.update_info(L"Черные");
             }
             else {
-               info.update_info("White");
+               info.update_info(L"Белые");
             }
+            
             game_controller.setGameState(GameState::Play);
             game_board.draw(window.get(), time);
             info.draw(window.get());
         }
-     
+        else {
+            window->close();
+        }
         window->display();
 
   

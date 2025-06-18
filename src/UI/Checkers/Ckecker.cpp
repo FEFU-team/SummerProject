@@ -71,7 +71,7 @@ bool Checker::is_move(){
 }
 void Checker::update_texture(sf::Texture* texture, bool active)
 {
-	this->active = active;
+	this->active = active; // есть то что ломает код
 	shape.setTexture(texture);
 }
 Checker::~Checker()
