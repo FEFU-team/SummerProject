@@ -14,7 +14,7 @@ public:
 	void update(float time);
 	// Отрисовка шашки
 	void draw(sf::RenderTarget* window) override;
-	Checker(sf::Vector2f position,sf::Color color, sf::Texture texture, float radius = 49);
+	Checker(sf::Vector2f position,sf::Color color, sf::Texture* texture, float radius = 49);
 	// Задаем цвет
 	void setColor(sf::Color color) override;
 	// Задаем позицию 
@@ -22,6 +22,8 @@ public:
 	// Запускам анимацию перемещения
 	void start_move(sf::Vector2f target);
 	bool is_move();
+	void update_texture(sf::Texture* texture,bool active);
+	bool is_active();
 	~Checker();
 protected:
 	enum ColorChecker color_checker;
@@ -29,6 +31,7 @@ protected:
 private:
 	bool is_moving = false;
 	sf::Vector2f target;
+	bool active = false;;
 	
 
 };

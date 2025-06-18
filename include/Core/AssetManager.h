@@ -14,10 +14,10 @@ public:
 	// name им€ текструра 
 	void uploadTexture(const std::string& name,std::string path);
 	// ѕолучение текструры по имени
-	sf::Texture getTexture(const std::string& name);
+	sf::Texture* getTexture(const std::string& name);
 
 private:
-	std::map<std::string, sf::Font> fonts;
+	std::map<std::string,  sf::Font> fonts;
 	std::map<std::string, sf::Texture> textures;
 	
 

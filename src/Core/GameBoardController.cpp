@@ -4,10 +4,12 @@
 #include <set>
 
 
+
 using namespace std;
 
-GameBoardController::GameBoardController(std::vector<std::vector<std::unique_ptr<Cell>>>* grid)
+GameBoardController::GameBoardController(std::vector<std::vector<std::unique_ptr<Cell>>>* grid, AssetManager* assets)
 {
+	this->assets = assets;
 	this->grid_ptr = grid;
 	//Создание целочисленной матрицы . где 1 . 0 это нет шашки
 	for (int i = 0; i < grid->size(); i++) {
@@ -43,45 +45,47 @@ void GameBoardController::update_input(sf::Vector2f position)
 {
 	for (int i = 0; i < grid_ptr->size(); i++) {
 		for (int j= 0; j < grid_ptr->size(); j++) {
-
+			
 			if ((*grid_ptr)[i][j]->isPressed(position) && (*grid_ptr)[i][j]->isBeChecker() && pressed_checker == false) {
 				coordinate_start.first = i;
 				coordinate_start.second = j;
 				current_player = (*grid_ptr)[i][j]->getChecker()->getColorChecker();
-				
-				if ((*grid_ptr)[i][j]->getColor() == sf::Color::Blue) {
-					(*grid_ptr)[i][j]->setColor(sf::Color::White);
-					
-					
+				// Отработка двойного нажатия
+				if ((*grid_ptr)[i][j]->isBeChecker()) {  
+					if ((*grid_ptr)[i][j]->getChecker()->is_active()) {
+
+						(*grid_ptr)[i][j]->getChecker()->update_texture(assets->getTexture("checker1"), false);
+						pressed_checker = false;
+					}
+					else {
+						(*grid_ptr)[i][j]->getChecker()->update_texture(assets->getTexture("checker_active"), true);
+						pressed_checker = true;
+					}
 				}
-				else {
-					(*grid_ptr)[i][j]->setColor(sf::Color::Blue);
-				}
-				
-	
-				pressed_checker = true;
-				// test gordey
-				
-				
 				break;
 				
 			}
-			else if ((*grid_ptr)[i][j]->isPressed(position) && (*grid_ptr)[i][j]->isBeChecker() == false) {
+			else if ((*grid_ptr)[i][j]->isPressed(position) && (*grid_ptr)[i][j]->isBeChecker()) {
+				// Снимаем выделение с прошлой шашки
+				(*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->update_texture(assets->getTexture("checker1"), false);
+				// Выделяем шашку  текущию
+				(*grid_ptr)[i][j]->getChecker()->update_texture(assets->getTexture("checker_active"), true);
+				coordinate_start.first = i;
+				coordinate_start.second = j;
+				if (current_player != (*grid_ptr)[i][j]->getChecker()->getColorChecker()) {
+					current_player = (*grid_ptr)[i][j]->getChecker()->getColorChecker();
+				}
 				
+				break;
+			}
+			else if ((*grid_ptr)[i][j]->isPressed(position) && (*grid_ptr)[i][j]->isBeChecker() == false) {
 				coordinate_end.first = i;
 				coordinate_end.second = j;
-				
-				if ((*grid_ptr)[i][j]->getColor() == sf::Color::Blue) {
-					(*grid_ptr)[i][j]->setColor(sf::Color::White);
-				}
-				else {
-					(*grid_ptr)[i][j]->setColor(sf::Color::Blue);
-				}
-				
-
-				
+				// Снимаем выделение с шашки
+				(*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->update_texture(assets->getTexture("checker1"), false);
 				if (pressed_checker&&current_player!=previous_player) {
 					vector<CaptureMove> cor = check_grid(current_player);
+					(*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->update_texture(assets->getTexture("checker1"), false);
 					update_GameState();
 					//cout << cor.coordinate_take.first << endl;
 					//cout << cor.coordinate_take.second << endl;
@@ -89,6 +93,7 @@ void GameBoardController::update_input(sf::Vector2f position)
 						move_checker();
 						cout << "S" << endl;
 						previous_player = current_player;
+						
 					}
 					else {
 						for (int i = 0; i < cor.size(); i++) {
@@ -99,8 +104,10 @@ void GameBoardController::update_input(sf::Vector2f position)
 								destroy_figure(cor[i].coordinate_take);
 								if (check_grid(current_player).size() == 0) {
 									previous_player = current_player;
+									//(*grid_ptr)[i][j]->getChecker()->update_texture(assets->getTexture("checker1"), false);
 								}
-
+							}
+							else {
 
 							}
 						}
@@ -115,6 +122,7 @@ void GameBoardController::update_input(sf::Vector2f position)
 				break;
 			}
 			else{
+				
 			}
 		}
 	}

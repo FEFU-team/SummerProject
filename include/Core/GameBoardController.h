@@ -2,7 +2,7 @@
 #include <Main.hpp>
 #include <UI/Map/Cell.h>
 #include "../include/Core/GameBoardController.h"
-
+#include "../include/Core/AssetManager.h"
 // состояние конца игры
 enum CheckersResult {
 	WINWHITE,
@@ -27,10 +27,12 @@ struct CaptureMove
 // Контролирование правил игры
 class GameBoardController {
 public:
-	GameBoardController(std::vector<std::vector<std::unique_ptr<Cell>>>* grid);
+	GameBoardController(std::vector<std::vector<std::unique_ptr<Cell>>>* grid, AssetManager* assets);
 	void update_input(sf::Vector2f position);
 	ColorChecker getCurrentPlayer();
 private:
+	// Указатель на менеджер пакетов
+	AssetManager* assets;
 	// Цвет текущего игрока
 	ColorChecker current_player;
 	ColorChecker previous_player = ColorChecker::Black;
@@ -40,7 +42,7 @@ private:
 
 
 	std::vector<CaptureMove>  check_grid(ColorChecker current_player);
-
+	
 
 
 	// Указатель на игровое поле
@@ -59,4 +61,5 @@ private:
 	// Проверка конца игры
 	void update_GameState();
 	CheckersResult gameBoardState = CONTINUE;
+	
 };
