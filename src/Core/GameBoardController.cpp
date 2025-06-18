@@ -1,7 +1,6 @@
 
 #include <iostream>
 #include <Core/GameBoardController.h>
-#include <set>
 
 
 
@@ -131,7 +130,7 @@ void GameBoardController::update_input(sf::Vector2f position)
 ColorChecker GameBoardController::getCurrentPlayer()
 {
 	// Странности 
-	return previous_player;
+	return show_player;
 }
 
 void GameBoardController::destroy_figure(std::pair<int, int> coordinate)
@@ -272,9 +271,11 @@ void GameBoardController::move_checker(int speed)
 	// Получаем владение от исходной ячейки
 	auto checker = (*grid_ptr)[coordinate_start.first][coordinate_start.second]->releaseChecker();
 	if (checker->getColorChecker() == ColorChecker::Black) {
+		show_player = ColorChecker::White;
 		int_grid[coordinate_end.first][coordinate_end.second] = 2;
 	}
 	else {
+		show_player = ColorChecker::Black;
 		int_grid[coordinate_end.first][coordinate_end.second] = 1;
 	}
 	
@@ -290,16 +291,16 @@ void GameBoardController::move_checker(int speed)
 
 void GameBoardController::update_GameState()
 {
-	int BlackCheckerCount = 0;
-	int WhiteCheckerCount = 0;
+	int black_checker_count = 0;
+	int white_checker_count = 0;
 
 	for (int i = 0; i < int_grid.size(); i++) {
 		for (int j = 0; j < int_grid.size(); j++) {
 			if (int_grid[i][j] == 1) {
-				WhiteCheckerCount++;
+				white_checker_count++;
 			}
 			else if (int_grid[i][j] == 2) {
-				BlackCheckerCount++;
+				black_checker_count++;
 			}
 			else {
 				// TODO
@@ -307,19 +308,30 @@ void GameBoardController::update_GameState()
 		}
 	}
 
-	if (WhiteCheckerCount == 0 && BlackCheckerCount != 0) {
+	if (white_checker_count == 0 && black_checker_count != 0) {
 		gameBoardState = CheckersResult::WINBLACK;
 	}
 
-	if (WhiteCheckerCount != 0 && BlackCheckerCount == 0) {
+	if (white_checker_count != 0 && black_checker_count == 0) {
 		gameBoardState = CheckersResult::WINWHITE;
 	}
 
 	// ситуацию для пата реализовать
 
-	cout << "Count white checker: " << WhiteCheckerCount << endl;
-	cout << "Count black checker: " << BlackCheckerCount << endl;
+	//cout << "Count white checker: " << WhiteCheckerCount << endl;
+	//cout << "Count black checker: " << BlackCheckerCount << endl;
 
 	//return CheckersResult::CONTINUE;
+}
+
+void GameBoardController::changing_checkers()
+{
+	if (current_player == ColorChecker::Black) {
+		//coordinate_end.first, coordinate_end.second
+
+	}
+	else {
+
+	}
 }
 
