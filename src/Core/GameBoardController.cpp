@@ -130,7 +130,8 @@ void GameBoardController::update_input(sf::Vector2f position)
 
 ColorChecker GameBoardController::getCurrentPlayer()
 {
-	return current_player;
+	// Странности 
+	return previous_player;
 }
 
 void GameBoardController::destroy_figure(std::pair<int, int> coordinate)

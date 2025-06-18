@@ -1,6 +1,6 @@
 #pragma once
 
-enum class GameState { Init,Start,Play,End}; // Состояние игры
+enum class GameState { Init,Start,Play,End,Close}; // Состояние игры
 // Управление состоянием игры
 class GameController {
 public:
