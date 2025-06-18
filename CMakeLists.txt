@@ -18,6 +18,7 @@ add_executable(main src/main.cpp
 "src/UI/Map/GameBoard.cpp"
 "src/UI/Map/Cell.cpp"
 "src/UI/Widget.cpp"
+"src/UI/SizeBox.cpp"
 "src/UI/Checkers/Ckecker.cpp"
    "src/Core/GameController.cpp"
    "src/UI/Menu/MainMenu.cpp" 
