@@ -19,6 +19,8 @@ Info::Info(sf::Vector2f position, sf::Font* font)
 			L"Сдаться", font, 60, sf::Vector2f(100, 100),
 			sf::Color::Black,
 			sf::Color::White));
+	widgets.push_back(
+		std::make_unique<TextLabel>(sf::Vector2f(position.x, position.y+200), font, L"Возможно нужно есть", sf::Color::White));
 }
 
 void Info::update_input(sf::Vector2f mouse_position)
