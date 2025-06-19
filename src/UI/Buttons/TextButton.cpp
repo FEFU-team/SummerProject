@@ -23,31 +23,28 @@ void TextButton::setTextColor(sf::Color text_color)
 
 void TextButton::draw(sf::RenderTarget* window)
 {
-	sf::Text w_text(font);
-	w_text.setFillColor(text_color);
-	w_text.setString(text);
-	w_text.setCharacterSize(text_size);
-	// ѕримерно сделать центрирование текста
-	w_text.setPosition({ position.x + 75,position.y + 25 });
+	
 	window->draw(shape);
-	window->draw(w_text);
+	text_label.draw(window);
 }
 
-TextButton::TextButton(sf::Vector2f position, sf::String text,  sf::Font& font):Button(position,{100,100},sf::Color::White)
+TextButton::TextButton(sf::Vector2f position, sf::String text,  sf::Font* font):Button(position,{100,100},sf::Color::White), text_label(position,font,text)
 {
 	this->position = position;
-	this->font = font;
 	this->text = text;
+	
+	
 
 }
 
-TextButton::TextButton(sf::Vector2f position, sf::String text, sf::Font& font, unsigned int text_size, sf::Vector2f button_size, sf::Color button_color, sf::Color text_color) :Button(position,button_size , button_color)
+TextButton::TextButton(sf::Vector2f position, sf::String text, sf::Font* font, unsigned int text_size, sf::Vector2f button_size, sf::Color button_color, sf::Color text_color) :Button(position, button_size, button_color),text_label(position, font, text,text_color,Orientation::Center, getBounds().getCenter())
 {
 	this->position = position;
-	this->font = font;
 	this->text = text;
 	this->text_size = text_size;
 	this->text_color = text_color;
+
+	
 
 }
 

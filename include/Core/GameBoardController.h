@@ -2,7 +2,16 @@
 #include <Main.hpp>
 #include <UI/Map/Cell.h>
 #include "../include/Core/GameBoardController.h"
-
+#include "../include/Core/AssetManager.h"
+#include<vector>
+// состояние конца игры
+enum CheckersResult {
+	WINWHITE,
+	WINBLACK,
+	LOSE,
+	PAT,
+	CONTINUE
+};
 
 struct CaptureMove
 {
@@ -19,22 +28,19 @@ struct CaptureMove
 // Контролирование правил игры
 class GameBoardController {
 public:
-	GameBoardController(std::vector<std::vector<std::unique_ptr<Cell>>>* grid);
+	GameBoardController(std::vector<std::vector<std::unique_ptr<Cell>>>* grid, AssetManager* assets);
 	void update_input(sf::Vector2f position);
 	ColorChecker getCurrentPlayer();
 private:
+	// Указатель на менеджер пакетов
+	AssetManager* assets;
 	// Цвет текущего игрока
 	ColorChecker current_player;
 	ColorChecker previous_player = ColorChecker::Black;
+	ColorChecker show_player= ColorChecker::White;
 	// Уничтожение фигуры
 	void destroy_figure(std::pair<int, int>coordinate);
-
-
-
 	std::vector<CaptureMove>  check_grid(ColorChecker current_player);
-
-
-
 	// Указатель на игровое поле
 	std::vector<std::vector<std::unique_ptr<Cell>>>* grid_ptr;
 	// Координаты выбора шашки
@@ -48,5 +54,10 @@ private:
 	bool is_move_checker(ColorChecker color_checker);
 	// Функция хода шашки из координат начала в координаты конца
 	void move_checker( int speed = 30);
-
+	// Проверка конца игры
+	void update_GameState();
+	CheckersResult gameBoardState = CONTINUE;
+	// Переход от шашки к дамке
+	void changing_checkers(ColorChecker current_player, const std::pair<int, int>& coordinate_end);
+	
 };
