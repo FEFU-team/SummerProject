@@ -106,7 +106,7 @@ void GameBoardController::update_input(sf::Vector2f position)
 								destroy_figure(cor[i].coordinate_take);
 								if (check_grid(current_player).size() == 0) {
 									previous_player = current_player;
-									
+									//(*grid_ptr)[i][j]->getChecker()->update_texture(assets->getTexture("checker1"), false);
 								}
 							}
 							else {
@@ -146,97 +146,75 @@ vector<CaptureMove> GameBoardController::check_grid(ColorChecker current_player)
 	vector<CaptureMove> coordinate;
 	CaptureMove coordinate_elem;
 	if (int_grid[coordinate_start.first][coordinate_start.second] == 1 || int_grid[coordinate_start.first][coordinate_start.second] == 3) {
-
-		if (int_grid[coordinate_start.first][coordinate_start.second] == 1) {
-			for (int i = 0; i < int_grid.size(); i++) {
-				for (int j = 0; j < int_grid.size(); j++) {
-					if (int_grid[i][j] == 1 && i - 2 >= 0 && j - 2 >= 0 && int_grid[i - 1][j - 1] == 2 && int_grid[i - 2][j - 2] == 0) {
-						coordinate_elem.coordinate_start = { i,j };
-						coordinate_elem.coordinate_end = { i - 2,j - 2 };
-						coordinate_elem.coordinate_take = { i - 1,j - 1 };
-						coordinate.push_back(coordinate_elem);
-					}
-					if (int_grid[i][j] == 1 && i + 2 < int_grid.size() && j - 2 >= 0 && int_grid[i + 1][j - 1] == 2 && int_grid[i + 2][j - 2] == 0) {
-						coordinate_elem.coordinate_start = { i,j };
-						coordinate_elem.coordinate_end = { i + 2,j - 2 };
-						coordinate_elem.coordinate_take = { i + 1,j - 1 };
-						coordinate.push_back(coordinate_elem);
-					}
-					if (int_grid[i][j] == 1 && i + 2 < int_grid.size() && j + 2 < int_grid.size() && int_grid[i + 1][j + 1] == 2 && int_grid[i + 2][j + 2] == 0) {
-						coordinate_elem.coordinate_start = { i,j };
-						coordinate_elem.coordinate_end = { i + 2,j + 2 };
-						coordinate_elem.coordinate_take = { i + 1,j + 1 };
-						coordinate.push_back(coordinate_elem);
-					}
-					if (int_grid[i][j] == 1 && j + 2 < int_grid.size() && i - 2 >= 0 && int_grid[i - 1][j + 1] == 2 && int_grid[i - 2][j + 2] == 0) {
-						coordinate_elem.coordinate_start = { i,j };
-						coordinate_elem.coordinate_end = { i - 2 ,j + 2 };
-						coordinate_elem.coordinate_take = { i - 1,j + 1 };
-						coordinate.push_back(coordinate_elem);
-					}
-
-
+		
+		for (int i = 0; i < int_grid.size(); i++) {
+			for (int j = 0; j < int_grid.size(); j++) {
+				if (int_grid[i][j] == 1 && i - 2 >= 0 && j - 2 >= 0 && int_grid[i - 1][j - 1] == 2 && int_grid[i - 2][j - 2] == 0) {
+					coordinate_elem.coordinate_start = { i,j };
+					coordinate_elem.coordinate_end = { i - 2,j - 2 };
+					coordinate_elem.coordinate_take = { i - 1,j - 1 };
+					coordinate.push_back(coordinate_elem);
 				}
-			}
-		}
-		else {
-			for (int i = 0; i < int_grid.size(); i++) {
-				for (int j = 0; j < int_grid.size(); j++) {
-					for (int k = 1; k <= 7; k++) {
-						if (int_grid[i][j] == 3 && i + (k + 1) < int_grid.size() && j + (k+1) < int_grid.size() && int_grid[i + k][j + k] == 2 && int_grid[i + (k+1)][j + (k+1)] == 0) {
-							coordinate_elem.coordinate_start = { i,j };
-							coordinate_elem.coordinate_end = { i + (k+1),j + (k+1)};
-							coordinate_elem.coordinate_take = { i + k,j + k };
-							coordinate.push_back(coordinate_elem);
-						}
-					}
-					/*
-					
-					*/
+				if (int_grid[i][j] == 1 && i + 2 < int_grid.size() && j - 2 >= 0 && int_grid[i + 1][j - 1] == 2 && int_grid[i + 2][j - 2] == 0) {
+					coordinate_elem.coordinate_start = { i,j };
+					coordinate_elem.coordinate_end = { i + 2,j - 2 };
+					coordinate_elem.coordinate_take = { i + 1,j - 1 };
+					coordinate.push_back(coordinate_elem);
 				}
+				if (int_grid[i][j] == 1 && i + 2 < int_grid.size() && j + 2 < int_grid.size() && int_grid[i + 1][j + 1] == 2 && int_grid[i + 2][j + 2] == 0) {
+					coordinate_elem.coordinate_start = { i,j };
+					coordinate_elem.coordinate_end = { i + 2,j + 2 };
+					coordinate_elem.coordinate_take = { i + 1,j + 1 };
+					coordinate.push_back(coordinate_elem);
+				}
+				if (int_grid[i][j] == 1 && j + 2 < int_grid.size() && i - 2 >= 0 && int_grid[i - 1][j + 1] == 2 && int_grid[i - 2][j + 2] == 0) {
+					coordinate_elem.coordinate_start = { i,j };
+					coordinate_elem.coordinate_end = { i - 2 ,j + 2 };
+					coordinate_elem.coordinate_take = { i - 1,j + 1 };
+					coordinate.push_back(coordinate_elem);
+				}
+
+
+
 			}
 		}
 		
-		
+
 	}
 	else {
-		if ((int_grid[coordinate_start.first][coordinate_start.second] == 2)) {
-			for (int i = 0; i < int_grid.size(); i++) {
-				for (int j = 0; j < int_grid.size(); j++) {
-					if (int_grid[i][j] == 2 && i + 2 < int_grid.size() && j + 2 < int_grid.size() && int_grid[i + 1][j + 1] == 1 && int_grid[i + 2][j + 2] == 0) {
-						coordinate_elem.coordinate_start = { i,j };
-						coordinate_elem.coordinate_end = { i + 2,j + 2 };
-						coordinate_elem.coordinate_take = { i + 1,j + 1 };
-						coordinate.push_back(coordinate_elem);
-					}
-					if (int_grid[i][j] == 2 && j + 2 < int_grid.size() && i - 2 >= 0 && int_grid[i - 1][j + 1] == 1 && int_grid[i - 2][j + 2] == 0) {
-						coordinate_elem.coordinate_start = { i,j };
-						coordinate_elem.coordinate_end = { i - 2 ,j + 2 };
-						coordinate_elem.coordinate_take = { i - 1,j + 1 };
-						coordinate.push_back(coordinate_elem);
-					}
-					if (int_grid[i][j] == 2 && i - 2 >= 0 && j - 2 >= 0 && int_grid[i - 1][j - 1] == 1 && int_grid[i - 2][j - 2] == 0) {
-						coordinate_elem.coordinate_start = { i,j };
-						coordinate_elem.coordinate_end = { i - 2,j - 2 };
-						coordinate_elem.coordinate_take = { i - 1,j - 1 };
-						coordinate.push_back(coordinate_elem);
-					}
-					if (int_grid[i][j] == 2 && i + 2 < int_grid.size() && j - 2 >= 0 && int_grid[i + 1][j - 1] == 1 && int_grid[i + 2][j - 2] == 0) {
-						coordinate_elem.coordinate_start = { i,j };
-						coordinate_elem.coordinate_end = { i + 2,j - 2 };
-						coordinate_elem.coordinate_take = { i + 1,j - 1 };
-						coordinate.push_back(coordinate_elem);
-					}
-
-
-
-
+		for (int i = 0; i < int_grid.size(); i++) {
+			for (int j = 0; j < int_grid.size(); j++) {
+				if (int_grid[i][j] == 2 && i + 2 < int_grid.size() && j + 2 < int_grid.size() && int_grid[i + 1][j + 1] == 1 && int_grid[i + 2][j + 2] == 0) {
+					coordinate_elem.coordinate_start = { i,j };
+					coordinate_elem.coordinate_end = { i + 2,j + 2 };
+					coordinate_elem.coordinate_take = { i + 1,j + 1 };
+					coordinate.push_back(coordinate_elem);
 				}
+				if (int_grid[i][j] == 2 && j + 2 < int_grid.size() && i - 2 >= 0 && int_grid[i - 1][j + 1] == 1 && int_grid[i - 2][j + 2] == 0) {
+					coordinate_elem.coordinate_start = { i,j };
+					coordinate_elem.coordinate_end = { i - 2 ,j + 2 };
+					coordinate_elem.coordinate_take = { i - 1,j + 1 };
+					coordinate.push_back(coordinate_elem);
+				}
+
+				if (int_grid[i][j] == 2 && i - 2 >= 0 && j - 2 >= 0 && int_grid[i - 1][j - 1] == 1 && int_grid[i - 2][j - 2] == 0) {
+					coordinate_elem.coordinate_start = { i,j };
+					coordinate_elem.coordinate_end = { i - 2,j - 2 };
+					coordinate_elem.coordinate_take = { i - 1,j - 1 };
+					coordinate.push_back(coordinate_elem);
+				}
+				if (int_grid[i][j] == 2 && i + 2 < int_grid.size() && j - 2 >= 0 && int_grid[i + 1][j - 1] == 1 && int_grid[i + 2][j - 2] == 0) {
+					coordinate_elem.coordinate_start = { i,j };
+					coordinate_elem.coordinate_end = { i + 2,j - 2 };
+					coordinate_elem.coordinate_take = { i + 1,j - 1 };
+					coordinate.push_back(coordinate_elem);
+				}
+
+
+
 			}
 		}
-		else {
-
-		}
+		
 	}
 	return coordinate;
 	//return { -1,-1 };
