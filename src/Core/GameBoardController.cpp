@@ -182,7 +182,16 @@ vector<CaptureMove> GameBoardController::check_grid(ColorChecker current_player)
 			}
 		}
 		else {
-
+			for (int i = 0; i < int_grid.size(); i++) {
+				for (int j = 0; j < int_grid.size(); j++) {
+					for (int k = 1; k <= 7; k++) {
+						
+					}
+					/*
+					
+					*/
+				}
+			}
 		}
 		
 		
@@ -245,10 +254,16 @@ bool GameBoardController::is_move_checker(ColorChecker color_checker)
 	else if (int_grid[coordinate_start.first][coordinate_start.second] == 4) {
 		for (int i = 1; i <= 7; i++)
 		{
-			if ((coordinate_start.first + i == coordinate_end.first && coordinate_start.second - i == coordinate_end.second)) {
+			if (coordinate_start.first + i == coordinate_end.first && coordinate_start.second + i == coordinate_end.second) {
 				return true;
 			}
-			else if ((coordinate_start.first - i == coordinate_end.first && coordinate_start.second - i == coordinate_end.second)) {
+			if (coordinate_start.first - i == coordinate_end.first && coordinate_start.second + i == coordinate_end.second) {
+				return true;
+			}
+			if (coordinate_start.first - i == coordinate_end.first && coordinate_start.second - i == coordinate_end.second) {
+				return true;
+			}
+			if (coordinate_start.first + i == coordinate_end.first && coordinate_start.second - i == coordinate_end.second) {
 				return true;
 			}
 		}
@@ -261,12 +276,23 @@ bool GameBoardController::is_move_checker(ColorChecker color_checker)
 		return true;
 	}
 	else if (int_grid[coordinate_start.first][coordinate_start.second] == 3) {
-		
+		for (int i = 1; i < 7; i++) {
+			if (coordinate_start.first + i == coordinate_end.first && coordinate_start.second + i == coordinate_end.second) {
+				return true;
+			}
+			if (coordinate_start.first - i == coordinate_end.first && coordinate_start.second + i == coordinate_end.second) {
+				return true;
+			}
+			if (coordinate_start.first - i == coordinate_end.first && coordinate_start.second - i == coordinate_end.second) {
+				return true;
+			}
+			if (coordinate_start.first + i == coordinate_end.first && coordinate_start.second - i == coordinate_end.second) {
+				return true;
+			}
+		}
+	}
+	return false;
 
-	}
-	else {
-		return false;
-	}
 	/*
 	for (int i = 0; i < int_grid.size(); i++) {
 		for (int j = 0; j < int_grid.size(); j++) {
