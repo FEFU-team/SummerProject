@@ -243,17 +243,41 @@ bool GameBoardController::is_move_checker(ColorChecker color_checker)
 {
 	
 	// Правила хода обычные
-	if ((coordinate_start.first + 1 == coordinate_end.first && coordinate_start.second + 1 == coordinate_end.second)&&color_checker == ColorChecker::Black) {
+	if ((coordinate_start.first + 1 == coordinate_end.first && coordinate_start.second + 1 == coordinate_end.second)&& int_grid[coordinate_start.first][coordinate_start.second] == 2) {
 		return true;
 	}
-	else if ((coordinate_start.first - 1 == coordinate_end.first && coordinate_start.second + 1 == coordinate_end.second) && color_checker == ColorChecker::Black) {
+	else if ((coordinate_start.first - 1 == coordinate_end.first && coordinate_start.second + 1 == coordinate_end.second) && int_grid[coordinate_start.first][coordinate_start.second] == 2) {
 		return true;
 	}
-	else if ((coordinate_start.first - 1 == coordinate_end.first && coordinate_start.second - 1 == coordinate_end.second) && color_checker == ColorChecker::White) {
+	else if (int_grid[coordinate_start.first][coordinate_start.second] == 4) {
+		for (int i = 1; i <= 7; i++)
+		{
+			if ((coordinate_start.first + i == coordinate_end.first && coordinate_start.second - i == coordinate_end.second)) {
+				return true;
+			}
+			else if ((coordinate_start.first - i == coordinate_end.first && coordinate_start.second - i == coordinate_end.second)) {
+				return true;
+			}
+		}
+		
+	}
+	else if ((coordinate_start.first - 1 == coordinate_end.first && coordinate_start.second - 1 == coordinate_end.second) && int_grid[coordinate_start.first][coordinate_start.second] == 1) {
 		return true;
 	}
-	else if ((coordinate_start.first + 1 == coordinate_end.first && coordinate_start.second - 1 == coordinate_end.second) && color_checker == ColorChecker::White) {
+	else if ((coordinate_start.first + 1 == coordinate_end.first && coordinate_start.second - 1 == coordinate_end.second) && int_grid[coordinate_start.first][coordinate_start.second] == 1) {
 		return true;
+	}
+	else if (int_grid[coordinate_start.first][coordinate_start.second] == 3) {
+		for (int i = 1; i <= 7; i++)
+		{
+			if ((coordinate_start.first + i == coordinate_end.first && coordinate_start.second - i == coordinate_end.second)) {
+				return true;
+			}
+			else if ((coordinate_start.first - i == coordinate_end.first && coordinate_start.second - i == coordinate_end.second)) {
+				return true;
+			}
+		}
+
 	}
 	else {
 		return false;
@@ -276,13 +300,23 @@ void GameBoardController::move_checker(int speed)
 	changing_checkers(current_player, coordinate_end);
 	// Получаем владение от исходной ячейки
 	auto checker = (*grid_ptr)[coordinate_start.first][coordinate_start.second]->releaseChecker();
-	if (checker->getColorChecker() == ColorChecker::Black) {
+	if (checker->getColorChecker() == ColorChecker::Black && !checker->is_queen()) {
 		show_player = ColorChecker::White;
 		int_grid[coordinate_end.first][coordinate_end.second] = 2;
 	}
+	else if (checker->getColorChecker() == ColorChecker::Black && checker->is_queen()) {
+		int_grid[coordinate_end.first][coordinate_end.second] = 4;
+		show_player = ColorChecker::White;
+	}
 	else {
 		show_player = ColorChecker::Black;
-		int_grid[coordinate_end.first][coordinate_end.second] = 1;
+		if (checker->is_queen()) {
+			int_grid[coordinate_end.first][coordinate_end.second] = 3;
+		}
+		else {
+			int_grid[coordinate_end.first][coordinate_end.second] = 1;
+		}
+		
 	}
 	
 	// Анимация перемещения
@@ -337,14 +371,14 @@ void GameBoardController::changing_checkers(ColorChecker current_player, const s
 		//int_grid[coordinate_end.first][coordinate_end.second]
 			std::cout << "KK" << std::endl;
 			(*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->becoming_queen(assets->getTexture("queen"));
-			int_grid[coordinate_end.first][coordinate_end.second] = 4;
+			int_grid[coordinate_end.first][coordinate_end.second] = 3;
 			
 
 	}
 	if (coordinate_end.second == 7 && current_player == ColorChecker::Black) {
 		std::cout << "ZZ" << std::endl;
 		(*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->becoming_queen(assets->getTexture("queen"));
-		int_grid[coordinate_end.first][coordinate_end.second] = 5;
+		int_grid[coordinate_end.first][coordinate_end.second] = 4;
 	}
 	
 	

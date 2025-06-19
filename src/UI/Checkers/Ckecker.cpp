@@ -72,7 +72,13 @@ bool Checker::is_move(){
 void Checker::update_texture(sf::Texture* texture, bool active)
 {
 	this->active = active; // есть то что ломает код
-	shape.setTexture(texture);
+	if (queen) {
+		std::cout << "Queen choose" << std::endl;
+	}
+	else {
+		shape.setTexture(texture);
+	}
+	
 }
 Checker::~Checker()
 {
