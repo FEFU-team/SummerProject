@@ -3,6 +3,7 @@
 #include <UI/Map/Cell.h>
 #include "../include/Core/GameBoardController.h"
 #include "../include/Core/AssetManager.h"
+#include<vector>
 // состояние конца игры
 enum CheckersResult {
 	WINWHITE,
@@ -36,15 +37,10 @@ private:
 	// Цвет текущего игрока
 	ColorChecker current_player;
 	ColorChecker previous_player = ColorChecker::Black;
+	ColorChecker show_player= ColorChecker::White;
 	// Уничтожение фигуры
 	void destroy_figure(std::pair<int, int>coordinate);
-
-
-
 	std::vector<CaptureMove>  check_grid(ColorChecker current_player);
-	
-
-
 	// Указатель на игровое поле
 	std::vector<std::vector<std::unique_ptr<Cell>>>* grid_ptr;
 	// Координаты выбора шашки
@@ -61,5 +57,7 @@ private:
 	// Проверка конца игры
 	void update_GameState();
 	CheckersResult gameBoardState = CONTINUE;
+	// Переход от шашки к дамке
+	void changing_checkers(ColorChecker current_player, const std::pair<int, int>& coordinate_end);
 	
 };

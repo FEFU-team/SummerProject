@@ -21,9 +21,16 @@ public:
 	void setPosition(sf::Vector2f new_position) override;
 	// Запускам анимацию перемещения
 	void start_move(sf::Vector2f target);
+	// Движется ли шашка 
 	bool is_move();
+	// Обновление текстуры для выделения 
 	void update_texture(sf::Texture* texture,bool active);
+	// Выделена ли
 	bool is_active();
+	// Дамка ли
+	bool is_queen();
+	// Становление дамкой
+	void becoming_queen(sf::Texture* texture);
 	~Checker();
 protected:
 	enum ColorChecker color_checker;
@@ -32,6 +39,7 @@ private:
 	bool is_moving = false;
 	sf::Vector2f target;
 	bool active = false;;
+	bool queen = false;
 	
 
 };
