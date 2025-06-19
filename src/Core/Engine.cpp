@@ -82,10 +82,10 @@ void Engine::run()
             
             ColorChecker ch = game_board_controller.getCurrentPlayer();
             if (ch == ColorChecker::Black) {
-                info.update_info(L"Черные");
+                info.update_info(L"Желтые");
             }
             else {
-               info.update_info(L"Белые");
+               info.update_info(L"Зеленые");
             }
             
             game_controller.setGameState(GameState::Play);

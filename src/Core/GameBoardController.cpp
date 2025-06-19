@@ -176,6 +176,7 @@ vector<CaptureMove> GameBoardController::check_grid(ColorChecker current_player)
 					}
 				}
 				else {
+					/*
 					for (int k = 1; k <= 7; k++) {
 						if (int_grid[i][j] == 3 && i + (k + 1) < int_grid.size() && j + (k + 1) < int_grid.size() && int_grid[i + k][j + k] == 2 && int_grid[i + (k + 1)][j + (k + 1)] == 0) {
 							coordinate_elem.coordinate_start = { i,j };
@@ -203,6 +204,7 @@ vector<CaptureMove> GameBoardController::check_grid(ColorChecker current_player)
 						}
 
 					}
+					*/
 				}
 				
 				

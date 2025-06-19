@@ -5,11 +5,13 @@
 #include <memory>
 #include <UI/Map/Cell.h>
 #include <UI/Text/TextLabel.h>
+#include <UI/SizeBox.h>
 MainMenu::MainMenu(sf::Vector2f position, int height, int width,  sf::Font* font, GameController* game_controller_ptr) {
 	this->position = position;
 	this->game_controller_ptr = game_controller_ptr;
+	SizeBox size_box(sf::Vector2f((height / 2) - 100, (width / 2) - 200),{200,100});
 	widgets.push_back(
-		std::make_unique<TextLabel>(sf::Vector2f((height / 2)-100, (width / 2) - 200), font, L"Шашки",Orientation::Center));
+		std::make_unique<TextLabel>(sf::Vector2f((height / 2) - 100, (width / 2) - 200), font, L"Шашки", sf::Color::White, Orientation::Center, size_box.getCenter(),50));
 	//dynamic_cast<TextLabel*>(widgets[0].get())->setCenter(shape.getGlobalBounds());
 	widgets.push_back(
 		std::make_unique<TextButton>(
