@@ -40,6 +40,7 @@ void Engine::run()
     End end({ HEIGHT_WINDOW/2,WIDTH_WINDOW / 2 }, assets.getFont("arial"));
     //TextLabel label({ 100,100 }, assets.getFont("arial"), "Hello");
    // sf::Text text(assets.getFont("arial"),"hello");
+    game_board.grid[0][5]->getChecker()->becoming_queen(assets.getTexture("queen"));
     while (window->isOpen())
     {
         GameState  current_state = game_controller.getGameState();

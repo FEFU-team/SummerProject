@@ -108,7 +108,6 @@ GameBoard::GameBoard(sf::Vector2f positions, AssetManager* assets) {
 			
 			
 		}
-		
 		grid.emplace_back(std::move(line));//  move перемещает вектор line .а не копирует его.
 	}
 }
