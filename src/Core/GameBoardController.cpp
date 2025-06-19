@@ -332,13 +332,19 @@ void GameBoardController::update_GameState()
 
 void GameBoardController::changing_checkers(ColorChecker current_player, const std::pair<int, int>& coordinate_end)
 {
-	if (coordinate_end.second == 0 ) {
+	if (coordinate_end.second == 0  && current_player == ColorChecker::White) {
 
 		//int_grid[coordinate_end.first][coordinate_end.second]
 			std::cout << "KK" << std::endl;
+			(*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->becoming_queen(assets->getTexture("queen"));
+			int_grid[coordinate_end.first][coordinate_end.second] = 4;
+			
+
 	}
-	if (coordinate_end.second == 7) {
+	if (coordinate_end.second == 7 && current_player == ColorChecker::Black) {
 		std::cout << "ZZ" << std::endl;
+		(*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->becoming_queen(assets->getTexture("queen"));
+		int_grid[coordinate_end.first][coordinate_end.second] = 5;
 	}
 	
 	

@@ -85,8 +85,9 @@ bool Checker::is_queen()
 {
 	return queen;
 }
-void Checker::becoming_queen()
+void Checker::becoming_queen(sf::Texture* texture)
 {
 	std::cout << "Queen" << std::endl;
-	queen = true;
+	shape.setTexture(texture);
+	this->queen = true;
 }

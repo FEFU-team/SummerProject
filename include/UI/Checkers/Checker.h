@@ -30,7 +30,7 @@ public:
 	// Дамка ли
 	bool is_queen();
 	// Становление дамкой
-	void becoming_queen();
+	void becoming_queen(sf::Texture* texture);
 	~Checker();
 protected:
 	enum ColorChecker color_checker;
