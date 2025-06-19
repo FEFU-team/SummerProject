@@ -58,6 +58,6 @@ private:
 	void update_GameState();
 	CheckersResult gameBoardState = CONTINUE;
 	// Переход от шашки к дамке
-	void changing_checkers();
+	void changing_checkers(ColorChecker current_player, const std::pair<int, int>& coordinate_end);
 	
 };

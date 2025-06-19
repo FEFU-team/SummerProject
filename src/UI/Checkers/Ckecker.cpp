@@ -81,3 +81,12 @@ bool Checker::is_active()
 {
 	return active;
 }
+bool Checker::is_queen()
+{
+	return queen;
+}
+void Checker::becoming_queen()
+{
+	std::cout << "Queen" << std::endl;
+	queen = true;
+}

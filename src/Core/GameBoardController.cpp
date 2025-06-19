@@ -45,7 +45,7 @@ void GameBoardController::update_input(sf::Vector2f position)
 	for (int i = 0; i < grid_ptr->size(); i++) {
 		for (int j= 0; j < grid_ptr->size(); j++) {
 			
-			if ((*grid_ptr)[i][j]->isPressed(position) && (*grid_ptr)[i][j]->isBeChecker() && pressed_checker == false) {
+			if ((*grid_ptr)[i][j]->isPressed(position) && (*grid_ptr)[i][j]->isBeChecker() && pressed_checker == false && !(*grid_ptr)[i][j]->getChecker()->is_move()) {
 				coordinate_start.first = i;
 				coordinate_start.second = j;
 				current_player = (*grid_ptr)[i][j]->getChecker()->getColorChecker();
@@ -64,7 +64,7 @@ void GameBoardController::update_input(sf::Vector2f position)
 				break;
 				
 			}
-			else if ((*grid_ptr)[i][j]->isPressed(position) && (*grid_ptr)[i][j]->isBeChecker()) {
+			else if ((*grid_ptr)[i][j]->isPressed(position) && (*grid_ptr)[i][j]->isBeChecker() && !(*grid_ptr)[i][j]->getChecker()->is_move()) {
 				// Снимаем выделение с прошлой шашки
 				(*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->update_texture(assets->getTexture("checker1"), false);
 				// Выделяем шашку  текущию
@@ -77,11 +77,14 @@ void GameBoardController::update_input(sf::Vector2f position)
 				
 				break;
 			}
-			else if ((*grid_ptr)[i][j]->isPressed(position) && (*grid_ptr)[i][j]->isBeChecker() == false) {
+			else if ((*grid_ptr)[i][j]->isPressed(position) && (*grid_ptr)[i][j]->isBeChecker() == false ) {
 				coordinate_end.first = i;
 				coordinate_end.second = j;
 				// Снимаем выделение с шашки
-				(*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->update_texture(assets->getTexture("checker1"), false);
+				if ((*grid_ptr)[coordinate_start.first][coordinate_start.second]->isBeChecker() && !(*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->is_move()) {
+					(*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->update_texture(assets->getTexture("checker1"), false);
+				}
+				
 				if (pressed_checker&&current_player!=previous_player) {
 					vector<CaptureMove> cor = check_grid(current_player);
 					(*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->update_texture(assets->getTexture("checker1"), false);
@@ -269,7 +272,8 @@ bool GameBoardController::is_move_checker(ColorChecker color_checker)
 void GameBoardController::move_checker(int speed)
 {
 	int_grid[coordinate_start.first][coordinate_start.second] = 0;
-	
+	std::cout << "Cor"<<coordinate_end.first << " " << coordinate_end.second << std::endl;
+	changing_checkers(current_player, coordinate_end);
 	// Получаем владение от исходной ячейки
 	auto checker = (*grid_ptr)[coordinate_start.first][coordinate_start.second]->releaseChecker();
 	if (checker->getColorChecker() == ColorChecker::Black) {
@@ -326,10 +330,18 @@ void GameBoardController::update_GameState()
 	//return CheckersResult::CONTINUE;
 }
 
-void GameBoardController::changing_checkers()
+void GameBoardController::changing_checkers(ColorChecker current_player, const std::pair<int, int>& coordinate_end)
 {
+	if (coordinate_end.second == 0 ) {
+
+		//int_grid[coordinate_end.first][coordinate_end.second]
+			std::cout << "KK" << std::endl;
+	}
+	if (coordinate_end.second == 7) {
+		std::cout << "ZZ" << std::endl;
+	}
 	
-		
+	
 	
 }
 
