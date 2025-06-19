@@ -36,8 +36,8 @@ void Engine::run()
     GameBoardController game_board_controller(&game_board.grid,&assets);
     sf::Clock clock;
     MainMenu main_menu({ 0,0 }, HEIGHT_WINDOW, WIDTH_WINDOW, assets.getFont("arial"), &game_controller);
-    Info info({ 1100,0 }, assets.getFont("arial"));
-    End end({ HEIGHT_WINDOW/2,WIDTH_WINDOW / 2 }, assets.getFont("arial"));
+    Info info({ 1100,0 }, assets.getFont("arial"), &game_controller);
+    End end({ 100,100 }, assets.getFont("arial"));
     //TextLabel label({ 100,100 }, assets.getFont("arial"), "Hello");
    // sf::Text text(assets.getFont("arial"),"hello");
     game_board.grid[0][5]->getChecker()->becoming_queen(assets.getTexture("queen"));
@@ -67,13 +67,12 @@ void Engine::run()
                 window->close();
             }
             
+
         }
         window->clear(sf::Color::Black);
         if (current_state == GameState::Init) {
-          // label.draw(window.get());
             main_menu.draw(window.get());
 
-            //game_controller.setGameState(GameState::End);
         }
         else if (current_state == GameState::End) {
             end.draw(window.get());
@@ -88,7 +87,6 @@ void Engine::run()
                info.update_info(L"Зеленые");
             }
             
-            game_controller.setGameState(GameState::Play);
             game_board.draw(window.get(), time);
             info.draw(window.get());
         }

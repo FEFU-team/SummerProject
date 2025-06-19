@@ -4,8 +4,9 @@
 #include <UI/Buttons/TextButton.h>
 #include <UI/SizeBox.h>
 #include <iostream>
-Info::Info(sf::Vector2f position, sf::Font* font)
+Info::Info(sf::Vector2f position, sf::Font* font, GameController* game_controller)
 {
+	this->game_controller = game_controller;
 	SizeBox size_box(position, { 100,100 });
 	widgets.push_back(
 		std::make_unique<TextLabel>(position,font,L"Состояние игры", sf::Color::White));
@@ -26,7 +27,8 @@ Info::Info(sf::Vector2f position, sf::Font* font)
 void Info::update_input(sf::Vector2f mouse_position)
 {
 	if (dynamic_cast<TextButton*>(widgets[3].get())->isPressed(mouse_position)) {
-		std::cout << "FAll" << std::endl;
+		game_controller->setGameState(GameState::End);
+		std::cout << "Exit" << std::endl;
 	}
 }
 

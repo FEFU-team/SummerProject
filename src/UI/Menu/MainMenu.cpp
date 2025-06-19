@@ -43,7 +43,7 @@ void MainMenu::update_input(sf::Vector2f mouse_position) {
 
 	}
 	else if(widgets[2]->getBounds().contains(mouse_position)) {
-		(*game_controller_ptr).setGameState(GameState::End);
+		(*game_controller_ptr).setGameState(GameState::Close);
 		std::cout << "Exit" << std::endl;
 	}
 	
