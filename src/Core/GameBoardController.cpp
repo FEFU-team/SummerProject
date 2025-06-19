@@ -88,12 +88,10 @@ void GameBoardController::update_input(sf::Vector2f position)
 				if (pressed_checker && current_player != previous_player) {
 					vector<CaptureMove> cor = check_grid(current_player);
 					(*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->update_texture(assets->getTexture("checker1"), false);
-					update_GameState();
-					//cout << cor.coordinate_take.first << endl;
-					//cout << cor.coordinate_take.second << endl;
-					if ((is_move_checker(current_player)) && (cor.size() == 0)) {
+					//update_GameState();
+					if ((cor.size() == 0) && (is_move_checker(current_player)) ) {
+						show_player =previous_player;
 						move_checker();
-						cout << "S" << endl;
 						previous_player = current_player;
 
 					}
@@ -101,13 +99,17 @@ void GameBoardController::update_input(sf::Vector2f position)
 						for (int i = 0; i < cor.size(); i++) {
 							if (cor[i].coordinate_start == coordinate_start && cor[i].coordinate_end == coordinate_end) {
 								move_checker();
-								cout << "D" << endl;
 								int_grid[cor[i].coordinate_take.first][cor[i].coordinate_take.second] = 0;
 								destroy_figure(cor[i].coordinate_take);
 								if (check_grid(current_player).size() == 0) {
+									show_player = previous_player;
 									previous_player = current_player;
 									//(*grid_ptr)[i][j]->getChecker()->update_texture(assets->getTexture("checker1"), false);
 								}
+								else {
+									show_player = current_player;
+								}
+								
 							}
 							else {
 
@@ -176,33 +178,21 @@ vector<CaptureMove> GameBoardController::check_grid(ColorChecker current_player)
 					}
 				}
 				else {
-					for (int k = 1; k <= 7; k++) {
-						if (int_grid[i][j] == 3 && i + (k + 1) < int_grid.size() && j + (k + 1) < int_grid.size() && int_grid[i + k][j + k] == 2 && int_grid[i + (k + 1)][j + (k + 1)] == 0) {
-							coordinate_elem.coordinate_start = { i,j };
-							coordinate_elem.coordinate_end = { i + (k + 1),j + (k + 1) };
-							coordinate_elem.coordinate_take = { i + k,j + k };
-							coordinate.push_back(coordinate_elem);
+					for (int k = 1; i < 7; i++) {
+						if (coordinate_start.first + k == coordinate_end.first && coordinate_start.second + k == coordinate_end.second) {
+							
 						}
-						if (int_grid[i][j] == 3 && i + (k+1) < int_grid.size() && j - (k + 1) >= 0 && int_grid[i + k][j - k] == 2 && int_grid[i + (k + 1)][j - (k + 1)] == 0) {
-							coordinate_elem.coordinate_start = { i,j };
-							coordinate_elem.coordinate_end = { i + (k + 1),j - (k + 1) };
-							coordinate_elem.coordinate_take = { i + k,j - k };
-							coordinate.push_back(coordinate_elem);
+						if (coordinate_start.first - k == coordinate_end.first && coordinate_start.second + k == coordinate_end.second) {
+							
 						}
-						if (int_grid[i][j] == 3 && j + (k + 1) < int_grid.size() && i - (k + 1) >= 0 && int_grid[i - k][j + k] == 2 && int_grid[i - (k + 1)][j + (k + 1)] == 0) {
-							coordinate_elem.coordinate_start = { i,j };
-							coordinate_elem.coordinate_end = { i - (k + 1) ,j + (k + 1) };
-							coordinate_elem.coordinate_take = { i - k,j + k };
-							coordinate.push_back(coordinate_elem);
+						if (coordinate_start.first -k == coordinate_end.first && coordinate_start.second - k == coordinate_end.second) {
+							
 						}
-						if (int_grid[i][j] == 3 && i - (k + 1) >= 0 && j - (k + 1) >= 0 && int_grid[i - k][j - k] == 2 && int_grid[i - (k + 1)][j - (k + 1)] == 0) {
-							coordinate_elem.coordinate_start = { i,j };
-							coordinate_elem.coordinate_end = { i - (k + 1) ,j - (k + 1) };
-							coordinate_elem.coordinate_take = { i - k,j - k };
-							coordinate.push_back(coordinate_elem);
+						if (coordinate_start.first + i == coordinate_end.first && coordinate_start.second - i == coordinate_end.second) {
+							
 						}
-
 					}
+					
 				}
 				
 				
@@ -325,15 +315,14 @@ void GameBoardController::move_checker(int speed)
 	// Получаем владение от исходной ячейки
 	auto checker = (*grid_ptr)[coordinate_start.first][coordinate_start.second]->releaseChecker();
 	if (checker->getColorChecker() == ColorChecker::Black && !checker->is_queen()) {
-		show_player = ColorChecker::White;
+		
 		int_grid[coordinate_end.first][coordinate_end.second] = 2;
 	}
 	else if (checker->getColorChecker() == ColorChecker::Black && checker->is_queen()) {
 		int_grid[coordinate_end.first][coordinate_end.second] = 4;
-		show_player = ColorChecker::White;
 	}
 	else {
-		show_player = ColorChecker::Black;
+		
 		if (checker->is_queen()) {
 			int_grid[coordinate_end.first][coordinate_end.second] = 3;
 		}
