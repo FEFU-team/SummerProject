@@ -85,48 +85,46 @@ void GameBoardController::update_input(sf::Vector2f position)
 					(*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->update_texture(assets->getTexture("checker1"), false);
 				}
 				
-				if (pressed_checker&&current_player!=previous_player) {
+				if (pressed_checker && current_player != previous_player) {
 					vector<CaptureMove> cor = check_grid(current_player);
 					(*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->update_texture(assets->getTexture("checker1"), false);
 					update_GameState();
 					//cout << cor.coordinate_take.first << endl;
 					//cout << cor.coordinate_take.second << endl;
-					if ((is_move_checker(current_player)) &&(cor.size() == 0)) {
+					if ((is_move_checker(current_player)) && (cor.size() == 0)) {
 						move_checker();
-						//changing_checkers();
 						cout << "S" << endl;
 						previous_player = current_player;
-						
+
 					}
 					else {
 						for (int i = 0; i < cor.size(); i++) {
 							if (cor[i].coordinate_start == coordinate_start && cor[i].coordinate_end == coordinate_end) {
 								move_checker();
-								//changing_checkers();
 								cout << "D" << endl;
 								int_grid[cor[i].coordinate_take.first][cor[i].coordinate_take.second] = 0;
 								destroy_figure(cor[i].coordinate_take);
 								if (check_grid(current_player).size() == 0) {
 									previous_player = current_player;
-									//(*grid_ptr)[i][j]->getChecker()->update_texture(assets->getTexture("checker1"), false);
+									
 								}
 							}
 							else {
 
 							}
 						}
-						
-						
+
+
 					}
 
 
 				}
 				pressed_checker = false;
-				
+
 				break;
 			}
-			else{
-				
+			else {
+
 			}
 		}
 	}
@@ -148,7 +146,7 @@ vector<CaptureMove> GameBoardController::check_grid(ColorChecker current_player)
 	vector<CaptureMove> coordinate;
 	CaptureMove coordinate_elem;
 	if (int_grid[coordinate_start.first][coordinate_start.second] == 1 || int_grid[coordinate_start.first][coordinate_start.second] == 3) {
-		
+
 		if (int_grid[coordinate_start.first][coordinate_start.second] == 1) {
 			for (int i = 0; i < int_grid.size(); i++) {
 				for (int j = 0; j < int_grid.size(); j++) {
@@ -185,7 +183,12 @@ vector<CaptureMove> GameBoardController::check_grid(ColorChecker current_player)
 			for (int i = 0; i < int_grid.size(); i++) {
 				for (int j = 0; j < int_grid.size(); j++) {
 					for (int k = 1; k <= 7; k++) {
-						
+						if (int_grid[i][j] == 3 && i + (k + 1) < int_grid.size() && j + (k+1) < int_grid.size() && int_grid[i + k][j + k] == 2 && int_grid[i + (k+1)][j + (k+1)] == 0) {
+							coordinate_elem.coordinate_start = { i,j };
+							coordinate_elem.coordinate_end = { i + (k+1),j + (k+1)};
+							coordinate_elem.coordinate_take = { i + k,j + k };
+							coordinate.push_back(coordinate_elem);
+						}
 					}
 					/*
 					
