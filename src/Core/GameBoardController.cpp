@@ -93,7 +93,7 @@ void GameBoardController::update_input(sf::Vector2f position)
 					//cout << cor.coordinate_take.second << endl;
 					if ((is_move_checker(current_player)) && (cor.size() == 0)) {
 						move_checker();
-						cout << "S" << endl;
+						show_player = previous_player;
 						previous_player = current_player;
 
 					}
@@ -101,16 +101,18 @@ void GameBoardController::update_input(sf::Vector2f position)
 						for (int i = 0; i < cor.size(); i++) {
 							if (cor[i].coordinate_start == coordinate_start && cor[i].coordinate_end == coordinate_end) {
 								move_checker();
-								cout << "D" << endl;
 								int_grid[cor[i].coordinate_take.first][cor[i].coordinate_take.second] = 0;
 								destroy_figure(cor[i].coordinate_take);
 								if (check_grid(current_player).size() == 0) {
+									show_player = previous_player;
 									previous_player = current_player;
-									//(*grid_ptr)[i][j]->getChecker()->update_texture(assets->getTexture("checker1"), false);
+								}
+								else {
+									show_player = current_player;
 								}
 							}
 							else {
-
+								
 							}
 						}
 
@@ -327,15 +329,12 @@ void GameBoardController::move_checker(int speed)
 	// Получаем владение от исходной ячейки
 	auto checker = (*grid_ptr)[coordinate_start.first][coordinate_start.second]->releaseChecker();
 	if (checker->getColorChecker() == ColorChecker::Black && !checker->is_queen()) {
-		show_player = ColorChecker::White;
 		int_grid[coordinate_end.first][coordinate_end.second] = 2;
 	}
 	else if (checker->getColorChecker() == ColorChecker::Black && checker->is_queen()) {
 		int_grid[coordinate_end.first][coordinate_end.second] = 4;
-		show_player = ColorChecker::White;
 	}
 	else {
-		show_player = ColorChecker::Black;
 		if (checker->is_queen()) {
 			int_grid[coordinate_end.first][coordinate_end.second] = 3;
 		}
