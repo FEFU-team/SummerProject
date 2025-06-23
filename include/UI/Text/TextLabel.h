@@ -16,6 +16,7 @@ public:
 	TextLabel(sf::Vector2f position, const sf::Font* font, sf::String text_str, Orientation orientation = Orientation::Normal);
 	TextLabel(sf::Vector2f position, const sf::Font* font, sf::String text_str, sf::Color text_color, Orientation orientation = Orientation::Normal);
 	TextLabel(sf::Vector2f position, const sf::Font* font, sf::String text_str, sf::Color text_color, Orientation orientation, sf::Vector2f center,int size =30);
+	TextLabel(sf::Vector2f position, const sf::Font* font, sf::String text_str, sf::Color text_color, Orientation orientation,int size = 30);
 		// Задаем центр относительно центра другого обьекта
 	void setCenter(sf::Vector2f center);
 	void setText(sf::String text);

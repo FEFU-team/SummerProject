@@ -20,6 +20,8 @@ public:
 	void run();
 	//Завершение
 	void end();
+	// Перезапуск 
+	void restart();
 	Engine();
 	~Engine();
 

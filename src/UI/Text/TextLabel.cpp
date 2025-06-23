@@ -1,6 +1,7 @@
 
 #include <UI/Text/TextLabel.h>
 #include <iostream>
+#include <UI/SizeBox.h>
 
 TextLabel::TextLabel(sf::Vector2f position, const sf::Font* font, sf::String text_str, Orientation orientation) :text(*font ,text_str)
 {
@@ -24,6 +25,14 @@ TextLabel::TextLabel(sf::Vector2f position, const sf::Font* font, sf::String tex
 	this->position = position;
 	text.setFillColor(text_color);
 	setCenter(center);
+}
+
+TextLabel::TextLabel(sf::Vector2f position, const sf::Font* font, sf::String text_str, sf::Color text_color, Orientation orientation, int size) :text(*font, text_str, size)
+{
+	SizeBox size_box(position);
+	this->position = position;
+	text.setFillColor(text_color);
+	setCenter(size_box.getCenter());
 }
 
 void TextLabel::setCenter(sf::Vector2f center)
