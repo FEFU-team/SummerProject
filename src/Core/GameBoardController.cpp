@@ -225,7 +225,7 @@ vector<CaptureMove> GameBoardController::check_grid(std::pair<int, int> coordina
 							}
 							if (i - k-1 >= 0 && j + k+1 < int_grid.size() && int_grid[i - k][j + k] == 2) {
 		
-								for (int l = 1; i + k - l >= 0 && j + k + l < int_grid.size(); l++) {
+								for (int l = 1; i - k - l >= 0 && j + k + l < int_grid.size(); l++) {
 									if (int_grid[i - k - l][j + k + l] == 0) {
 										coordinate_elem.coordinate_start = { i,j };
 										coordinate_elem.coordinate_end = { i - k - l,j + k + l };
