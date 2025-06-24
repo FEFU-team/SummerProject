@@ -280,31 +280,32 @@ vector<CaptureMove> GameBoardController::check_grid(std::pair<int, int> coordina
 	else {
 		for (int i = 0; i < int_grid.size(); i++) {
 			for (int j = 0; j < int_grid.size(); j++) {
-				if (int_grid[coordinate_start.first][coordinate_start.second] == 1 || int_grid[coordinate_start.first][coordinate_start.second] == 2) {
-					if (int_grid[i][j] == 2 && i + 2 < int_grid.size() && j + 2 < int_grid.size() && (int_grid[i + 1][j + 1] == 1 || int_grid[i + 1][j + 1] == 3) && int_grid[i + 2][j + 2] == 0) {
-						coordinate_elem.coordinate_start = { i,j };
-						coordinate_elem.coordinate_end = { i + 2,j + 2 };
-						coordinate_elem.coordinate_take = { i + 1,j + 1 };
-						coordinate.push_back(coordinate_elem);
-					}
-					if (int_grid[i][j] == 2 && j + 2 < int_grid.size() && i - 2 >= 0 && (int_grid[i - 1][j + 1] == 1 || int_grid[i - 1][j + 1] == 3) && int_grid[i - 2][j + 2] == 0) {
-						coordinate_elem.coordinate_start = { i,j };
-						coordinate_elem.coordinate_end = { i - 2 ,j + 2 };
-						coordinate_elem.coordinate_take = { i - 1,j + 1 };
-						coordinate.push_back(coordinate_elem);
-					}
-
-					if (int_grid[i][j] == 2 && i - 2 >= 0 && j - 2 >= 0 && (int_grid[i - 1][j - 1] == 1 || int_grid[i - 1][j - 1] == 3) && int_grid[i - 2][j - 2] == 0) {
-						coordinate_elem.coordinate_start = { i,j };
-						coordinate_elem.coordinate_end = { i - 2,j - 2 };
-						coordinate_elem.coordinate_take = { i - 1,j - 1 };
-						coordinate.push_back(coordinate_elem);
-					}
-					if (int_grid[i][j] == 2 && i + 2 < int_grid.size() && j - 2 >= 0 && (int_grid[i + 1][j - 1] == 1 || int_grid[i + 1][j - 1] == 3) && int_grid[i + 2][j - 2] == 0) {
-						coordinate_elem.coordinate_start = { i,j };
-						coordinate_elem.coordinate_end = { i + 2,j - 2 };
-						coordinate_elem.coordinate_take = { i + 1,j - 1 };
-						coordinate.push_back(coordinate_elem);
+				if (int_grid[coordinate_start.first][coordinate_start.second] == 2 || int_grid[coordinate_start.first][coordinate_start.second] == 4) {
+					if (int_grid[i][j] == 2) {
+						if (i + 2 < int_grid.size() && j + 2 < int_grid.size() && (int_grid[i + 1][j + 1] == 1 || int_grid[i + 1][j + 1] == 3) && int_grid[i + 2][j + 2] == 0) {
+							coordinate_elem.coordinate_start = { i,j };
+							coordinate_elem.coordinate_end = { i + 2,j + 2 };
+							coordinate_elem.coordinate_take = { i + 1,j + 1 };
+							coordinate.push_back(coordinate_elem);
+						}
+						if (j + 2 < int_grid.size() && i - 2 >= 0 && (int_grid[i - 1][j + 1] == 1 || int_grid[i - 1][j + 1] == 3) && int_grid[i - 2][j + 2] == 0) {
+							coordinate_elem.coordinate_start = { i,j };
+							coordinate_elem.coordinate_end = { i - 2 ,j + 2 };
+							coordinate_elem.coordinate_take = { i - 1,j + 1 };
+							coordinate.push_back(coordinate_elem);
+						}
+						if (i - 2 >= 0 && j - 2 >= 0 && (int_grid[i - 1][j - 1] == 1 || int_grid[i - 1][j - 1] == 3) && int_grid[i - 2][j - 2] == 0) {
+							coordinate_elem.coordinate_start = { i,j };
+							coordinate_elem.coordinate_end = { i - 2,j - 2 };
+							coordinate_elem.coordinate_take = { i - 1,j - 1 };
+							coordinate.push_back(coordinate_elem);
+						}
+						if (i + 2 < int_grid.size() && j - 2 >= 0 && (int_grid[i + 1][j - 1] == 1 || int_grid[i + 1][j - 1] == 3) && int_grid[i + 2][j - 2] == 0) {
+							coordinate_elem.coordinate_start = { i,j };
+							coordinate_elem.coordinate_end = { i + 2,j - 2 };
+							coordinate_elem.coordinate_take = { i + 1,j - 1 };
+							coordinate.push_back(coordinate_elem);
+						}
 					}
 					else {
 						// Проверка взятие дамки
