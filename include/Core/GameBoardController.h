@@ -12,7 +12,7 @@ enum CheckersResult {
 	PAT,
 	CONTINUE
 };
-
+// Структура для хранения координат
 struct CaptureMove
 {
 	// Координаты выбора фигуры 
@@ -39,10 +39,14 @@ private:
 	AssetManager* assets;
 	// Цвет текущего игрока
 	ColorChecker current_player;
+	// Цвет предыдущего игрока 
 	ColorChecker previous_player = ColorChecker::Black;
+	// Цвет который показывается в интейфесе 
 	ColorChecker show_player= ColorChecker::White;
 	// Уничтожение фигуры
 	void destroy_figure(std::pair<int, int>coordinate);
+	// Функция проверки возможности взятия
+	// Возращает структуру CaptureMove
 	std::vector<CaptureMove>  check_grid( std::pair<int, int> coordinate_start);
 	// Указатель на игровое поле
 	std::vector<std::vector<std::unique_ptr<Cell>>>* grid_ptr;
