@@ -40,8 +40,8 @@ void Engine::run()
     End end({ HEIGHT_WINDOW/2,WIDTH_WINDOW/2 }, assets.getFont("arial"),L"Победили", &game_controller);
 
 
-    game_board.grid[0][5]->getChecker()->becoming_queen(assets.getTexture("queen"));
-
+    game_board.grid[2][5]->getChecker()->becoming_queen(assets.getTexture("queen"));
+    game_board_controller.int_grid[2][5] = 3;
     while (window->isOpen())
     {
         GameState  current_state = game_controller.getGameState();
@@ -100,6 +100,9 @@ void Engine::run()
             game_board_controller.reset();
             cout << "Restart" << endl;
             game_controller.setGameState(GameState::Play);
+        }
+        else if (current_state == GameState::Close) {
+            window->close();
         }
         window->display();
 

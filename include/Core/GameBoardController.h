@@ -12,7 +12,7 @@ enum CheckersResult {
 	PAT,
 	CONTINUE
 };
-
+// Структура для хранения координат
 struct CaptureMove
 {
 	// Координаты выбора фигуры 
@@ -33,16 +33,21 @@ public:
 	ColorChecker getCurrentPlayer();
 	// Функция  перезапуска контроллера 
 	void reset();
+	std::vector<std::vector<int>> int_grid;
 private:
 	// Указатель на менеджер пакетов
 	AssetManager* assets;
 	// Цвет текущего игрока
 	ColorChecker current_player;
+	// Цвет предыдущего игрока 
 	ColorChecker previous_player = ColorChecker::Black;
+	// Цвет который показывается в интейфесе 
 	ColorChecker show_player= ColorChecker::White;
 	// Уничтожение фигуры
 	void destroy_figure(std::pair<int, int>coordinate);
-	std::vector<CaptureMove>  check_grid(ColorChecker current_player);
+	// Функция проверки возможности взятия
+	// Возращает структуру CaptureMove
+	std::vector<CaptureMove>  check_grid( std::pair<int, int> coordinate_start);
 	// Указатель на игровое поле
 	std::vector<std::vector<std::unique_ptr<Cell>>>* grid_ptr;
 	// Координаты выбора шашки
@@ -51,15 +56,15 @@ private:
 	std::pair<int, int> coordinate_end;
 	// Нажата ли шашка
 	bool pressed_checker = false;
-	std::vector<std::vector<int>> int_grid;
+	
 	//Возможно ли так походить
-	bool is_move_checker(ColorChecker color_checker);
+	bool is_move_checker(const std::pair<int, int> &coordinate_start,  const std::pair<int, int> &coordinate_end);
 	// Функция хода шашки из координат начала в координаты конца
 	void move_checker( int speed = 30);
 	// Проверка конца игры
-	void update_GameState();
+	void update_GameState(ColorChecker current_player);
 	CheckersResult gameBoardState = CONTINUE;
-	// Переход от шашки к дамке
+	// Переход от шашки к дамке 
 	void changing_checkers(ColorChecker current_player, const std::pair<int, int>& coordinate_end);
 	
 };
