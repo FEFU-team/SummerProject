@@ -44,11 +44,10 @@ void GameBoardController::update_input(sf::Vector2f position)
 {
 	for (int i = 0; i < grid_ptr->size(); i++) {
 		for (int j= 0; j < grid_ptr->size(); j++) {
-			
 			if ((*grid_ptr)[i][j]->isPressed(position) && (*grid_ptr)[i][j]->isBeChecker() && pressed_checker == false && !(*grid_ptr)[i][j]->getChecker()->is_move()) {
+				current_player = (*grid_ptr)[i][j]->getChecker()->getColorChecker();
 				coordinate_start.first = i;
 				coordinate_start.second = j;
-				current_player = (*grid_ptr)[i][j]->getChecker()->getColorChecker();
 				// Отработка двойного нажатия
 				if ((*grid_ptr)[i][j]->isBeChecker()) {  
 					if ((*grid_ptr)[i][j]->getChecker()->is_active()) {
@@ -76,6 +75,7 @@ void GameBoardController::update_input(sf::Vector2f position)
 				
 			}
 			else if ((*grid_ptr)[i][j]->isPressed(position) && (*grid_ptr)[i][j]->isBeChecker() && !(*grid_ptr)[i][j]->getChecker()->is_move()) {
+				current_player = (*grid_ptr)[i][j]->getChecker()->getColorChecker();
 				// Снимаем выделение с прошлой шашки
 				if ((*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->is_queen()) {
 					(*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->update_texture(assets->getTexture("queen"), false);
@@ -84,7 +84,7 @@ void GameBoardController::update_input(sf::Vector2f position)
 					(*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->update_texture(assets->getTexture("checker1"), false);
 				}
 				
-				// Выделяем шашку  текущию
+				// Выделяем шашку  текущею
 				if ((*grid_ptr)[i][j]->getChecker()->is_queen()) {
 					(*grid_ptr)[i][j]->getChecker()->update_texture(assets->getTexture("queen_active"), true);
 				}
@@ -94,9 +94,6 @@ void GameBoardController::update_input(sf::Vector2f position)
 				
 				coordinate_start.first = i;
 				coordinate_start.second = j;
-				if (current_player != (*grid_ptr)[i][j]->getChecker()->getColorChecker()) {
-					current_player = (*grid_ptr)[i][j]->getChecker()->getColorChecker();
-				}
 				
 				break;
 			}
@@ -128,7 +125,7 @@ void GameBoardController::update_input(sf::Vector2f position)
 						move_checker();
 						show_player = previous_player;
 						previous_player = current_player;
-
+						
 					}
 					else {
 						for (int i = 0; i < cor.size(); i++) {
@@ -139,9 +136,6 @@ void GameBoardController::update_input(sf::Vector2f position)
 								if (check_grid(coordinate_start).size() == 0) {
 									show_player = previous_player;
 									previous_player = current_player;
-								}
-								else {
-									show_player = current_player;
 								}
 							}
 							else {
@@ -158,9 +152,7 @@ void GameBoardController::update_input(sf::Vector2f position)
 
 				break;
 			}
-			else {
-
-			}
+		
 		}
 	}
 }
