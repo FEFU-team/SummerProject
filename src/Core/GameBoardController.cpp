@@ -210,7 +210,7 @@ vector<CaptureMove> GameBoardController::check_grid(std::pair<int, int> coordina
 				else {
 					for (int k = 1; k <= 7; k++) {
 						if (int_grid[i][j] == 3) {
-							if (i + k+1 < int_grid.size() && j + k+1 < int_grid.size() && int_grid[i + k][j + k] == 2) {
+							if (i + k+1 < int_grid.size() && j + k+1 < int_grid.size() && (int_grid[i + k][j + k] == 2 || int_grid[i + k][j + k] == 4)) {
 								for (int l = 1; i + k + l < int_grid.size() && j + k + l < int_grid.size(); l++) {
 									if (int_grid[i + k + 1][j + k + l] == 0) {
 										coordinate_elem.coordinate_start = { i,j };
@@ -266,37 +266,6 @@ vector<CaptureMove> GameBoardController::check_grid(std::pair<int, int> coordina
 						}
 						
 					}
-				
-
-					/*
-					for (int k = 1; k <= 7; k++) {
-						if (int_grid[i][j] == 3 && i + (k + 1) < int_grid.size() && j + (k + 1) < int_grid.size() && int_grid[i + k][j + k] == 2 && int_grid[i + (k + 1)][j + (k + 1)] == 0) {
-							coordinate_elem.coordinate_start = { i,j };
-							coordinate_elem.coordinate_end = { i + (k + 1),j + (k + 1) };
-							coordinate_elem.coordinate_take = { i + k,j + k };
-							coordinate.push_back(coordinate_elem);
-						}
-						if (int_grid[i][j] == 3 && i + (k+1) < int_grid.size() && j - (k + 1) >= 0 && int_grid[i + k][j - k] == 2 && int_grid[i + (k + 1)][j - (k + 1)] == 0) {
-							coordinate_elem.coordinate_start = { i,j };
-							coordinate_elem.coordinate_end = { i + (k + 1),j - (k + 1) };
-							coordinate_elem.coordinate_take = { i + k,j - k };
-							coordinate.push_back(coordinate_elem);
-						}
-						if (int_grid[i][j] == 3 && j + (k + 1) < int_grid.size() && i - (k + 1) >= 0 && int_grid[i - k][j + k] == 2 && int_grid[i - (k + 1)][j + (k + 1)] == 0) {
-							coordinate_elem.coordinate_start = { i,j };
-							coordinate_elem.coordinate_end = { i - (k + 1) ,j + (k + 1) };
-							coordinate_elem.coordinate_take = { i - k,j + k };
-							coordinate.push_back(coordinate_elem);
-						}
-						if (int_grid[i][j] == 3 && i - (k + 1) >= 0 && j - (k + 1) >= 0 && int_grid[i - k][j - k] == 2 && int_grid[i - (k + 1)][j - (k + 1)] == 0) {
-							coordinate_elem.coordinate_start = { i,j };
-							coordinate_elem.coordinate_end = { i - (k + 1) ,j - (k + 1) };
-							coordinate_elem.coordinate_take = { i - k,j - k };
-							coordinate.push_back(coordinate_elem);
-						}
-
-					}
-					*/
 				
 				}
 				
