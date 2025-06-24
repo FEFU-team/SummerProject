@@ -133,7 +133,7 @@ void GameBoardController::update_input(sf::Vector2f position)
 								move_checker();
 								int_grid[cor[i].coordinate_take.first][cor[i].coordinate_take.second] = 0;
 								destroy_figure(cor[i].coordinate_take);
-								if (check_grid(coordinate_start).size() == 0) {
+								if (check_grid(coordinate_end).size() == 0) {
 									show_player = previous_player;
 									previous_player = current_player;
 								}
