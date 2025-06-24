@@ -37,10 +37,11 @@ void Engine::run()
     sf::Clock clock;
     MainMenu main_menu({ 0,0 }, HEIGHT_WINDOW, WIDTH_WINDOW, assets.getFont("arial"), &game_controller);
     Info info({ 1100,0 }, assets.getFont("arial"), &game_controller);
-    End end({ 100,100 }, assets.getFont("arial"));
-    //TextLabel label({ 100,100 }, assets.getFont("arial"), "Hello");
-   // sf::Text text(assets.getFont("arial"),"hello");
+    End end({ HEIGHT_WINDOW/2,WIDTH_WINDOW/2 }, assets.getFont("arial"),L"Победили", &game_controller);
+
+
     game_board.grid[0][5]->getChecker()->becoming_queen(assets.getTexture("queen"));
+
     while (window->isOpen())
     {
         GameState  current_state = game_controller.getGameState();
@@ -60,7 +61,10 @@ void Engine::run()
                 else if(current_state == GameState::Play) {
                     info.update_input(mouse_position_f);
                     game_board_controller.update_input(mouse_position_f);
-                }  
+                }
+                else if (current_state == GameState::End) {
+                    end.update_input(mouse_position_f);
+                }
             }
             if (event->is<sf::Event::Closed>())
             {
@@ -71,6 +75,7 @@ void Engine::run()
         }
         window->clear(sf::Color::Black);
         if (current_state == GameState::Init) {
+            
             main_menu.draw(window.get());
 
         }
@@ -90,8 +95,11 @@ void Engine::run()
             game_board.draw(window.get(), time);
             info.draw(window.get());
         }
-        else {
-            window->close();
+        else if (current_state == GameState::Restart) {
+            game_board.reset();
+            game_board_controller.reset();
+            cout << "Restart" << endl;
+            game_controller.setGameState(GameState::Play);
         }
         window->display();
 
@@ -104,6 +112,8 @@ void Engine::end()
 {
 	
 }
+
+
 
 Engine::Engine()
 {

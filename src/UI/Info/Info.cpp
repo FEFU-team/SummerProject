@@ -17,7 +17,7 @@ Info::Info(sf::Vector2f position, sf::Font* font, GameController* game_controlle
 	widgets.push_back(
 		std::make_unique<TextButton>(
 			sf::Vector2f(position.x+600, position.y),
-			L"Сдаться", font, 60, sf::Vector2f(100, 100),
+			L"Сдаться", font, 30, sf::Vector2f(100, 100),
 			sf::Color::Black,
 			sf::Color::White));
 	widgets.push_back(

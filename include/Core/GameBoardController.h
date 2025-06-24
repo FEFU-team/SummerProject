@@ -31,6 +31,8 @@ public:
 	GameBoardController(std::vector<std::vector<std::unique_ptr<Cell>>>* grid, AssetManager* assets);
 	void update_input(sf::Vector2f position);
 	ColorChecker getCurrentPlayer();
+	// Функция  перезапуска контроллера 
+	void reset();
 private:
 	// Указатель на менеджер пакетов
 	AssetManager* assets;
