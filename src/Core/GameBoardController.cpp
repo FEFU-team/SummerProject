@@ -52,12 +52,23 @@ void GameBoardController::update_input(sf::Vector2f position)
 				// Отработка двойного нажатия
 				if ((*grid_ptr)[i][j]->isBeChecker()) {  
 					if ((*grid_ptr)[i][j]->getChecker()->is_active()) {
-
-						(*grid_ptr)[i][j]->getChecker()->update_texture(assets->getTexture("checker1"), false);
+						if ((*grid_ptr)[i][j]->getChecker()->is_queen()) {
+							(*grid_ptr)[i][j]->getChecker()->update_texture(assets->getTexture("queen"), false);
+						}
+						else {
+							(*grid_ptr)[i][j]->getChecker()->update_texture(assets->getTexture("checker1"), false);
+						}
+						
 						pressed_checker = false;
 					}
 					else {
-						(*grid_ptr)[i][j]->getChecker()->update_texture(assets->getTexture("checker_active"), true);
+						if ((*grid_ptr)[i][j]->getChecker()->is_queen()) {
+							(*grid_ptr)[i][j]->getChecker()->update_texture(assets->getTexture("queen_active"), true);
+						}
+						else {
+							(*grid_ptr)[i][j]->getChecker()->update_texture(assets->getTexture("checker_active"), true);
+						}
+			
 						pressed_checker = true;
 					}
 				}
@@ -66,9 +77,21 @@ void GameBoardController::update_input(sf::Vector2f position)
 			}
 			else if ((*grid_ptr)[i][j]->isPressed(position) && (*grid_ptr)[i][j]->isBeChecker() && !(*grid_ptr)[i][j]->getChecker()->is_move()) {
 				// Снимаем выделение с прошлой шашки
-				(*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->update_texture(assets->getTexture("checker1"), false);
+				if ((*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->is_queen()) {
+					(*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->update_texture(assets->getTexture("queen"), false);
+				}
+				else {
+					(*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->update_texture(assets->getTexture("checker1"), false);
+				}
+				
 				// Выделяем шашку  текущию
-				(*grid_ptr)[i][j]->getChecker()->update_texture(assets->getTexture("checker_active"), true);
+				if ((*grid_ptr)[i][j]->getChecker()->is_queen()) {
+					(*grid_ptr)[i][j]->getChecker()->update_texture(assets->getTexture("queen_active"), true);
+				}
+				else {
+					(*grid_ptr)[i][j]->getChecker()->update_texture(assets->getTexture("checker_active"), true);
+				}
+				
 				coordinate_start.first = i;
 				coordinate_start.second = j;
 				if (current_player != (*grid_ptr)[i][j]->getChecker()->getColorChecker()) {
@@ -82,12 +105,22 @@ void GameBoardController::update_input(sf::Vector2f position)
 				coordinate_end.second = j;
 				// Снимаем выделение с шашки
 				if ((*grid_ptr)[coordinate_start.first][coordinate_start.second]->isBeChecker() && !(*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->is_move()) {
-					(*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->update_texture(assets->getTexture("checker1"), false);
+					if ((*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->is_queen()) {
+						(*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->update_texture(assets->getTexture("queen"), false);
+					}
+					else {
+						(*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->update_texture(assets->getTexture("checker1"), false);
+					}
 				}
 				
 				if (pressed_checker && current_player != previous_player) {
 					vector<CaptureMove> cor = check_grid(coordinate_start);
-					(*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->update_texture(assets->getTexture("checker1"), false);
+					if ((*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->is_queen()) {
+						(*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->update_texture(assets->getTexture("queen"), false);
+					}
+					else {
+						(*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->update_texture(assets->getTexture("checker1"), false);
+					}
 					//update_GameState();
 					//cout << cor.coordinate_take.first << endl;
 					//cout << cor.coordinate_take.second << endl;// )

@@ -20,7 +20,7 @@ void Engine::init()
     assets.uploadTexture("checker1", "../../../../assets/texture/checkers2.png");
     assets.uploadTexture("checker_active", "../../../../assets/texture/checkers3.jpeg");
     assets.uploadTexture("queen", "../../../../assets/texture/queen.png");
-    assets.uploadTexture("queen_active", "../../../../assets/texture/queen_h.png");
+    assets.uploadTexture("queen_active", "../../../../assets/texture/queen_h2.png");
     window = { std::make_unique<sf::RenderWindow>(sf::RenderWindow(sf::VideoMode({ HEIGHT_WINDOW, WIDTH_WINDOW }),
         L"Шашки FEFU")) };
 	window->setFramerateLimit(144);
