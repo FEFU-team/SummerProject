@@ -14,6 +14,7 @@ public:
 	std::vector<std::vector<std::unique_ptr<Cell>>> grid;
 	// Унаследовано через Widget
 	void setPosition(sf::Vector2f new_position) override;
+	void reset();
 private:
 	// Длина поля
 	const  int HEIGHT = 8;

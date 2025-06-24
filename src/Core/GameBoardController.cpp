@@ -138,6 +138,36 @@ ColorChecker GameBoardController::getCurrentPlayer()
 	return show_player;
 }
 
+void GameBoardController::reset()
+{
+	this->previous_player = ColorChecker::Black;
+	this->show_player = ColorChecker::White;
+	pressed_checker = false;
+	for (int i = 0; i < grid_ptr->size(); i++) {
+		for (int j = 0; j < this->grid_ptr->size(); j++) {
+			if ((*grid_ptr)[i][j]->isBeChecker()) {
+				if ((*grid_ptr)[i][j]->getChecker()->getColorChecker() == ColorChecker::White) {
+					int_grid[i][j] = 1;
+				}
+				else {
+					int_grid[i][j] = 2;
+				}
+
+			}
+			else {
+				int_grid[i][j] = 0;
+			}
+
+		}
+	}
+	for (int i = 0; i < grid_ptr->size(); i++) {
+		for (int j = 0; j < grid_ptr->size(); j++) {
+			std::cout << int_grid[i][j] << " ";
+		}
+		std::cout << "" << std::endl;
+	}
+}
+
 void GameBoardController::destroy_figure(std::pair<int, int> coordinate)
 {
 	(*grid_ptr)[coordinate.first][coordinate.second]->delete_checker();

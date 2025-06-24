@@ -115,3 +115,44 @@ void GameBoard::setPosition(sf::Vector2f new_position)
 {
 	this->position = new_position;
 }
+void GameBoard::reset()
+{
+	int size_h = HEIGHT;
+	int size_w = WIDTH;
+	for (int i = position.x, h = 0; h < size_h; i++, h++) {
+		float posX = (100 + 1) * i;
+		std::vector<std::unique_ptr<Cell>> line;
+		for (int j = position.y, w = 0; w < size_w; j++, w++) {
+			float posY = (100 + 1) * j;
+			if ((h + w) % 2 == 0) {
+				grid[h][w].reset(new Cell(sf::Vector2f(posX, posY), sf::Color::White));
+			}
+			else {
+				grid[h][w].reset(new Cell(sf::Vector2f(posX, posY), sf::Color::Black));
+			}
+			//Расстановка поля
+			if (w < 3) {
+				if ((h + w) % 2 == 0) {
+				}
+				else {
+					// Цвет шашки
+					grid[h][w]->create_figures(sf::Color::Yellow, assets->getTexture("checker1"));
+
+
+				}
+			}
+			if (w > 4) {
+				if ((h + w) % 2 == 1) {
+					// Цвет шашки
+					grid[h][w]->create_figures(sf::Color::Green, assets->getTexture("checker1"));
+
+
+				}
+			}
+
+
+
+		}
+		
+	}
+}

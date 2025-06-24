@@ -96,9 +96,10 @@ void Engine::run()
             info.draw(window.get());
         }
         else if (current_state == GameState::Restart) {
-            restart();
+            game_board.reset();
+            game_board_controller.reset();
             cout << "Restart" << endl;
-            window->close();
+            game_controller.setGameState(GameState::Play);
         }
         window->display();
 
@@ -112,10 +113,7 @@ void Engine::end()
 	
 }
 
-void Engine::restart()
-{
 
-}
 
 Engine::Engine()
 {
