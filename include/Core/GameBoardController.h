@@ -42,7 +42,7 @@ private:
 	// ”казатель на менеджер пакетов
 	AssetManager* assets;
 	// ÷вет текущего игрока
-	ColorChecker current_player;
+	ColorChecker current_player = ColorChecker::Black;
 	// ÷вет предыдущего игрока 
 	ColorChecker previous_player = ColorChecker::Black;
 	// ÷вет который показываетс€ в интерфейсе 
