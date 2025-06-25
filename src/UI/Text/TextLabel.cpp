@@ -5,6 +5,7 @@
 
 TextLabel::TextLabel(sf::Vector2f position, const sf::Font* font, sf::String text_str, Orientation orientation) :text(*font ,text_str)
 {
+	this->orientation = orientation;
 	
 	this->position = position;
 	text.setCharacterSize(30);
@@ -13,6 +14,7 @@ TextLabel::TextLabel(sf::Vector2f position, const sf::Font* font, sf::String tex
 
 TextLabel::TextLabel(sf::Vector2f position, const sf::Font* font, sf::String text_str, sf::Color text_color, Orientation orientation) :text(*font, text_str)
 {
+	this->orientation = orientation;
 	this->position = position;
 	text.setPosition(position);
 	text.setCharacterSize(30);
@@ -22,17 +24,27 @@ TextLabel::TextLabel(sf::Vector2f position, const sf::Font* font, sf::String tex
 
 TextLabel::TextLabel(sf::Vector2f position, const sf::Font* font, sf::String text_str, sf::Color text_color, Orientation orientation, sf::Vector2f center, int size) :text(*font, text_str,size)
 {
+	this->center = center;
+	this->orientation = orientation;
 	this->position = position;
 	text.setFillColor(text_color);
-	setCenter(center);
+	if (orientation == Orientation::Center) {
+		setCenter(center);
+	}
+	
 }
 
 TextLabel::TextLabel(sf::Vector2f position, const sf::Font* font, sf::String text_str, sf::Color text_color, Orientation orientation, int size) :text(*font, text_str, size)
 {
+
+	this->orientation = orientation;
 	SizeBox size_box(position);
 	this->position = position;
 	text.setFillColor(text_color);
-	setCenter(size_box.getCenter());
+	this->center = size_box.getCenter();
+	if (orientation == Orientation::Center) {
+		setCenter(center);
+	}
 }
 
 void TextLabel::setCenter(sf::Vector2f center)
@@ -56,6 +68,10 @@ void TextLabel::setCenter(sf::Vector2f center)
 void TextLabel::setText(sf::String text)
 {
 	this->text.setString(text);
+	if (orientation == Orientation::Center) {
+		setCenter(this->center);
+	}
+	
 }
 
 void TextLabel::setTextSize(int size)

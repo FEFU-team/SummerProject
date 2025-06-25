@@ -27,4 +27,6 @@ public:
 private:
 	sf::FloatRect sizeRect;
 	sf::Text text;
+	Orientation orientation;
+	sf::Vector2f center;
 };

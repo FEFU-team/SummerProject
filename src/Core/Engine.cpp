@@ -68,6 +68,18 @@ void Engine::run()
                         game_controller.setGameState(GameState::End);
 
                     }
+                    else {
+                        if (info.get_lose()) {
+                            
+                            if (game_board_controller.getCurrentPlayer() == ColorChecker::Black) {
+                                end.update_end(CheckersResult::LOSE_BLACK);
+                            }
+                            else {
+                                end.update_end(CheckersResult::LOSE_WHITE);
+                            }
+                            game_controller.setGameState(GameState::End);
+                        }
+                    }
                 }
                 else if (current_state == GameState::End) {
                     end.update_input(mouse_position_f);
@@ -104,6 +116,7 @@ void Engine::run()
         else if (current_state == GameState::Restart) {
             game_board.reset();
             game_board_controller.reset();
+            info.reset();
             cout << "Restart" << endl;
             game_controller.setGameState(GameState::Play);
         }

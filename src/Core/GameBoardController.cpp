@@ -100,7 +100,6 @@ void GameBoardController::update_input(sf::Vector2f position)
 			else if ((*grid_ptr)[i][j]->isPressed(position) && (*grid_ptr)[i][j]->isBeChecker() == false ) {
 				coordinate_end.first = i;
 				coordinate_end.second = j;
-				// Ñíèìàåì âûäåëåíèå ñ øàøêè
 				if ((*grid_ptr)[coordinate_start.first][coordinate_start.second]->isBeChecker() && !(*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->is_move()) {
 					if ((*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->is_queen()) {
 						(*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->update_texture(assets->getTexture("queen"), false);
@@ -465,7 +464,6 @@ void GameBoardController::move_checker(int speed)
 	int_grid[coordinate_start.first][coordinate_start.second] = 0;
 	std::cout << "Cor"<<coordinate_end.first << " " << coordinate_end.second << std::endl;
 	changing_checkers(current_player, coordinate_end);
-	// Ïîëó÷àåì âëàäåíèå îò èñõîäíîé ÿ÷åéêè
 	auto checker = (*grid_ptr)[coordinate_start.first][coordinate_start.second]->releaseChecker();
 	if (checker->getColorChecker() == ColorChecker::Black && !checker->is_queen()) {
 		int_grid[coordinate_end.first][coordinate_end.second] = 2;
@@ -483,13 +481,13 @@ void GameBoardController::move_checker(int speed)
 		
 	}
 	
-	// Àíèìàöèÿ ïåðåìåùåíèÿ
+	
 	checker->start_move((*grid_ptr)[coordinate_end.first][coordinate_end.second]->getPosition());
 
-	// Ïåðåäàåì â öåëåâóþ ÿ÷åéêó
+	
 	(*grid_ptr)[coordinate_end.first][coordinate_end.second]->transferChecker(std::move(checker));
 	
-	// Ïåðåäàåì êîîðäèíàòû äëÿ íîâîé ïåøêè
+	
 	//(*grid_ptr)[coordinate_end.first][coordinate_end.second]->getChecker()->setPosition((*grid_ptr)[coordinate_end.first][coordinate_end.second]->getPosition());
 }
 

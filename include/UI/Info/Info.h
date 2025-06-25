@@ -10,7 +10,10 @@ public:
 	// Унаследовано через WidgetForm
 	void update_input(sf::Vector2f mouse_position) override;
 	void update_info(sf::String inf);
+	bool get_lose();
+	void reset();
 private:
 	sf::String color_player;
 	GameController* game_controller;
+	bool lose = false;
 };
