@@ -17,10 +17,10 @@ void End::update_end( const CheckersResult &result)
 		dynamic_cast<TextLabel*>(widgets[1].get())->setText(L"Ничья");
 	}
 	else if (result == CheckersResult::LOSE_BLACK) {
-		//dynamic_cast<TextLabel*>(widgets[1].get())->setText(L"Сдался желтый");
+		dynamic_cast<TextLabel*>(widgets[1].get())->setText(L"Сдался желтый");
 	}
 	else if (result == CheckersResult::LOSE_WHITE) {
-		//dynamic_cast<TextLabel*>(widgets[1].get())->setText(L"Сдался зеленый");
+		dynamic_cast<TextLabel*>(widgets[1].get())->setText(L"Сдался зеленый");
 	}
 
 }
@@ -34,7 +34,7 @@ End::End(sf::Vector2f position, sf::Font* font, GameController* game_controller)
 		 std::make_unique<TextLabel>(sf::Vector2f(position.x, position.y - 300), font, "Test", sf::Color::White, Orientation::Center, 60));
 	 widgets.push_back(
 		 std::make_unique<TextButton>(
-			 sf::Vector2f(position.x-150, position.y-100),
+			 sf::Vector2f(position.x-150, position.y-150),
 			 L"Начать новую игру ", font, 60, sf::Vector2f(300, 100),
 			 sf::Color::Black,
 			 sf::Color::White));

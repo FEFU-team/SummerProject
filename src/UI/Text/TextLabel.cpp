@@ -47,7 +47,7 @@ TextLabel::TextLabel(sf::Vector2f position, const sf::Font* font, sf::String tex
 	}
 }
 
-void TextLabel::setCenter(sf::Vector2f center)
+void TextLabel::setCenter(sf::Vector2f center, bool update)
 {
 	sf::FloatRect textBounds = text.getGlobalBounds();
 	sf::FloatRect textBounds_l = text.getLocalBounds();
@@ -56,9 +56,14 @@ void TextLabel::setCenter(sf::Vector2f center)
 	sf::Vector2f  pos2 = textBounds_l.getCenter();
 	sf::Vector2f firstPos = text.findCharacterPos(0);
 	sf::Vector2f lastPos = text.findCharacterPos(text.getString().getSize());
-
-	center.x -= (textBounds.getCenter().x- firstPos.x);
-	center.y -= (textBounds.getCenter().y);
+	if (update) {
+		center.x -= (textBounds.getCenter().x - firstPos.x);
+	 }
+	else {
+		center.x -= (textBounds.getCenter().x - firstPos.x);
+		center.y -= (textBounds.getCenter().y);
+	}
+	
 	//text.setOrigin(textBounds.getCenter());
 	//position = position - sf::Vector2f(textBounds.size.x/2, textBounds.size.y / 2);
 	//text.setOrigin(center);
@@ -69,7 +74,7 @@ void TextLabel::setText(sf::String text)
 {
 	this->text.setString(text);
 	if (orientation == Orientation::Center) {
-		setCenter(this->center);
+		setCenter(center,true);
 	}
 	
 }
