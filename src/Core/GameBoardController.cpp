@@ -235,7 +235,7 @@ vector<CaptureMove> GameBoardController::check_grid(std::pair<int, int> coordina
 				}
 				for (int k = 1; k <= 7; k++) {
 					if (int_grid[i][j] == 3) {
-						if (i + k + 1 < size && j + k + 1 < size && ((int_grid[i + k][j + k] == 2 || int_grid[i + k][j + k] == 4))) {
+						if (i + k + 1 < size && j + k + 1 < size  && int_grid[i + k - 1][j + k - 1] == 0 &&  ((int_grid[i + k][j + k] == 2 || int_grid[i + k][j + k] == 4))) {
 							for (int l = 1; i + k + l < size && j + k + l < size; l++) {
 								if (int_grid[i + k + 1][j + k + l] == 0) {
 									coordinate_elem.coordinate_start = { i,j };
@@ -248,7 +248,7 @@ vector<CaptureMove> GameBoardController::check_grid(std::pair<int, int> coordina
 								}
 							}
 						}
-						if (i - k - 1 >= 0 && j + k + 1 < size && (int_grid[i - k][j + k] == 2 || int_grid[i - k][j + k] == 4)) {
+						if (i - k - 1 >= 0 && j + k + 1 < size && int_grid[i - k + 1][j + k - 1] == 0 && (int_grid[i - k][j + k] == 2 || int_grid[i - k][j + k] == 4)) {
 
 							for (int l = 1; i - k - l >= 0 && j + k + l < size; l++) {
 								if (int_grid[i - k - l][j + k + l] == 0) {
@@ -262,7 +262,7 @@ vector<CaptureMove> GameBoardController::check_grid(std::pair<int, int> coordina
 								}
 							}
 						}
-						if (i - k - 1 >= 0 && j - k - 1 >= 0 && (int_grid[i - k][j - k] == 2 || int_grid[i - k][j - k] == 4)) {
+						if (i - k - 1 >= 0 && j - k - 1 >= 0 && int_grid[i - k+1][j - k+1] == 0 &&  (int_grid[i - k][j - k] == 2 || int_grid[i - k][j - k] == 4)) {
 							for (int l = 1; i - k - l >= 0 && j - k - l >= 0; l++) {
 								if (int_grid[i - k - l][j - k - l] == 0) {
 									coordinate_elem.coordinate_start = { i,j };
@@ -275,7 +275,7 @@ vector<CaptureMove> GameBoardController::check_grid(std::pair<int, int> coordina
 								}
 							}
 						}
-						if (i + k + 1 < size && j - k - 1 >= 0 && (int_grid[i + k][j - k] == 2 || int_grid[i + k][j - k] == 4)) {
+						if (i + k + 1 < size && j - k - 1 >= 0 && int_grid[i + k-1][j - k+1] == 0 && (int_grid[i + k][j - k] == 2 || int_grid[i + k][j - k] == 4)) {
 							for (int l = 1; i + k + l < size && j - k - l >= 0; l++) {
 								if (int_grid[i + k + l][j - k - l] == 0) {
 									coordinate_elem.coordinate_start = { i,j };
