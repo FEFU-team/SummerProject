@@ -16,6 +16,12 @@ void End::update_end( const CheckersResult &result)
 	else if (result == CheckersResult::PAT) {
 		dynamic_cast<TextLabel*>(widgets[1].get())->setText(L"Ничья");
 	}
+	else if (result == CheckersResult::LOSE_BLACK) {
+		dynamic_cast<TextLabel*>(widgets[1].get())->setText(L"Сдался желтый");
+	}
+	else if (result == CheckersResult::LOSE_WHITE) {
+		dynamic_cast<TextLabel*>(widgets[1].get())->setText(L"Сдался зеленый");
+	}
 
 }
 

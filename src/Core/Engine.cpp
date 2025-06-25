@@ -91,8 +91,7 @@ void Engine::run()
         }
         else if(current_state == GameState::Play){
             
-            ColorChecker ch = game_board_controller.getCurrentPlayer();
-            if (ch == ColorChecker::Black) {
+            if (game_board_controller.getCurrentPlayer()  == ColorChecker::Black) {
                 info.update_info(L"Желтые");
             }
             else {

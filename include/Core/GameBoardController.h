@@ -9,7 +9,9 @@ enum CheckersResult {
 	WIN_WHITE, // Победа белых
 	WIN_BLACK, // Победа черных
 	PAT, // Пат
-	CONTINUE // Игра продолжается
+	CONTINUE, // Игра продолжается
+	LOSE_WHITE, // Сдался белый
+	LOSE_BLACK // Сдался черный
 };
 // Структура для хранения координат
 struct CaptureMove
