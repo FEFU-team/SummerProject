@@ -28,7 +28,6 @@ void Info::update_input(sf::Vector2f mouse_position)
 {
 	if (dynamic_cast<TextButton*>(widgets[3].get())->isPressed(mouse_position)) {
 		game_controller->setGameState(GameState::End);
-		std::cout << "Exit" << std::endl;
 	}
 }
 
