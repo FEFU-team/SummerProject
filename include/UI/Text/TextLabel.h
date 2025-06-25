@@ -17,8 +17,9 @@ public:
 	TextLabel(sf::Vector2f position, const sf::Font* font, sf::String text_str, sf::Color text_color, Orientation orientation = Orientation::Normal);
 	TextLabel(sf::Vector2f position, const sf::Font* font, sf::String text_str, sf::Color text_color, Orientation orientation, sf::Vector2f center,int size =30);
 	TextLabel(sf::Vector2f position, const sf::Font* font, sf::String text_str, sf::Color text_color, Orientation orientation,int size = 30);
-		// Задаем центр относительно центра другого обьекта
-	void setCenter(sf::Vector2f center);
+	// Задаем центр относительно центра другого объекта
+	// update означет нужно ли обновлять снова центр
+	void setCenter(sf::Vector2f center, bool update = false);
 	void setText(sf::String text);
 	void setTextSize(int size);
 	// Унаследовано через Widget
@@ -27,4 +28,6 @@ public:
 private:
 	sf::FloatRect sizeRect;
 	sf::Text text;
+	Orientation orientation;
+	sf::Vector2f center;
 };

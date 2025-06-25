@@ -31,10 +31,10 @@ End::End(sf::Vector2f position, sf::Font* font, GameController* game_controller)
 	 widgets.push_back(
 	std::make_unique<TextLabel>(sf::Vector2f(position.x,position.y-400), font, L"Конец игры", sf::Color::White, Orientation::Center, 60));
 	 widgets.push_back(
-		 std::make_unique<TextLabel>(sf::Vector2f(position.x, position.y - 300), font, "", sf::Color::White, Orientation::Center, 60));
+		 std::make_unique<TextLabel>(sf::Vector2f(position.x, position.y - 300), font, "Test", sf::Color::White, Orientation::Center, 60));
 	 widgets.push_back(
 		 std::make_unique<TextButton>(
-			 sf::Vector2f(position.x-150, position.y-100),
+			 sf::Vector2f(position.x-150, position.y-150),
 			 L"Начать новую игру ", font, 60, sf::Vector2f(300, 100),
 			 sf::Color::Black,
 			 sf::Color::White));
