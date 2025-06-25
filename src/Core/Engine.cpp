@@ -38,7 +38,7 @@ void Engine::run()
     sf::Clock clock;
     MainMenu main_menu({ 0,0 }, HEIGHT_WINDOW, WIDTH_WINDOW, assets.getFont("arial"), &game_controller);
     Info info({ 1100,0 }, assets.getFont("arial"), &game_controller);
-    End end({ HEIGHT_WINDOW/2,WIDTH_WINDOW/2 }, assets.getFont("arial"),L"Победили", &game_controller);
+    End end({ HEIGHT_WINDOW/2,WIDTH_WINDOW/2 }, assets.getFont("arial"), &game_controller);
 
 
     game_board.grid[2][5]->getChecker()->becoming_queen(assets.getTexture("queen"));
@@ -62,6 +62,12 @@ void Engine::run()
                 else if(current_state == GameState::Play) {
                     info.update_input(mouse_position_f);
                     game_board_controller.update_input(mouse_position_f);
+                    CheckersResult result = game_board_controller.checking_end();
+                    if (result != CheckersResult::CONTINUE) {
+                        end.update_end(result);
+                        game_controller.setGameState(GameState::End);
+
+                    }
                 }
                 else if (current_state == GameState::End) {
                     end.update_input(mouse_position_f);

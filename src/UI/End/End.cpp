@@ -4,13 +4,28 @@
 #include <UI/Buttons/TextButton.h>
 
 
-End::End(sf::Vector2f position, sf::Font* font,sf::String text, GameController* game_controller)
+
+void End::update_end( const CheckersResult &result)
+{
+	if (result == CheckersResult::WIN_WHITE) {
+		dynamic_cast<TextLabel*>(widgets[1].get())->setText(L"Победили зеленые");
+	}
+	else if (result == CheckersResult::WIN_BLACK) {
+		dynamic_cast<TextLabel*>(widgets[1].get())->setText(L"Победили желтые");
+	}
+	else if (result == CheckersResult::PAT) {
+		dynamic_cast<TextLabel*>(widgets[1].get())->setText(L"Ничья");
+	}
+
+}
+
+End::End(sf::Vector2f position, sf::Font* font, GameController* game_controller)
 {
 	this->game_controller = game_controller;
 	 widgets.push_back(
 	std::make_unique<TextLabel>(sf::Vector2f(position.x,position.y-400), font, L"Конец игры", sf::Color::White, Orientation::Center, 60));
 	 widgets.push_back(
-		 std::make_unique<TextLabel>(sf::Vector2f(position.x, position.y - 300), font, text, sf::Color::White, Orientation::Center, 60));
+		 std::make_unique<TextLabel>(sf::Vector2f(position.x, position.y - 300), font, "", sf::Color::White, Orientation::Center, 60));
 	 widgets.push_back(
 		 std::make_unique<TextButton>(
 			 sf::Vector2f(position.x-150, position.y-100),
@@ -39,3 +54,5 @@ void End::update_input(sf::Vector2f mouse_position)
 	}
 
 }
+
+
