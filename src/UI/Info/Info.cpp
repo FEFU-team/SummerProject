@@ -17,7 +17,7 @@ Info::Info(sf::Vector2f position, sf::Font* font, GameController* game_controlle
 	widgets.push_back(
 		std::make_unique<TextButton>(
 			sf::Vector2f(position.x+600, position.y),
-			L"Сдаться", font, 60, sf::Vector2f(100, 100),
+			L"Сдаться", font, 30, sf::Vector2f(100, 100),
 			sf::Color::Black,
 			sf::Color::White));
 	widgets.push_back(
@@ -28,7 +28,7 @@ void Info::update_input(sf::Vector2f mouse_position)
 {
 	if (dynamic_cast<TextButton*>(widgets[3].get())->isPressed(mouse_position)) {
 		game_controller->setGameState(GameState::End);
-		std::cout << "Exit" << std::endl;
+		lose = true;;
 	}
 }
 
@@ -38,4 +38,14 @@ void Info::update_info(sf::String inf)
 	// Преобразование типов
 	dynamic_cast<TextLabel*>(widgets[2].get())->setText(inf);
 
+}
+
+bool Info::get_lose()
+{
+	return lose;
+}
+
+void Info::reset()
+{
+	lose = false;
 }
