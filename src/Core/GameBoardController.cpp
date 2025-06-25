@@ -118,7 +118,7 @@ void GameBoardController::update_input(sf::Vector2f position)
 					else {
 						(*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->update_texture(assets->getTexture("checker1"), false);
 					}
-					//update_GameState();
+					checking_pat();
 					//cout << cor.coordinate_take.first << endl;
 					//cout << cor.coordinate_take.second << endl;// )
 					if ((is_move_checker(coordinate_start,coordinate_end)) && cor.size() == 0) {
@@ -410,7 +410,7 @@ void  GameBoardController::checking_pat()
 
 bool GameBoardController::is_move_checker(const std::pair<int, int>& coordinate_start, const std::pair<int, int>& coordinate_end)
 {
-	if (int_grid[coordinate_end.first][coordinate_end.second] == 0) {
+	if (coordinate_end.first  >=0 && coordinate_end.second>=0 && coordinate_end.second <8 && coordinate_end.first<8 && int_grid[coordinate_end.first][coordinate_end.second] == 0) {
 		// Правила хода обычные
 		if ((coordinate_start.first + 1 == coordinate_end.first && coordinate_start.second + 1 == coordinate_end.second) && int_grid[coordinate_start.first][coordinate_start.second] == 2) {
 			return true;
