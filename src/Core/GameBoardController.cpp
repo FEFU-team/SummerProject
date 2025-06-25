@@ -126,7 +126,6 @@ void GameBoardController::update_input(sf::Vector2f position)
 						show_player = previous_player;
 						previous_player = current_player;
 						
-						
 					}
 					else {
 						for (int i = 0; i < cor.size(); i++) {
@@ -208,8 +207,8 @@ vector<CaptureMove> GameBoardController::check_grid(std::pair<int, int> coordina
 		
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
-				
-				if (int_grid[i][j] == 1) {
+				if (int_grid[coordinate_start.first][coordinate_start.second] == 1) {
+					if (int_grid[i][j] == 1) {
 						if (i - 2 >= 0 && j - 2 >= 0 && (int_grid[i - 1][j - 1] == 2 || int_grid[i - 1][j - 1] == 4) && int_grid[i - 2][j - 2] == 0) {
 							coordinate_elem.coordinate_start = { i,j };
 							coordinate_elem.coordinate_end = { i - 2,j - 2 };
@@ -235,9 +234,12 @@ vector<CaptureMove> GameBoardController::check_grid(std::pair<int, int> coordina
 							coordinate.push_back(coordinate_elem);
 						}
 					}
-				for (int k = 1; k <= 7; k++) {
+					
+				}
+				else {
+					for (int k = 1; k <= 7; k++) {
 						if (int_grid[i][j] == 3) {
-							if (i + k+1 < size && j + k+1 < size && int_grid[i + k - 1][j + k - 1] == 0 && ((int_grid[i + k][j + k] == 2 || int_grid[i + k][j + k] == 4))) {
+							if (i + k+1 < size && j + k+1 < size && ((int_grid[i + k][j + k] == 2 || int_grid[i + k][j + k] == 4))) {
 								for (int l = 1; i + k + l < size && j + k + l < size; l++) {
 									if (int_grid[i + k + 1][j + k + l] == 0) {
 										coordinate_elem.coordinate_start = { i,j };
@@ -293,8 +295,8 @@ vector<CaptureMove> GameBoardController::check_grid(std::pair<int, int> coordina
 						}
 						
 					}
-			
 				
+				}
 				
 				
 
@@ -308,6 +310,7 @@ vector<CaptureMove> GameBoardController::check_grid(std::pair<int, int> coordina
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
 				if (int_grid[coordinate_start.first][coordinate_start.second] == 2 || int_grid[coordinate_start.first][coordinate_start.second] == 4) {
+					if (int_grid[i][j] == 2) {
 						if (i + 2 < size && j + 2 < int_grid.size() && (int_grid[i + 1][j + 1] == 1 || int_grid[i + 1][j + 1] == 3) && int_grid[i + 2][j + 2] == 0) {
 							coordinate_elem.coordinate_start = { i,j };
 							coordinate_elem.coordinate_end = { i + 2,j + 2 };
@@ -332,9 +335,10 @@ vector<CaptureMove> GameBoardController::check_grid(std::pair<int, int> coordina
 							coordinate_elem.coordinate_take = { i + 1,j - 1 };
 							coordinate.push_back(coordinate_elem);
 						}
-				}
-				else {
-					// Проверка взятие дамки
+					}
+					else {
+						// Проверка взятие дамки
+					}
 				}
 				
 
