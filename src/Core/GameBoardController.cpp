@@ -6,11 +6,12 @@
 
 using namespace std;
 
-GameBoardController::GameBoardController(std::vector<std::vector<std::unique_ptr<Cell>>>* grid, AssetManager* assets)
+GameBoardController::GameBoardController(std::vector<std::vector<std::unique_ptr<Cell>>>* grid, AssetManager* assets,bool ai)
 {
 	this->assets = assets;
 	this->grid_ptr = grid;
-	//Ñîçäàíèå öåëî÷èñëåííîé ìàòðèöû . ãäå 1 . 0 ýòî íåò øàøêè
+	this->ai = ai;
+	// Создаем целочисленную матрицу 
 	for (int i = 0; i < grid->size(); i++) {
 		vector<int> line(grid->size(), 0);
 		for (int j = 0; j < grid->size(); j++) {
@@ -48,7 +49,6 @@ void GameBoardController::update_input(sf::Vector2f position)
 				current_player = (*grid_ptr)[i][j]->getChecker()->getColorChecker();
 				coordinate_start.first = i;
 				coordinate_start.second = j;
-				// Îòðàáîòêà äâîéíîãî íàæàòèÿ
 				if ((*grid_ptr)[i][j]->isBeChecker()) {  
 					if ((*grid_ptr)[i][j]->getChecker()->is_active()) {
 						if ((*grid_ptr)[i][j]->getChecker()->is_queen()) {
@@ -76,7 +76,7 @@ void GameBoardController::update_input(sf::Vector2f position)
 			}
 			else if ((*grid_ptr)[i][j]->isPressed(position) && (*grid_ptr)[i][j]->isBeChecker() && !(*grid_ptr)[i][j]->getChecker()->is_move()) {
 				current_player = (*grid_ptr)[i][j]->getChecker()->getColorChecker();
-				// Ñíèìàåì âûäåëåíèå ñ ïðîøëîé øàøêè
+
 				if ((*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->is_queen()) {
 					(*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->update_texture(assets->getTexture("queen"), false);
 				}
@@ -84,7 +84,6 @@ void GameBoardController::update_input(sf::Vector2f position)
 					(*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->update_texture(assets->getTexture("checker1"), false);
 				}
 				
-				// Âûäåëÿåì øàøêó  òåêóùåþ
 				if ((*grid_ptr)[i][j]->getChecker()->is_queen()) {
 					(*grid_ptr)[i][j]->getChecker()->update_texture(assets->getTexture("queen_active"), true);
 				}

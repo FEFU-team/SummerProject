@@ -29,7 +29,7 @@ struct CaptureMove
 // Контролирование правил игры
 class GameBoardController {
 public:
-	GameBoardController(std::vector<std::vector<std::unique_ptr<Cell>>>* grid, AssetManager* assets);
+	GameBoardController(std::vector<std::vector<std::unique_ptr<Cell>>>* grid, AssetManager* assets,bool ai = false);
 	void update_input(sf::Vector2f position);
 	ColorChecker getCurrentPlayer();
 	// Функция  перезапуска контроллера 
@@ -73,5 +73,7 @@ private:
 	CheckersResult end_state = CONTINUE;
 	// Переход от шашки к дамке 
 	void changing_checkers(ColorChecker current_player, const std::pair<int, int>& coordinate_end);
+	bool ai = false;
+	ColorChecker ai_color = ColorChecker::Black;
 	
 };
