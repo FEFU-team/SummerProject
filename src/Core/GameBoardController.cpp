@@ -163,7 +163,6 @@ void GameBoardController::update_input(sf::Vector2f position)
 
 ColorChecker GameBoardController::getCurrentPlayer() const
 {
-	// Ñòðàííîñòè 
 	return show_player;
 }
 
@@ -338,6 +337,64 @@ vector<CaptureMove> GameBoardController::check_grid(std::pair<int, int> coordina
 						coordinate_elem.coordinate_take = { i + 1,j - 1 };
 						coordinate.push_back(coordinate_elem);
 					}
+				}
+				for (int k = 1; k <= 7; k++) {
+					if (int_grid[i][j] == 4) {
+						if (i + k + 1 < size && j + k + 1 < size && int_grid[i + k - 1][j + k - 1] == 0 && ((int_grid[i + k][j + k] == 1 || int_grid[i + k][j + k] == 3))) {
+							for (int l = 1; i + k + l < size && j + k + l < size; l++) {
+								if (int_grid[i + k + 1][j + k + l] == 0) {
+									coordinate_elem.coordinate_start = { i,j };
+									coordinate_elem.coordinate_end = { i + k + l,j + k + l };
+									coordinate_elem.coordinate_take = { i + k ,j + k };
+									coordinate.push_back(coordinate_elem);
+								}
+								else {
+									break;
+								}
+							}
+						}
+						if (i - k - 1 >= 0 && j + k + 1 < size && int_grid[i - k + 1][j + k - 1] == 0 && (int_grid[i - k][j + k] == 1 || int_grid[i - k][j + k] == 3)) {
+
+							for (int l = 1; i - k - l >= 0 && j + k + l < size; l++) {
+								if (int_grid[i - k - l][j + k + l] == 0) {
+									coordinate_elem.coordinate_start = { i,j };
+									coordinate_elem.coordinate_end = { i - k - l,j + k + l };
+									coordinate_elem.coordinate_take = { i - k ,j + k };
+									coordinate.push_back(coordinate_elem);
+								}
+								else {
+									break;
+								}
+							}
+						}
+						if (i - k - 1 >= 0 && j - k - 1 >= 0 && int_grid[i - k + 1][j - k + 1] == 0 && (int_grid[i - k][j - k] == 1 || int_grid[i - k][j - k] == 3)) {
+							for (int l = 1; i - k - l >= 0 && j - k - l >= 0; l++) {
+								if (int_grid[i - k - l][j - k - l] == 0) {
+									coordinate_elem.coordinate_start = { i,j };
+									coordinate_elem.coordinate_end = { i - k - l,j - k - l };
+									coordinate_elem.coordinate_take = { i - k ,j - k };
+									coordinate.push_back(coordinate_elem);
+								}
+								else {
+									break;
+								}
+							}
+						}
+						if (i + k + 1 < size && j - k - 1 >= 0 && int_grid[i + k - 1][j - k + 1] == 0 && (int_grid[i + k][j - k] == 1 || int_grid[i + k][j - k] == 3)) {
+							for (int l = 1; i + k + l < size && j - k - l >= 0; l++) {
+								if (int_grid[i + k + l][j - k - l] == 0) {
+									coordinate_elem.coordinate_start = { i,j };
+									coordinate_elem.coordinate_end = { i + k + l,j - k - l };
+									coordinate_elem.coordinate_take = { i + k ,j - k };
+									coordinate.push_back(coordinate_elem);
+								}
+								else {
+									break;
+								}
+							}
+						}
+					}
+
 				}
 			}
 			//return { -1,-1 };
