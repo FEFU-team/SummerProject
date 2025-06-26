@@ -474,16 +474,22 @@ bool GameBoardController::is_move_checker(const std::pair<int, int>& coordinate_
 					
 					return true;
 				}
-				if (coordinate_start.first - i == coordinate_end.first && coordinate_start.second + i == coordinate_end.second) {
-					
+				else if (coordinate_start.first - i == coordinate_end.first && coordinate_start.second - i == coordinate_end.second) {
+					cout << "Have boarder if 2" << endl;
 					return true;
 				}
-				if (coordinate_start.first - i == coordinate_end.first && coordinate_start.second - i == coordinate_end.second) {
-					
+				else if (coordinate_start.first - i == coordinate_end.first && coordinate_start.second + i == coordinate_end.second) {
+					cout << "Have boarder if 3" << endl;
 					return true;
 				}
-				if (coordinate_start.first + i == coordinate_end.first && coordinate_start.second - i == coordinate_end.second) {
-					
+				else if (coordinate_start.first + i == coordinate_end.first && coordinate_start.second - i == coordinate_end.second) {
+					cout << "Have boarder if 4" << endl;
+					for (int k = 0; coordinate_start.first + k < coordinate_start.first + i && coordinate_start.second - k > coordinate_start.second - i; k++) {
+						if (int_grid[coordinate_start.first + k][coordinate_start.second - k] != 0) {
+							cout << "Have boarder if 4" << endl;
+							return false;
+						}
+					}
 					return true;
 				}
 			}
