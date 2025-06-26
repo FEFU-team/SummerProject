@@ -4,6 +4,7 @@
 #include "../include/Core/GameBoardController.h"
 #include "../include/Core/AssetManager.h"
 #include<vector>
+#include "Ai.h"
 // состояние конца игры
 enum CheckersResult {
 	WIN_WHITE, // Победа белых
@@ -29,16 +30,24 @@ struct CaptureMove
 // Контролирование правил игры
 class GameBoardController {
 public:
-	GameBoardController(std::vector<std::vector<std::unique_ptr<Cell>>>* grid, AssetManager* assets,bool ai = false);
+	GameBoardController(std::vector<std::vector<std::unique_ptr<Cell>>>* grid, AssetManager* assets,bool ai = false,Ai* computer = nullptr);
 	void update_input(sf::Vector2f position);
-	ColorChecker getCurrentPlayer();
+	ColorChecker getCurrentPlayer() const;
 	// Функция  перезапуска контроллера 
 	void reset();
 	// Проверка конца игры
 	CheckersResult checking_end();
+	// Обновляем ход ai
+	void update_ai();
+	// Включен ли ai mode
+	bool isAiMode() const;
+	// Задать ai mode
+	void setAiMode(bool mode );
 	// Временно
 	std::vector<std::vector<int>> int_grid;
 private:
+	// Ai
+	Ai* computer;
 	// Указатель на менеджер пакетов
 	AssetManager* assets;
 	// Цвет текущего игрока
@@ -69,11 +78,13 @@ private:
 	//Возможно ли так походить
 	bool is_move_checker(const std::pair<int, int> &coordinate_start,  const std::pair<int, int> &coordinate_end);
 	// Функция хода шашки из координат начала в координаты конца
-	void move_checker( int speed = 30);
+	void move_checker(const std::pair<int, int>& coordinate_start, const std::pair<int, int>& coordinate_end,int speed = 30);
 	CheckersResult end_state = CONTINUE;
 	// Переход от шашки к дамке 
 	void changing_checkers(ColorChecker current_player, const std::pair<int, int>& coordinate_end);
-	bool ai = false;
-	ColorChecker ai_color = ColorChecker::Black;
+	// Режим игры c ai
+	bool ai_mode = false;
+	// Цвет шашек ai
+	ColorChecker ai_player = ColorChecker::Black;
 	
 };
