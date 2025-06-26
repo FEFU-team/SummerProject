@@ -6,11 +6,13 @@
 
 using namespace std;
 
-GameBoardController::GameBoardController(std::vector<std::vector<std::unique_ptr<Cell>>>* grid, AssetManager* assets)
+GameBoardController::GameBoardController(std::vector<std::vector<std::unique_ptr<Cell>>>* grid, AssetManager* assets,bool ai, Ai* computer)
 {
 	this->assets = assets;
 	this->grid_ptr = grid;
-	//Ñîçäàíèå öåëî÷èñëåííîé ìàòðèöû . ãäå 1 . 0 ýòî íåò øàøêè
+	this->ai_mode = ai;
+	this->computer = computer;
+	// Создаем целочисленную матрицу 
 	for (int i = 0; i < grid->size(); i++) {
 		vector<int> line(grid->size(), 0);
 		for (int j = 0; j < grid->size(); j++) {
@@ -44,12 +46,17 @@ void GameBoardController::update_input(sf::Vector2f position)
 {
 	for (int i = 0; i < grid_ptr->size(); i++) {
 		for (int j= 0; j < grid_ptr->size(); j++) {
+			if ((*grid_ptr)[i][j]->getChecker()) {
+				if ((*grid_ptr)[i][j]->getChecker()->getColorChecker() == ai_player && ai_mode) {
+					continue;
+				}
+			}
+			
 			if ((*grid_ptr)[i][j]->isPressed(position) && (*grid_ptr)[i][j]->isBeChecker() && pressed_checker == false && !(*grid_ptr)[i][j]->getChecker()->is_move()) {
 				current_player = (*grid_ptr)[i][j]->getChecker()->getColorChecker();
 				coordinate_start.first = i;
 				coordinate_start.second = j;
-				// Îòðàáîòêà äâîéíîãî íàæàòèÿ
-				if ((*grid_ptr)[i][j]->isBeChecker()) {  
+				if ((*grid_ptr)[i][j]->isBeChecker()) {
 					if ((*grid_ptr)[i][j]->getChecker()->is_active()) {
 						if ((*grid_ptr)[i][j]->getChecker()->is_queen()) {
 							(*grid_ptr)[i][j]->getChecker()->update_texture(assets->getTexture("queen"), false);
@@ -57,7 +64,7 @@ void GameBoardController::update_input(sf::Vector2f position)
 						else {
 							(*grid_ptr)[i][j]->getChecker()->update_texture(assets->getTexture("checker1"), false);
 						}
-						
+
 						pressed_checker = false;
 					}
 					else {
@@ -67,7 +74,7 @@ void GameBoardController::update_input(sf::Vector2f position)
 						else {
 							(*grid_ptr)[i][j]->getChecker()->update_texture(assets->getTexture("checker_active"), true);
 						}
-			
+
 						pressed_checker = true;
 					}
 				}
@@ -76,7 +83,7 @@ void GameBoardController::update_input(sf::Vector2f position)
 			}
 			else if ((*grid_ptr)[i][j]->isPressed(position) && (*grid_ptr)[i][j]->isBeChecker() && !(*grid_ptr)[i][j]->getChecker()->is_move()) {
 				current_player = (*grid_ptr)[i][j]->getChecker()->getColorChecker();
-				// Ñíèìàåì âûäåëåíèå ñ ïðîøëîé øàøêè
+
 				if ((*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->is_queen()) {
 					(*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->update_texture(assets->getTexture("queen"), false);
 				}
@@ -84,7 +91,6 @@ void GameBoardController::update_input(sf::Vector2f position)
 					(*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->update_texture(assets->getTexture("checker1"), false);
 				}
 				
-				// Âûäåëÿåì øàøêó  òåêóùåþ
 				if ((*grid_ptr)[i][j]->getChecker()->is_queen()) {
 					(*grid_ptr)[i][j]->getChecker()->update_texture(assets->getTexture("queen_active"), true);
 				}
@@ -121,7 +127,7 @@ void GameBoardController::update_input(sf::Vector2f position)
 					//cout << cor.coordinate_take.first << endl;
 					//cout << cor.coordinate_take.second << endl;// )
 					if ((is_move_checker(coordinate_start,coordinate_end)) && cor.size() == 0) {
-						move_checker();
+						move_checker(coordinate_start,coordinate_end);
 						show_player = previous_player;
 						previous_player = current_player;
 						
@@ -129,7 +135,7 @@ void GameBoardController::update_input(sf::Vector2f position)
 					else {
 						for (int i = 0; i < cor.size(); i++) {
 							if (cor[i].coordinate_start == coordinate_start && cor[i].coordinate_end == coordinate_end) {
-								move_checker();
+								move_checker(coordinate_start,coordinate_end);
 								destroy_figure(cor[i].coordinate_take);
 								if (check_grid(coordinate_end).size() == 0) {
 									show_player = previous_player;
@@ -155,9 +161,8 @@ void GameBoardController::update_input(sf::Vector2f position)
 	}
 }
 
-ColorChecker GameBoardController::getCurrentPlayer()
+ColorChecker GameBoardController::getCurrentPlayer() const
 {
-	// Ñòðàííîñòè 
 	return show_player;
 }
 
@@ -333,6 +338,64 @@ vector<CaptureMove> GameBoardController::check_grid(std::pair<int, int> coordina
 						coordinate.push_back(coordinate_elem);
 					}
 				}
+				for (int k = 1; k <= 7; k++) {
+					if (int_grid[i][j] == 4) {
+						if (i + k + 1 < size && j + k + 1 < size && int_grid[i + k - 1][j + k - 1] == 0 && ((int_grid[i + k][j + k] == 1 || int_grid[i + k][j + k] == 3))) {
+							for (int l = 1; i + k + l < size && j + k + l < size; l++) {
+								if (int_grid[i + k + 1][j + k + l] == 0) {
+									coordinate_elem.coordinate_start = { i,j };
+									coordinate_elem.coordinate_end = { i + k + l,j + k + l };
+									coordinate_elem.coordinate_take = { i + k ,j + k };
+									coordinate.push_back(coordinate_elem);
+								}
+								else {
+									break;
+								}
+							}
+						}
+						if (i - k - 1 >= 0 && j + k + 1 < size && int_grid[i - k + 1][j + k - 1] == 0 && (int_grid[i - k][j + k] == 1 || int_grid[i - k][j + k] == 3)) {
+
+							for (int l = 1; i - k - l >= 0 && j + k + l < size; l++) {
+								if (int_grid[i - k - l][j + k + l] == 0) {
+									coordinate_elem.coordinate_start = { i,j };
+									coordinate_elem.coordinate_end = { i - k - l,j + k + l };
+									coordinate_elem.coordinate_take = { i - k ,j + k };
+									coordinate.push_back(coordinate_elem);
+								}
+								else {
+									break;
+								}
+							}
+						}
+						if (i - k - 1 >= 0 && j - k - 1 >= 0 && int_grid[i - k + 1][j - k + 1] == 0 && (int_grid[i - k][j - k] == 1 || int_grid[i - k][j - k] == 3)) {
+							for (int l = 1; i - k - l >= 0 && j - k - l >= 0; l++) {
+								if (int_grid[i - k - l][j - k - l] == 0) {
+									coordinate_elem.coordinate_start = { i,j };
+									coordinate_elem.coordinate_end = { i - k - l,j - k - l };
+									coordinate_elem.coordinate_take = { i - k ,j - k };
+									coordinate.push_back(coordinate_elem);
+								}
+								else {
+									break;
+								}
+							}
+						}
+						if (i + k + 1 < size && j - k - 1 >= 0 && int_grid[i + k - 1][j - k + 1] == 0 && (int_grid[i + k][j - k] == 1 || int_grid[i + k][j - k] == 3)) {
+							for (int l = 1; i + k + l < size && j - k - l >= 0; l++) {
+								if (int_grid[i + k + l][j - k - l] == 0) {
+									coordinate_elem.coordinate_start = { i,j };
+									coordinate_elem.coordinate_end = { i + k + l,j - k - l };
+									coordinate_elem.coordinate_take = { i + k ,j - k };
+									coordinate.push_back(coordinate_elem);
+								}
+								else {
+									break;
+								}
+							}
+						}
+					}
+
+				}
 			}
 			//return { -1,-1 };
 		}
@@ -459,7 +522,7 @@ bool GameBoardController::is_move_checker(const std::pair<int, int>& coordinate_
 	
 }
 
-void GameBoardController::move_checker(int speed)
+void GameBoardController::move_checker(const std::pair<int, int>& coordinate_start, const std::pair<int, int>& coordinate_end,int speed)
 {
 	int_grid[coordinate_start.first][coordinate_start.second] = 0;
 	std::cout << "Cor"<<coordinate_end.first << " " << coordinate_end.second << std::endl;
@@ -508,6 +571,54 @@ CheckersResult GameBoardController::checking_end()
 	}
 
 	return CheckersResult::CONTINUE;
+}
+
+
+void GameBoardController::update_ai()
+{
+	if (show_player == ai_player) {
+		coordinate_start = computer->do_move();
+		coordinate_end = computer->do_move();
+		vector<CaptureMove> cor = check_grid(coordinate_start);
+		if (( int_grid[coordinate_start.first][coordinate_start.second] == 2  || int_grid[coordinate_start.first][coordinate_start.second] == 4) && (is_move_checker(coordinate_start, coordinate_end)) && cor.size() == 0) {
+			move_checker(coordinate_start, coordinate_end);
+			show_player = previous_player;
+			previous_player =ai_player;
+			
+			
+
+		}
+		else {
+			for (int i = 0; i < cor.size(); i++) {
+				if (cor[i].coordinate_start == coordinate_start && cor[i].coordinate_end == coordinate_end) {
+					move_checker(coordinate_start, coordinate_end);
+					destroy_figure(cor[i].coordinate_take);
+					if (check_grid(coordinate_end).size() == 0) {
+						show_player = previous_player;
+						previous_player = ai_player;
+						
+					}
+				}
+				else {
+
+				}
+			}
+
+
+		}
+	}
+
+	
+}
+
+bool GameBoardController::isAiMode() const
+{
+	return ai_mode;
+}
+
+void GameBoardController::setAiMode(bool mode)
+{
+	this->ai_mode = mode;
 }
 
 void GameBoardController::changing_checkers(ColorChecker current_player, const std::pair<int, int>& coordinate_end)
