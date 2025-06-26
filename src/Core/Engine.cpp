@@ -42,10 +42,10 @@ void Engine::run()
     Info info({ 1100,0 }, assets.getFont("arial"), &game_controller);
     End end({ HEIGHT_WINDOW/2,WIDTH_WINDOW/2 }, assets.getFont("arial"), &game_controller);
 
-    game_board.grid[3][2]->getChecker()->becoming_queen(assets.getTexture("queen"));
-    game_board_controller.int_grid[3][2] = 4;
-    game_board.grid[2][5]->getChecker()->becoming_queen(assets.getTexture("queen"));
-    game_board_controller.int_grid[2][5] = 3;
+    //game_board.grid[3][2]->getChecker()->becoming_queen(assets.getTexture("queen"));
+    //game_board_controller.int_grid[3][2] = 4;
+    //game_board.grid[2][5]->getChecker()->becoming_queen(assets.getTexture("queen"));
+    //game_board_controller.int_grid[2][5] = 3;
     while (window->isOpen())
     {
         GameState  current_state = game_controller.getGameState();
