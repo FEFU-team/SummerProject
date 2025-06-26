@@ -510,32 +510,12 @@ void  GameBoardController::checking_pat()
 bool GameBoardController::is_move_checker(const std::pair<int, int>& coordinate_start, const std::pair<int, int>& coordinate_end)
 {
 	if (coordinate_end.first  >=0 && coordinate_end.second>=0 && coordinate_end.second <8 && coordinate_end.first<8 && int_grid[coordinate_end.first][coordinate_end.second] == 0) {
-		// Ïðàâèëà õîäà îáû÷íûå
+
 		if ((coordinate_start.first + 1 == coordinate_end.first && coordinate_start.second + 1 == coordinate_end.second) && int_grid[coordinate_start.first][coordinate_start.second] == 2) {
 			return true;
 		}
 		else if ((coordinate_start.first - 1 == coordinate_end.first && coordinate_start.second + 1 == coordinate_end.second) && int_grid[coordinate_start.first][coordinate_start.second] == 2) {
 			return true;
-		}
-		else if (int_grid[coordinate_start.first][coordinate_start.second] == 4) {
-
-			for (int i = 1; i <= 7; i++)
-			{
-				if (coordinate_start.first + i == coordinate_end.first && coordinate_start.second + i == coordinate_end.second) {
-					return true;
-				}
-				if (coordinate_start.first - i == coordinate_end.first && coordinate_start.second + i == coordinate_end.second) {
-					return true;
-				}
-				if (coordinate_start.first - i == coordinate_end.first && coordinate_start.second - i == coordinate_end.second) {
-					return true;
-				}
-				if (coordinate_start.first + i == coordinate_end.first && coordinate_start.second - i == coordinate_end.second) {
-					return true;
-				}
-			}
-
-
 		}
 		else if ((coordinate_start.first - 1 == coordinate_end.first && coordinate_start.second - 1 == coordinate_end.second) && int_grid[coordinate_start.first][coordinate_start.second] == 1) {
 			return true;
@@ -543,19 +523,46 @@ bool GameBoardController::is_move_checker(const std::pair<int, int>& coordinate_
 		else if ((coordinate_start.first + 1 == coordinate_end.first && coordinate_start.second - 1 == coordinate_end.second) && int_grid[coordinate_start.first][coordinate_start.second] == 1) {
 			return true;
 		}
-		else if (int_grid[coordinate_start.first][coordinate_start.second] == 3) {
+		else if (int_grid[coordinate_start.first][coordinate_start.second] == 3 || int_grid[coordinate_start.first][coordinate_start.second] == 4) {
 
 			for (int i = 1; i < 7; i++) {
-				if (coordinate_start.first + i == coordinate_end.first && coordinate_start.second + i == coordinate_end.second) {
+				
+				if (coordinate_start.first + i == coordinate_end.first && coordinate_start.second + i == coordinate_end.second ) {
+					
+					for (int k = 1; coordinate_start.first + k < coordinate_start.first + i && coordinate_start.second + k < coordinate_start.second + i; k++) {
+						if (int_grid[coordinate_start.first + k][coordinate_start.second + k] != 0) {
+							cout << "Have boarder" << endl;
+							return false;
+						}
+					}
+					
 					return true;
 				}
 				if (coordinate_start.first - i == coordinate_end.first && coordinate_start.second + i == coordinate_end.second) {
+					for (int k = 1; coordinate_start.first - k < coordinate_start.first - i && coordinate_start.second + k < coordinate_start.second + i; k++) {
+						if (int_grid[coordinate_start.first - k][coordinate_start.second + k] != 0) {
+							cout << "Have boarder" << endl;
+							return false;
+						}
+					}
 					return true;
 				}
 				if (coordinate_start.first - i == coordinate_end.first && coordinate_start.second - i == coordinate_end.second) {
+					for (int k = 1; coordinate_start.first - k < coordinate_start.first - i && coordinate_start.second - k < coordinate_start.second - i; k++) {
+						if (int_grid[coordinate_start.first - k][coordinate_start.second - k] != 0) {
+							cout << "Have boarder" << endl;
+							return false;
+						}
+					}
 					return true;
 				}
 				if (coordinate_start.first + i == coordinate_end.first && coordinate_start.second - i == coordinate_end.second) {
+					for (int k = 1; coordinate_start.first + k < coordinate_start.first + i && coordinate_start.second - k < coordinate_start.second - i; k++) {
+						if (int_grid[coordinate_start.first + k][coordinate_start.second - k] != 0) {
+							cout << "Have boarder" << endl;
+							return false;
+						}
+					}
 					return true;
 				}
 			}
