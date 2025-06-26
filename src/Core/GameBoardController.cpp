@@ -46,9 +46,12 @@ void GameBoardController::update_input(sf::Vector2f position)
 {
 	for (int i = 0; i < grid_ptr->size(); i++) {
 		for (int j= 0; j < grid_ptr->size(); j++) {
-			if (current_player == ai_player && ai_mode) {
-				break;
+			if ((*grid_ptr)[i][j]->getChecker()) {
+				if ((*grid_ptr)[i][j]->getChecker()->getColorChecker() == ai_player && ai_mode) {
+					continue;
+				}
 			}
+			
 			if ((*grid_ptr)[i][j]->isPressed(position) && (*grid_ptr)[i][j]->isBeChecker() && pressed_checker == false && !(*grid_ptr)[i][j]->getChecker()->is_move()) {
 				current_player = (*grid_ptr)[i][j]->getChecker()->getColorChecker();
 				coordinate_start.first = i;
@@ -520,7 +523,7 @@ void GameBoardController::update_ai()
 		coordinate_start = computer->do_move();
 		coordinate_end = computer->do_move();
 		vector<CaptureMove> cor = check_grid(coordinate_start);
-		if ( int_grid[coordinate_start.first][coordinate_start.second] == 2 && (is_move_checker(coordinate_start, coordinate_end)) && cor.size() == 0) {
+		if (( int_grid[coordinate_start.first][coordinate_start.second] == 2  || int_grid[coordinate_start.first][coordinate_start.second] == 4) && (is_move_checker(coordinate_start, coordinate_end)) && cor.size() == 0) {
 			move_checker(coordinate_start, coordinate_end);
 			show_player = previous_player;
 			previous_player =ai_player;
