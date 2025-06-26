@@ -44,6 +44,8 @@ void Engine::run()
 
     game_board.grid[3][2]->getChecker()->becoming_queen(assets.getTexture("queen"));
     game_board_controller.int_grid[3][2] = 4;
+    game_board.grid[2][5]->getChecker()->becoming_queen(assets.getTexture("queen"));
+    game_board_controller.int_grid[2][5] = 3;
     while (window->isOpen())
     {
         GameState  current_state = game_controller.getGameState();
