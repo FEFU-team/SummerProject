@@ -11,6 +11,7 @@ GameBoardController::GameBoardController(std::vector<std::vector<std::unique_ptr
 	this->assets = assets;
 	this->grid_ptr = grid;
 	this->ai_mode = ai;
+	this->computer = computer;
 	// Создаем целочисленную матрицу 
 	for (int i = 0; i < grid->size(); i++) {
 		vector<int> line(grid->size(), 0);
@@ -512,9 +513,37 @@ CheckersResult GameBoardController::checking_end()
 	return CheckersResult::CONTINUE;
 }
 
+
 void GameBoardController::update_ai()
 {
+	if (show_player == ai_player) {
+		coordinate_start = computer->do_move();
+		coordinate_end = computer->do_move();
+		vector<CaptureMove> cor = check_grid(coordinate_start);
+		if ((is_move_checker(coordinate_start, coordinate_end)) && cor.size() == 0) {
+			move_checker(coordinate_start, coordinate_end);
+			
 
+		}
+		else {
+			for (int i = 0; i < cor.size(); i++) {
+				if (cor[i].coordinate_start == coordinate_start && cor[i].coordinate_end == coordinate_end) {
+					move_checker(coordinate_start, coordinate_end);
+					destroy_figure(cor[i].coordinate_take);
+					if (check_grid(coordinate_end).size() == 0) {
+						
+					}
+				}
+				else {
+
+				}
+			}
+
+
+		}
+	}
+
+	
 }
 
 bool GameBoardController::isAiMode() const
