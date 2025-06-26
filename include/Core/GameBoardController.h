@@ -23,6 +23,8 @@ struct CaptureMove
 	std::pair<int, int> coordinate_end;
 	// Координаты взятия фигуры 
 	std::pair<int, int> coordinate_take;
+	// Были ли взятие дамкой
+	bool queen_take = false;
 
 
 };
@@ -60,7 +62,7 @@ private:
 	void destroy_figure(std::pair<int, int>coordinate);
 	// Функция проверки возможности взятия
 	// Возвращает структуру CaptureMove
-	std::vector<CaptureMove>  check_grid( std::pair<int, int> coordinate_start);
+	std::vector<CaptureMove>  check_grid(std::pair<int, int> coordinate_start, bool queen_take = false);
 	// Указатель на игровое поле
 	std::vector<std::vector<std::unique_ptr<Cell>>>* grid_ptr;
 	// Координаты выбора шашки
