@@ -81,7 +81,7 @@ private:
 	void move_checker(const std::pair<int, int>& coordinate_start, const std::pair<int, int>& coordinate_end,int speed = 30);
 	CheckersResult end_state = CONTINUE;
 	// Переход от шашки к дамке 
-	void changing_checkers(ColorChecker current_player, const std::pair<int, int>& coordinate_end);
+	bool changing_checkers(ColorChecker current_player, const std::pair<int, int>& coordinate_end);
 	// Режим игры c ai
 	bool ai_mode = false;
 	// Цвет шашек ai

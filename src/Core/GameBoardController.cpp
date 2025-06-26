@@ -44,6 +44,24 @@ GameBoardController::GameBoardController(std::vector<std::vector<std::unique_ptr
 
 void GameBoardController::update_input(sf::Vector2f position)
 {
+	if (current_player == ColorChecker::White) {
+		cout << "current_player  White" << endl;
+	}
+	else {
+		cout << " current_player  Black" << endl;
+	}
+	if (previous_player == ColorChecker::White) {
+		cout << "previous_player White" << endl;
+	}
+	else {
+		cout << " previous_player Black" << endl;
+	}
+	if (show_player == ColorChecker::White) {
+		cout << " showplayer White" << endl;
+	}
+	else {
+		cout << "showplayer Black" << endl;
+	}
 	for (int i = 0; i < grid_ptr->size(); i++) {
 		for (int j= 0; j < grid_ptr->size(); j++) {
 			if ((*grid_ptr)[i][j]->getChecker()) {
@@ -128,8 +146,10 @@ void GameBoardController::update_input(sf::Vector2f position)
 					//cout << cor.coordinate_take.second << endl;// )
 					if ((is_move_checker(coordinate_start,coordinate_end)) && cor.size() == 0) {
 						move_checker(coordinate_start,coordinate_end);
+						changing_checkers(current_player, coordinate_end);
 						show_player = previous_player;
 						previous_player = current_player;
+						cout << "Simple move" << endl;
 						
 					}
 					else {
@@ -137,13 +157,21 @@ void GameBoardController::update_input(sf::Vector2f position)
 							if (cor[i].coordinate_start == coordinate_start && cor[i].coordinate_end == coordinate_end) {
 								move_checker(coordinate_start,coordinate_end);
 								destroy_figure(cor[i].coordinate_take);
+								if (changing_checkers(current_player, coordinate_end)) {
+									show_player = previous_player;
+									previous_player = current_player;
+									break;
+								}
 								if (check_grid(coordinate_end).size() == 0) {
 									show_player = previous_player;
 									previous_player = current_player;
 								}
 							}
 							else {
-								
+								cout << "Cor " << endl;
+								cout << cor[i].coordinate_start.first << " " << cor[i].coordinate_start.second << endl;
+								cout << cor[i].coordinate_take.first << " " << cor[i].coordinate_take.second << endl;
+								cout << cor[i].coordinate_end.first << " " << cor[i].coordinate_end.second << endl;
 							}
 						}
 
@@ -213,6 +241,7 @@ vector<CaptureMove> GameBoardController::check_grid(std::pair<int, int> coordina
 	vector<CaptureMove> coordinate;
 	CaptureMove coordinate_elem;
 	int size = int_grid.size();
+	
 	if (int_grid[coordinate_start.first][coordinate_start.second] == 1 || int_grid[coordinate_start.first][coordinate_start.second] == 3) {
 
 		for (int i = 0; i < size; i++) {
@@ -243,8 +272,9 @@ vector<CaptureMove> GameBoardController::check_grid(std::pair<int, int> coordina
 						coordinate.push_back(coordinate_elem);
 					}
 				}
-				for (int k = 1; k <= 7; k++) {
-					if (int_grid[i][j] == 3) {
+				if (int_grid[i][j] == 3) {
+				 for (int k = 1; k <= 7; k++) {
+
 						if (i + k + 1 < size && j + k + 1 < size && int_grid[i + k - 1][j + k - 1] == 0 && ((int_grid[i + k][j + k] == 2 || int_grid[i + k][j + k] == 4))) {
 							for (int l = 1; i + k + l < size && j + k + l < size; l++) {
 								if (int_grid[i + k + 1][j + k + l] == 0) {
@@ -299,7 +329,6 @@ vector<CaptureMove> GameBoardController::check_grid(std::pair<int, int> coordina
 							}
 						}
 					}
-
 				}
 
 
@@ -312,34 +341,9 @@ vector<CaptureMove> GameBoardController::check_grid(std::pair<int, int> coordina
 	else {
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
-				if (int_grid[i][j] == 2) {
-					if (i + 2 < size && j + 2 < int_grid.size() && (int_grid[i + 1][j + 1] == 1 || int_grid[i + 1][j + 1] == 3) && int_grid[i + 2][j + 2] == 0) {
-						coordinate_elem.coordinate_start = { i,j };
-						coordinate_elem.coordinate_end = { i + 2,j + 2 };
-						coordinate_elem.coordinate_take = { i + 1,j + 1 };
-						coordinate.push_back(coordinate_elem);
-					}
-					if (j + 2 < size && i - 2 >= 0 && (int_grid[i - 1][j + 1] == 1 || int_grid[i - 1][j + 1] == 3) && int_grid[i - 2][j + 2] == 0) {
-						coordinate_elem.coordinate_start = { i,j };
-						coordinate_elem.coordinate_end = { i - 2 ,j + 2 };
-						coordinate_elem.coordinate_take = { i - 1,j + 1 };
-						coordinate.push_back(coordinate_elem);
-					}
-					if (i - 2 >= 0 && j - 2 >= 0 && (int_grid[i - 1][j - 1] == 1 || int_grid[i - 1][j - 1] == 3) && int_grid[i - 2][j - 2] == 0) {
-						coordinate_elem.coordinate_start = { i,j };
-						coordinate_elem.coordinate_end = { i - 2,j - 2 };
-						coordinate_elem.coordinate_take = { i - 1,j - 1 };
-						coordinate.push_back(coordinate_elem);
-					}
-					if (i + 2 < size && j - 2 >= 0 && (int_grid[i + 1][j - 1] == 1 || int_grid[i + 1][j - 1] == 3) && int_grid[i + 2][j - 2] == 0) {
-						coordinate_elem.coordinate_start = { i,j };
-						coordinate_elem.coordinate_end = { i + 2,j - 2 };
-						coordinate_elem.coordinate_take = { i + 1,j - 1 };
-						coordinate.push_back(coordinate_elem);
-					}
-				}
-				for (int k = 1; k <= 7; k++) {
-					if (int_grid[i][j] == 4) {
+				if (int_grid[i][j] == 4) {
+					for (int k = 1; k <= 7; k++) {
+
 						if (i + k + 1 < size && j + k + 1 < size && int_grid[i + k - 1][j + k - 1] == 0 && ((int_grid[i + k][j + k] == 1 || int_grid[i + k][j + k] == 3))) {
 							for (int l = 1; i + k + l < size && j + k + l < size; l++) {
 								if (int_grid[i + k + 1][j + k + l] == 0) {
@@ -393,11 +397,43 @@ vector<CaptureMove> GameBoardController::check_grid(std::pair<int, int> coordina
 								}
 							}
 						}
-					}
 
+
+					}
 				}
+				if (int_grid[i][j] == 2) {
+					if (i - 2 >= 0 && j - 2 >= 0 && (int_grid[i - 1][j - 1] == 1 || int_grid[i - 1][j - 1] == 3) && int_grid[i - 2][j - 2] == 0) {
+						coordinate_elem.coordinate_start = { i,j };
+						coordinate_elem.coordinate_end = { i - 2,j - 2 };
+						coordinate_elem.coordinate_take = { i - 1,j - 1 };
+						coordinate.push_back(coordinate_elem);
+					}
+					if (i + 2 < size && j - 2 >= 0 && (int_grid[i + 1][j - 1] == 1 || int_grid[i + 1][j - 1] == 3) && int_grid[i + 2][j - 2] == 0) {
+						coordinate_elem.coordinate_start = { i,j };
+						coordinate_elem.coordinate_end = { i + 2,j - 2 };
+						coordinate_elem.coordinate_take = { i + 1,j - 1 };
+						coordinate.push_back(coordinate_elem);
+					}
+					if (i + 2 < size && j + 2 < size && (int_grid[i + 1][j + 1] == 1 || int_grid[i + 1][j + 1] == 3) && int_grid[i + 2][j + 2] == 0) {
+						coordinate_elem.coordinate_start = { i,j };
+						coordinate_elem.coordinate_end = { i + 2,j + 2 };
+						coordinate_elem.coordinate_take = { i + 1,j + 1 };
+						coordinate.push_back(coordinate_elem);
+					}
+					if (j + 2 < size && i - 2 >= 0 && (int_grid[i - 1][j + 1] == 1 || int_grid[i - 1][j + 1] == 3) && int_grid[i - 2][j + 2] == 0) {
+						coordinate_elem.coordinate_start = { i,j };
+						coordinate_elem.coordinate_end = { i - 2 ,j + 2 };
+						coordinate_elem.coordinate_take = { i - 1,j + 1 };
+						coordinate.push_back(coordinate_elem);
+					}
+				}
+				
+
+
+
+
+
 			}
-			//return { -1,-1 };
 		}
 	}
 	return  coordinate;
@@ -525,8 +561,6 @@ bool GameBoardController::is_move_checker(const std::pair<int, int>& coordinate_
 void GameBoardController::move_checker(const std::pair<int, int>& coordinate_start, const std::pair<int, int>& coordinate_end,int speed)
 {
 	int_grid[coordinate_start.first][coordinate_start.second] = 0;
-	std::cout << "Cor"<<coordinate_end.first << " " << coordinate_end.second << std::endl;
-	changing_checkers(current_player, coordinate_end);
 	auto checker = (*grid_ptr)[coordinate_start.first][coordinate_start.second]->releaseChecker();
 	if (checker->getColorChecker() == ColorChecker::Black && !checker->is_queen()) {
 		int_grid[coordinate_end.first][coordinate_end.second] = 2;
@@ -621,20 +655,22 @@ void GameBoardController::setAiMode(bool mode)
 	this->ai_mode = mode;
 }
 
-void GameBoardController::changing_checkers(ColorChecker current_player, const std::pair<int, int>& coordinate_end)
+bool GameBoardController::changing_checkers(ColorChecker current_player, const std::pair<int, int>& coordinate_end)
 {
 	if (coordinate_end.second == 0  && current_player == ColorChecker::White) {
-			std::cout << "KK" << std::endl;
-			(*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->becoming_queen(assets->getTexture("queen"));
+			(*grid_ptr)[coordinate_end.first][coordinate_end.second]->getChecker()->becoming_queen(assets->getTexture("queen"));
 			int_grid[coordinate_end.first][coordinate_end.second] = 3;
+			return true;
 			
 
 	}
 	if (coordinate_end.second == 7 && current_player == ColorChecker::Black) {
-		std::cout << "ZZ" << std::endl;
-		(*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->becoming_queen(assets->getTexture("queen"));
+		(*grid_ptr)[coordinate_end.first][coordinate_end.second]->getChecker()->becoming_queen(assets->getTexture("queen"));
 		int_grid[coordinate_end.first][coordinate_end.second] = 4;
+		return true;
 	}
+	return false;
+	
 	
 	
 	
