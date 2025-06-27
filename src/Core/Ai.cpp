@@ -7,3 +7,8 @@ std::pair<int,int> Ai::do_move()
 	position.y = rand()%8;
 	return {position.x,position.y};
 }
+
+Ai::Ai()
+{
+
+}
