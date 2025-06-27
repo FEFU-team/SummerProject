@@ -32,7 +32,7 @@ struct CaptureMove
 // Контролирование правил игры
 class GameBoardController {
 public:
-	GameBoardController(std::vector<std::vector<std::unique_ptr<Cell>>>* grid, AssetManager* assets,bool ai = false,Ai* computer = nullptr);
+	GameBoardController(std::vector<std::vector<std::unique_ptr<Cell>>>* grid, AssetManager* assets,bool ai = false);
 	void update_input(sf::Vector2f position);
 	ColorChecker getCurrentPlayer() const;
 	// Функция  перезапуска контроллера 
@@ -49,7 +49,7 @@ public:
 	std::vector<std::vector<int>> int_grid;
 private:
 	// Ai
-	Ai* computer;
+	//Ai ai;
 	// Указатель на менеджер пакетов
 	AssetManager* assets;
 	// Цвет текущего игрока

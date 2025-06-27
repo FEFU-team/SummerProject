@@ -6,12 +6,11 @@
 
 using namespace std;
 
-GameBoardController::GameBoardController(std::vector<std::vector<std::unique_ptr<Cell>>>* grid, AssetManager* assets,bool ai, Ai* computer)
+GameBoardController::GameBoardController(std::vector<std::vector<std::unique_ptr<Cell>>>* grid, AssetManager* assets,bool ai)
 {
 	this->assets = assets;
 	this->grid_ptr = grid;
 	this->ai_mode = ai;
-	this->computer = computer;
 	// Создаем целочисленную матрицу 
 	for (int i = 0; i < grid->size(); i++) {
 		vector<int> line(grid->size(), 0);
@@ -604,8 +603,9 @@ CheckersResult GameBoardController::checking_end()
 void GameBoardController::update_ai()
 {
 	if (show_player == ai_player) {
-		coordinate_start = computer->do_move();
-		coordinate_end = computer->do_move();
+		//ai.update_int_grid(&int_grid);
+		//coordinate_start = ai.do_move();
+		//coordinate_end = ai.do_move();
 		vector<CaptureMove> cor = check_grid(coordinate_start);
 		if (( int_grid[coordinate_start.first][coordinate_start.second] == 2  || int_grid[coordinate_start.first][coordinate_start.second] == 4) && (is_move_checker(coordinate_start, coordinate_end)) && cor.size() == 0) {
 			move_checker(coordinate_start, coordinate_end);

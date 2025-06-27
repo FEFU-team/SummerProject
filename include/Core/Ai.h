@@ -1,14 +1,37 @@
 
 #pragma once
 #include <SFML/Graphics.hpp>
+struct Move
+{
+    std::pair<int, int> coordinate_start;
+    std::pair<int, int> coordinate_end;
+};
 class Ai {
 public:
+
+    // Move
 	std::pair<int, int> do_move();
+    void update_int_grid(std::vector<std::vector<int>> *int_grid);
+    std::pair<float, Move> miniMax(int depth, bool max_player);
 	Ai();
 private:
-    int checker_value = 100; // стоимость простой шашки
-    int king_value = 250; // стоимость короля
-  
+    std::vector<std::vector<int>> int_grid;
+    
+
+    int checker_value = 10; // стоимость простой шашки
+    int queen_value = 25; // стоимость дамки
+    const int matrix_cost[8][8] = {
+        {1,1,1,1,1,1,1,1},
+        {1,1,1,1,1,1,1,1},
+        {2,2,2,2,2,2,2,2},
+        {3,3,1,4,4,3,3,3},
+        {3,3,3,4,4,3,3,3},
+        {2,2,2,2,2,2,2,2},
+        {1,1,1,1,1,1,1,1},
+        {1,1,1,1,1,1,1,1},
+    };
+    float evaluate_position();
+    void active_search();
 
     
 
