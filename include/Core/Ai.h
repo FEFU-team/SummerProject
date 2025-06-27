@@ -2,11 +2,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "GameBoardController.h"
-struct Move
-{
-    std::pair<int, int> coordinate_start;
-    std::pair<int, int> coordinate_end;
-};
+#include "RuleEngine.h"
 class Ai {
 public:
 
@@ -17,8 +13,6 @@ public:
 	Ai();
 private:
     std::vector<std::vector<int>> int_grid;
-    
-
     int checker_value = 10; // стоимость простой шашки
     int queen_value = 25; // стоимость дамки
     const int matrix_cost[8][8] = {
@@ -32,8 +26,9 @@ private:
         {1,1,1,1,1,1,1,1},
     };
     float evaluate_position();
-    void active_search();
-
+    Move active_search();
+    void move(std::pair<int,int> coordinate_start, std::pair<int, int> coordinate_end);
+    void undo_move(std::pair<int, int> coordinate_end,std::pair<int, int> coordinate_start);
     
 
 };

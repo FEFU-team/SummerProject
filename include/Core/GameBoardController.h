@@ -62,6 +62,7 @@ private:
 	int count_white_figure = 12;
 	// Функция хода шашки из координат начала в координаты конца
 	void move_checker(const std::pair<int, int>& coordinate_start, const std::pair<int, int>& coordinate_end,int speed = 30);
+
 	CheckersResult end_state = CONTINUE;
 	// Переход от шашки к дамке 
 	bool changing_checkers(ColorChecker current_player, const std::pair<int, int>& coordinate_end);

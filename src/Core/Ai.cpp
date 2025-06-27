@@ -52,7 +52,29 @@ float Ai::evaluate_position()
 	return eval;
 }
 
-void Ai::active_search()
+Move Ai::active_search()
 {
+	std::vector<Move> all_move =  RuleEngine::get_all_move(int_grid);
+	if (all_move.size() == 1) {
+		return all_move[0];
+	}
+	else {
+		for (int i = 0; i < all_move.size(); i++) {
+			
+		}
+	}
+}
 
+void Ai::move(std::pair<int, int> coordinate_start, std::pair<int, int> coordinate_end)
+{
+	int checkers = int_grid[coordinate_start.first][coordinate_start.second];
+	int_grid[coordinate_start.first][coordinate_start.second] = 0;
+	int_grid[coordinate_end.first][coordinate_end.second] = checkers;
+}
+
+void Ai::undo_move(std::pair<int, int> coordinate_end,std::pair<int, int> coordinate_start)
+{
+	int checkers = int_grid[coordinate_end.first][coordinate_end.second];
+	int_grid[coordinate_end.first][coordinate_end.second] = 0;
+	int_grid[coordinate_start.first][coordinate_start.second] = checkers;
 }
