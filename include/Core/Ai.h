@@ -1,6 +1,7 @@
 
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "GameBoardController.h"
 struct Move
 {
     std::pair<int, int> coordinate_start;

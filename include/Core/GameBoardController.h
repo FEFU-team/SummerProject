@@ -5,6 +5,7 @@
 #include "../include/Core/AssetManager.h"
 #include<vector>
 #include "Ai.h"
+#include "RuleEngine.h"
 // состояние конца игры
 enum CheckersResult {
 	WIN_WHITE, // Победа белых
@@ -14,20 +15,7 @@ enum CheckersResult {
 	LOSE_WHITE, // Сдался белый
 	LOSE_BLACK // Сдался черный
 };
-// Структура для хранения координат
-struct CaptureMove
-{
-	// Координаты выбора фигуры 
-	std::pair<int, int> coordinate_start;
-	// Координаты   ...
-	std::pair<int, int> coordinate_end;
-	// Координаты взятия фигуры 
-	std::pair<int, int> coordinate_take;
-	// Были ли взятие дамкой
-	bool queen_take = false;
 
-
-};
 // Управление игровым полем
 // Контролирование правил игры
 class GameBoardController {
@@ -48,37 +36,30 @@ public:
 	// Временно
 	std::vector<std::vector<int>> int_grid;
 private:
-	// Ai
-	//Ai ai;
 	// Указатель на менеджер пакетов
 	AssetManager* assets;
 	// Цвет текущего игрока
-	ColorChecker current_player;
+	ColorChecker current_player = ColorChecker::White;
 	// Цвет предыдущего игрока 
 	ColorChecker previous_player = ColorChecker::Black;
 	// Цвет который показывается в интерфейсе 
 	ColorChecker show_player= ColorChecker::White;
 	// Уничтожение фигуры
 	void destroy_figure(std::pair<int, int>coordinate);
-	// Функция проверки возможности взятия
-	// Возвращает структуру CaptureMove
-	std::vector<CaptureMove>  check_grid(std::pair<int, int> coordinate_start, bool queen_take = false);
 	// Указатель на игровое поле
 	std::vector<std::vector<std::unique_ptr<Cell>>>* grid_ptr;
 	// Координаты выбора шашки
 	std::pair<int, int> coordinate_start;
 	// Координаты хода шашки
 	std::pair<int, int> coordinate_end;
+	// Пат ли сейчас
+	bool pat = false;
 	// Нажата ли шашка
 	bool pressed_checker = false;
 	// Количество черных фигур
 	int count_black_figure = 12;
 	// Количество белых фигур 
 	int count_white_figure = 12;
-	bool check_pat = false;
-	void checking_pat();
-	//Возможно ли так походить
-	bool is_move_checker(const std::pair<int, int> &coordinate_start,  const std::pair<int, int> &coordinate_end);
 	// Функция хода шашки из координат начала в координаты конца
 	void move_checker(const std::pair<int, int>& coordinate_start, const std::pair<int, int>& coordinate_end,int speed = 30);
 	CheckersResult end_state = CONTINUE;
