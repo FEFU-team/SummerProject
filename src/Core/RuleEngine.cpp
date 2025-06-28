@@ -320,18 +320,20 @@ std::vector<Move> RuleEngine::get_all_move(const std::vector<std::vector<int>>& 
 				for (int i = 0; i < c_move.size(); i++) {
 					move_elem.coordinate_start = c_move[i].coordinate_start;
 					move_elem.coordinate_end = c_move[i].coordinate_end;
+					move_elem.coordinate_take = c_move[i].coordinate_take;
 					move.push_back(move_elem);
 				}
 				
 			}
 			else if (int_grid[i][j] == 1 && color) {
 
+				// Часть условий переложить в is _move checker 
 				if (is_move_checker({ i,j }, { i - 1,j - 1 }, int_grid) && i - 1 >=0 && j - 1 >= 0 && int_grid[i-1][j-1]==0) {
 					move_elem.coordinate_start = { i,j };
 					move_elem.coordinate_end = { i - 1,j - 1 };
 					move.push_back(move_elem);
 				}
-				else if (is_move_checker({ i,j }, { i + 1,j - 1 }, int_grid) && i + 1 <8 && j -1 >=0 && int_grid[i + 1][j - 1] == 0) {
+				if (is_move_checker({ i,j }, { i + 1,j - 1 }, int_grid) && i + 1 <8 && j -1 >=0 && int_grid[i + 1][j - 1] == 0) {
 					move_elem.coordinate_start = { i,j };
 					move_elem.coordinate_end = { i + 1,j - 1 };
 					move.push_back(move_elem);
@@ -340,12 +342,12 @@ std::vector<Move> RuleEngine::get_all_move(const std::vector<std::vector<int>>& 
 			}
 			else if (int_grid[i][j] == 2 && !color) {
 
-				if (is_move_checker({ i,j }, { i + 1,j + 1 }, int_grid) && i + 1 <8 && j + 1 < 8 && int_grid[i + 1][j + 1] == 0) {
+				if (is_move_checker({ i,j }, { i + 1,j + 1 }, int_grid) && i + 1 <8 && j + 1 <= 8 && int_grid[i + 1][j + 1] == 0) {
 					move_elem.coordinate_start = { i,j };
 					move_elem.coordinate_end = { i + 1,j+ 1 };
 					move.push_back(move_elem);
 				}
-				else if (is_move_checker({ i,j }, { i - 1,j + 1 }, int_grid) && i-1>=0 && j+1<8 && int_grid[i - 1][j + 1] == 0) {
+				if (is_move_checker({ i,j }, { i - 1,j + 1 }, int_grid) && i-1>=0 && j+1<=8 && int_grid[i - 1][j + 1] == 0) {
 					move_elem.coordinate_start = { i,j };
 					move_elem.coordinate_end = { i - 1,j + 1 };
 					move.push_back(move_elem);

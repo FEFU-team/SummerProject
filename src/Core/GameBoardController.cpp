@@ -299,6 +299,10 @@ void GameBoardController::update_ai()
 		ai->update_int_grid(int_grid);
 		Move move = ai->active_search();
 		move_checker(move.coordinate_start, move.coordinate_end);
+		if (move.coordinate_take.first != -1 && move.coordinate_take.second != -1) {
+			destroy_figure(move.coordinate_take);
+		}
+		
 		_sleep(10); // костыль
 		show_player =previous_player;
 		previous_player = ai_player;

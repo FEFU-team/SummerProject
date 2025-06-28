@@ -18,7 +18,11 @@ struct Move
 {
 	std::pair<int, int> coordinate_start;
 
+	// Координаты взятия фигуры 
+	std::pair<int, int> coordinate_take = { -1,-1 };
+
 	std::pair<int, int> coordinate_end;
+
 };
 namespace RuleEngine {
 	// Все варианты взятие шашки  или дамки
@@ -28,8 +32,11 @@ namespace RuleEngine {
 	bool is_move_checker(const std::pair<int, int>& coordinate_start, const std::pair<int, int>& coordinate_end, const  std::vector<std::vector<int>>& int_grid);
 	// Пат или сейчас
 	bool  is_pat(const  std::vector<std::vector<int>>& int_grid);
+
+
 	// Проверяем есть ли ходы для фигур
 	// Возращаем множество ходов 
 	std::vector<Move> get_all_move(const  std::vector<std::vector<int>>& int_grid,bool color=false);
+
 
 };
