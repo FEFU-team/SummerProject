@@ -1,6 +1,7 @@
 
 #include <iostream>
 #include <Core/GameBoardController.h>
+
 using namespace RuleEngine;
 
 
@@ -12,6 +13,7 @@ GameBoardController::GameBoardController(std::vector<std::vector<std::unique_ptr
 	this->assets = assets;
 	this->grid_ptr = grid;
 	this->ai_mode = ai;
+	//this->ai = bot;
 	// Создаем целочисленную матрицу 
 	for (int i = 0; i < grid->size(); i++) {
 		vector<int> line(grid->size(), 0);
@@ -292,13 +294,14 @@ CheckersResult GameBoardController::checking_end()
 
 void GameBoardController::update_ai()
 {
-	/*
+	
+	
 	if (show_player == ai_player) {
 		show_player = previous_player;
 		previous_player = ai_player;
 		
 	}
-	*/
+	
 
 	
 }

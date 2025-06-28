@@ -55,13 +55,23 @@ float Ai::evaluate_position()
 Move Ai::active_search()
 {
 	std::vector<Move> all_move =  RuleEngine::get_all_move(int_grid);
+	Move _move;
 	if (all_move.size() == 1) {
 		return all_move[0];
 	}
 	else {
-		for (int i = 0; i < all_move.size(); i++) {
-			
+		move(all_move[0].coordinate_start, all_move[0].coordinate_end);
+		_move = all_move[0];
+		// Текущий максимум 
+		float m=evaluate_position();
+		undo_move(all_move[0].coordinate_end, all_move[0].coordinate_start);
+		for (int i = 1; i < all_move.size(); i++) {
+			move(all_move[i].coordinate_start, all_move[i].coordinate_end);
+			m = std::max(m, evaluate_position());
+			_move = all_move[i];
+			undo_move(all_move[0].coordinate_end, all_move[i].coordinate_start);
 		}
+		return _move;
 	}
 }
 

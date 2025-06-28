@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include "GameBoardController.h"
 #include "RuleEngine.h"
+#include<iostream>
 class Ai {
 public:
 
