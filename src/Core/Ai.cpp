@@ -88,8 +88,12 @@ Move Ai::active_search()
 		undo_move(all_move[0].coordinate_end, all_move[0].coordinate_start);
 		for (int i = 1; i < all_move.size(); i++) {
 			move(all_move[i].coordinate_start, all_move[i].coordinate_end);
-			m = std::max(m, evaluate_position());
-			_move = all_move[i];
+			float eval = evaluate_position();
+			m = std::max(m, eval);
+			if (m == eval) {
+				_move = all_move[i];
+			}
+			
 			undo_move(all_move[0].coordinate_end, all_move[i].coordinate_start);
 		}
 		return _move;

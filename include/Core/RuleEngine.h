@@ -17,6 +17,7 @@ struct CaptureMove
 struct Move
 {
 	std::pair<int, int> coordinate_start;
+
 	std::pair<int, int> coordinate_end;
 };
 namespace RuleEngine {
