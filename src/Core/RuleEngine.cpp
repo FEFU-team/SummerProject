@@ -402,6 +402,7 @@ std::vector<Move> RuleEngine::get_all_move(const std::vector<std::vector<int>>& 
 						move.push_back(move_elem);
 					}
 				}
+				int x = 0;
 			}
 		}
 	}
