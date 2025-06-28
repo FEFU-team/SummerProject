@@ -57,13 +57,13 @@ float Ai::evaluate_position()
 	for (int i = 0; i < 8; i++) {
 		for (int j = 0; j < 8; j++) {
 			if (int_grid[i][j] == 1) {
-				eval -= matrix_cost[i][j]*checker_value;
+				eval -= matrix_cost[i][j]*checker_value * line_cost[7-i];
 			}
 			else if (int_grid[i][j] == 3) {
 				eval -= matrix_cost[i][j] * queen_value;
 			}
 			else if (int_grid[i][j] == 2) {
-				eval += matrix_cost[i][j] * checker_value;
+				eval += matrix_cost[i][j] * checker_value * line_cost[ i];
 			}
 			else if (int_grid[i][j] == 4) {
 				eval += matrix_cost[i][j] * queen_value;
