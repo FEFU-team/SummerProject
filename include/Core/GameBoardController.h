@@ -1,9 +1,12 @@
 #pragma once
 #include <Main.hpp>
 #include <UI/Map/Cell.h>
-#include "../include/Core/GameBoardController.h"
 #include "../include/Core/AssetManager.h"
 #include<vector>
+#include "RuleEngine.h"
+#include "Ai.h"
+
+
 // состояние конца игры
 enum CheckersResult {
 	WIN_WHITE, // Победа белых
@@ -13,65 +16,62 @@ enum CheckersResult {
 	LOSE_WHITE, // Сдался белый
 	LOSE_BLACK // Сдался черный
 };
-// Структура для хранения координат
-struct CaptureMove
-{
-	// Координаты выбора фигуры 
-	std::pair<int, int> coordinate_start;
-	// Координаты   ...
-	std::pair<int, int> coordinate_end;
-	// Координаты взятия фигуры 
-	std::pair<int, int> coordinate_take;
-
-
-};
+class Ai;
 // Управление игровым полем
 // Контролирование правил игры
 class GameBoardController {
 public:
-	GameBoardController(std::vector<std::vector<std::unique_ptr<Cell>>>* grid, AssetManager* assets);
+	GameBoardController(std::vector<std::vector<std::unique_ptr<Cell>>>* grid, AssetManager* assets, bool ai_mode = false,Ai* ai=nullptr);
 	void update_input(sf::Vector2f position);
-	ColorChecker getCurrentPlayer();
+	ColorChecker getCurrentPlayer() const;
 	// Функция  перезапуска контроллера 
 	void reset();
 	// Проверка конца игры
 	CheckersResult checking_end();
+	// Обновляем ход ai
+	void update_ai();
+	// Включен ли ai mode
+	bool isAiMode() const;
+	// Задать ai mode
+	void setAiMode(bool mode);
 	// Временно
 	std::vector<std::vector<int>> int_grid;
 private:
+	int k = 0;
+	Ai* ai;
 	// Указатель на менеджер пакетов
 	AssetManager* assets;
 	// Цвет текущего игрока
-	ColorChecker current_player = ColorChecker::Black;
+	ColorChecker current_player = ColorChecker::White;
 	// Цвет предыдущего игрока 
 	ColorChecker previous_player = ColorChecker::Black;
 	// Цвет который показывается в интерфейсе 
-	ColorChecker show_player= ColorChecker::White;
+	ColorChecker show_player = ColorChecker::White;
 	// Уничтожение фигуры
 	void destroy_figure(std::pair<int, int>coordinate);
-	// Функция проверки возможности взятия
-	// Возвращает структуру CaptureMove
-	std::vector<CaptureMove>  check_grid( std::pair<int, int> coordinate_start);
 	// Указатель на игровое поле
 	std::vector<std::vector<std::unique_ptr<Cell>>>* grid_ptr;
 	// Координаты выбора шашки
 	std::pair<int, int> coordinate_start;
 	// Координаты хода шашки
 	std::pair<int, int> coordinate_end;
+	// Пат ли сейчас
+	bool pat = false;
 	// Нажата ли шашка
 	bool pressed_checker = false;
 	// Количество черных фигур
 	int count_black_figure = 12;
 	// Количество белых фигур 
 	int count_white_figure = 12;
-	bool check_pat = false;
-	void checking_pat();
-	//Возможно ли так походить
-	bool is_move_checker(const std::pair<int, int> &coordinate_start,  const std::pair<int, int> &coordinate_end);
 	// Функция хода шашки из координат начала в координаты конца
-	void move_checker( int speed = 30);
+	void move_checker(const std::pair<int, int>& coordinate_start, const std::pair<int, int>& coordinate_end, int speed = 30);
+
 	CheckersResult end_state = CONTINUE;
 	// Переход от шашки к дамке 
-	void changing_checkers(ColorChecker current_player, const std::pair<int, int>& coordinate_end);
-	
+	bool changing_checkers(ColorChecker current_player, const std::pair<int, int>& coordinate_end);
+	// Режим игры c ai
+	bool ai_mode = false;
+	// Цвет шашек ai
+	ColorChecker ai_player = ColorChecker::Black;;
+
 };

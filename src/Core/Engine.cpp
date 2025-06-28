@@ -12,6 +12,7 @@
 #include <UI/Menu/MainMenu.h>
 #include <UI/Info/Info.h>
 #include <UI/End/End.h>
+#include <Core/Ai.h>
 
 
 void Engine::init()
@@ -34,15 +35,17 @@ void Engine::run()
     GameBoard game_board(position_board,&assets);
     sf::Vector2i mouse_position_i;
     sf::Vector2f mouse_position_f;
-    GameBoardController game_board_controller(&game_board.grid,&assets);
+    Ai ai;
+    GameBoardController game_board_controller(&game_board.grid,&assets,false,&ai);
     sf::Clock clock;
     MainMenu main_menu({ 0,0 }, HEIGHT_WINDOW, WIDTH_WINDOW, assets.getFont("arial"), &game_controller);
     Info info({ 1100,0 }, assets.getFont("arial"), &game_controller);
     End end({ HEIGHT_WINDOW/2,WIDTH_WINDOW/2 }, assets.getFont("arial"), &game_controller);
 
-
-    game_board.grid[2][5]->getChecker()->becoming_queen(assets.getTexture("queen"));
-    game_board_controller.int_grid[2][5] = 3;
+    //game_board.grid[3][2]->getChecker()->becoming_queen(assets.getTexture("queen"));
+    //game_board_controller.int_grid[3][2] = 4;
+    //game_board.grid[2][5]->getChecker()->becoming_queen(assets.getTexture("queen"));
+    //game_board_controller.int_grid[2][5] = 3;
     while (window->isOpen())
     {
         GameState  current_state = game_controller.getGameState();
@@ -109,9 +112,12 @@ void Engine::run()
             else {
                info.update_info(L"Зеленые");
             }
-            
             game_board.draw(window.get(), time);
             info.draw(window.get());
+            if (game_board_controller.isAiMode()) {
+                game_board_controller.update_ai();
+            }
+           
         }
         else if (current_state == GameState::Restart) {
             game_board.reset();
