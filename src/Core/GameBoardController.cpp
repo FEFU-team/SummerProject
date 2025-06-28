@@ -294,11 +294,12 @@ CheckersResult GameBoardController::checking_end()
 
 void GameBoardController::update_ai()
 {
-	
+	_sleep(10); // костыль
 	if (show_player == ai_player) {
 		ai->update_int_grid(int_grid);
 		Move move = ai->active_search();
 		move_checker(move.coordinate_start, move.coordinate_end);
+		ai->update_int_grid(int_grid);
 		show_player =previous_player;
 		previous_player = ai_player;
 		

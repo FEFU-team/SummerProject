@@ -14,13 +14,28 @@ std::pair<int,int> Ai::do_move()
 
 void Ai::update_int_grid(const std::vector<std::vector<int>>& int_grid)
 {
-	for (int i = 0; i < 8; i++) {
-		for (int j = 0; j < 8; j++)
-		{
-			
-			
+	int size = this->int_grid.size();
+	if (size == 0) {
+		for (int i = 0; i < 8; i++) {
+			std::vector<int> v;
+			for (int j = 0; j < 8; j++)
+			{
+
+				v.push_back(int_grid[i][j]);
+			}
+			this->int_grid.push_back(v);
 		}
 	}
+	else {
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++)
+			{
+				this->int_grid[i][j] = int_grid[i][j];
+
+			}
+		}
+	}
+	
 }
 
 std::pair<float, Move> Ai::miniMax(int depth, bool max_player)
@@ -60,7 +75,7 @@ float Ai::evaluate_position()
 
 Move Ai::active_search()
 {
-	std::vector<Move> all_move =  RuleEngine::get_all_move(int_grid);
+	std::vector<Move> all_move = RuleEngine::get_all_move(int_grid, false);
 	Move _move;
 	if (all_move.size() == 1) {
 		return all_move[0];

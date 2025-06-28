@@ -29,6 +29,6 @@ namespace RuleEngine {
 	bool  is_pat(const  std::vector<std::vector<int>>& int_grid);
 	// Проверяем есть ли ходы для фигур
 	// Возращаем множество ходов 
-	std::vector<Move> get_all_move(const  std::vector<std::vector<int>>& int_grid);
+	std::vector<Move> get_all_move(const  std::vector<std::vector<int>>& int_grid,bool color=false);
 
 };

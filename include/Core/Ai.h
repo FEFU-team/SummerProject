@@ -14,7 +14,7 @@ public:
 	Ai();
     Move active_search();
 private:
-    std::vector<std::vector<int>> int_grid[8][8];
+    std::vector<std::vector<int>> int_grid;
     int checker_value = 10; // стоимость простой шашки
     int queen_value = 25; // стоимость дамки
     const int matrix_cost[8][8] = {

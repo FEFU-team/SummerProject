@@ -300,7 +300,7 @@ bool RuleEngine::is_pat(const std::vector<std::vector<int>>& int_grid)
 
 }
 
-std::vector<Move> RuleEngine::get_all_move(const std::vector<std::vector<int>>& int_grid)
+std::vector<Move> RuleEngine::get_all_move(const std::vector<std::vector<int>>& int_grid, bool color)
 {
 	std::vector<Move> move;
 	Move move_elem;
@@ -308,7 +308,14 @@ std::vector<Move> RuleEngine::get_all_move(const std::vector<std::vector<int>>& 
 	{
 		for (int j = 0; j < 8; j++)
 		{
-			std::vector<CaptureMove> c_move = check_capture({ i,j }, int_grid);
+			std::vector<CaptureMove> c_move;
+
+			if (int_grid[i][j] == 1 || int_grid[i][j] == 3 && color) {
+				 c_move = check_capture({ i,j }, int_grid);
+			}
+			else {
+				 c_move = check_capture({ i,j }, int_grid);
+			}
 			if (c_move.size() != 0) {
 				for (int i = 0; i < c_move.size(); i++) {
 					move_elem.coordinate_start = c_move[i].coordinate_start;
@@ -317,52 +324,77 @@ std::vector<Move> RuleEngine::get_all_move(const std::vector<std::vector<int>>& 
 				}
 				
 			}
-			else if (int_grid[i][j] == 1) {
+			else if (int_grid[i][j] == 1 && color) {
 
-				if (is_move_checker({ i,j }, { i - 1,j - 1 }, int_grid) ) {
+				if (is_move_checker({ i,j }, { i - 1,j - 1 }, int_grid) && i - 1 >=0 && j - 1 >= 0) {
 					move_elem.coordinate_start = { i,j };
 					move_elem.coordinate_end = { i - 1,j - 1 };
 					move.push_back(move_elem);
 				}
-				else if (is_move_checker({ i,j }, { i + 1,j - 1 }, int_grid)) {
+				else if (is_move_checker({ i,j }, { i + 1,j - 1 }, int_grid) && i + 1 <8 && j -1 >=0) {
 					move_elem.coordinate_start = { i,j };
 					move_elem.coordinate_end = { i + 1,j - 1 };
 					move.push_back(move_elem);
 				}
 
 			}
-			else if (int_grid[i][j] == 2) {
+			else if (int_grid[i][j] == 2 && !color) {
 
-				if (is_move_checker({ i,j }, { i + 1,j + 1 }, int_grid)) {
+				if (is_move_checker({ i,j }, { i + 1,j + 1 }, int_grid) && i + 1 <8 && j + 1 < 8) {
 					move_elem.coordinate_start = { i,j };
 					move_elem.coordinate_end = { i + 1,j+ 1 };
 					move.push_back(move_elem);
 				}
-				else if (is_move_checker({ i,j }, { i - 1,j + 1 }, int_grid)) {
+				else if (is_move_checker({ i,j }, { i - 1,j + 1 }, int_grid) && i-1>=0 && j+1<8) {
 					move_elem.coordinate_start = { i,j };
 					move_elem.coordinate_end = { i - 1,j + 1 };
 					move.push_back(move_elem);
 				}
 			}
-			else if (int_grid[i][j] == 3 || int_grid[i][j] == 4) {
+			else if (int_grid[i][j] == 3 && color) {
 				for (int k = 1; k <= 7; k++)
 				{
-					if (is_move_checker({ i,j }, { i + k,j + k }, int_grid)) {
+					if (is_move_checker({ i,j }, { i + k,j + k }, int_grid) && i +k< 8 && j + k < 8) {
 						move_elem.coordinate_start = { i,j };
 						move_elem.coordinate_end = { i + k,j + k };
 						move.push_back(move_elem);
 					}
-					else if (is_move_checker({ i,j }, { i - k,j - k }, int_grid)) {
+					else if (is_move_checker({ i,j }, { i - k,j - k }, int_grid) && i - k >=0  && j - k >= 0) {
 						move_elem.coordinate_start = { i,j };
 						move_elem.coordinate_end = { i - k,j -  k };
 						move.push_back(move_elem);
 					}
-					else if (is_move_checker({ i,j }, { i + k,j - k }, int_grid)) {
+					else if (is_move_checker({ i,j }, { i + k,j - k }, int_grid) && i + k < 8 && j - k >=0) {
 						move_elem.coordinate_start = { i,j };
 						move_elem.coordinate_end = { i + k,j - k };
 						move.push_back(move_elem);
 					}
-					else if (is_move_checker({ i,j }, { i - k,j + k }, int_grid)) {
+					else if (is_move_checker({ i,j }, { i - k,j + k }, int_grid) && i - k>=0 && j + k < 8) {
+						move_elem.coordinate_start = { i,j };
+						move_elem.coordinate_end = { i - k,j + k };
+						move.push_back(move_elem);
+					}
+				}
+			}
+			else if (int_grid[i][j] == 4 && !color) {
+				for (int k = 1; k <= 7; k++)
+				{
+					if (is_move_checker({ i,j }, { i + k,j + k }, int_grid) && i + k < 8 && j + k < 8) {
+						move_elem.coordinate_start = { i,j };
+						move_elem.coordinate_end = { i + k,j + k };
+						move.push_back(move_elem);
+					}
+					else if (is_move_checker({ i,j }, { i - k,j - k }, int_grid) && i - k >= 0 && j - k >= 0) {
+						move_elem.coordinate_start = { i,j };
+						move_elem.coordinate_end = { i - k,j - k };
+						move.push_back(move_elem);
+					}
+					else if (is_move_checker({ i,j }, { i + k,j - k }, int_grid) && i + k < 8 && j - k >= 0) {
+						move_elem.coordinate_start = { i,j };
+						move_elem.coordinate_end = { i + k,j - k };
+						move.push_back(move_elem);
+					}
+					else if (is_move_checker({ i,j }, { i - k,j + k }, int_grid) && i - k >= 0 && j + k < 8) {
 						move_elem.coordinate_start = { i,j };
 						move_elem.coordinate_end = { i - k,j + k };
 						move.push_back(move_elem);
