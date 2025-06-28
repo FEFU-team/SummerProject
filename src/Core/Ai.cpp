@@ -12,9 +12,15 @@ std::pair<int,int> Ai::do_move()
 	return { 0,0 };
 }
 
-void Ai::update_int_grid(std::vector<std::vector<int>>* int_grid)
+void Ai::update_int_grid(const std::vector<std::vector<int>>& int_grid)
 {
-	this->int_grid = *int_grid;
+	for (int i = 0; i < 8; i++) {
+		for (int j = 0; j < 8; j++)
+		{
+			
+			
+		}
+	}
 }
 
 std::pair<float, Move> Ai::miniMax(int depth, bool max_player)

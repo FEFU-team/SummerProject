@@ -8,12 +8,12 @@ using namespace RuleEngine;
 
 using namespace std;
 
-GameBoardController::GameBoardController(std::vector<std::vector<std::unique_ptr<Cell>>>* grid, AssetManager* assets, bool ai)
+GameBoardController::GameBoardController(std::vector<std::vector<std::unique_ptr<Cell>>>* grid, AssetManager* assets, bool ai_mode,Ai* ai)
 {
 	this->assets = assets;
 	this->grid_ptr = grid;
-	this->ai_mode = ai;
-	//this->ai = bot;
+	this->ai_mode = ai_mode;
+	this->ai = ai;
 	// Создаем целочисленную матрицу 
 	for (int i = 0; i < grid->size(); i++) {
 		vector<int> line(grid->size(), 0);
@@ -295,9 +295,11 @@ CheckersResult GameBoardController::checking_end()
 void GameBoardController::update_ai()
 {
 	
-	
 	if (show_player == ai_player) {
-		show_player = previous_player;
+		ai->update_int_grid(int_grid);
+		Move move = ai->active_search();
+		move_checker(move.coordinate_start, move.coordinate_end);
+		show_player =previous_player;
 		previous_player = ai_player;
 		
 	}

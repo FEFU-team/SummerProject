@@ -4,6 +4,7 @@
 #include "../include/Core/AssetManager.h"
 #include<vector>
 #include "RuleEngine.h"
+#include "Ai.h"
 
 
 // состояние конца игры
@@ -15,12 +16,12 @@ enum CheckersResult {
 	LOSE_WHITE, // Сдался белый
 	LOSE_BLACK // Сдался черный
 };
-
+class Ai;
 // Управление игровым полем
 // Контролирование правил игры
 class GameBoardController {
 public:
-	GameBoardController(std::vector<std::vector<std::unique_ptr<Cell>>>* grid, AssetManager* assets, bool ai = false);
+	GameBoardController(std::vector<std::vector<std::unique_ptr<Cell>>>* grid, AssetManager* assets, bool ai_mode = false,Ai* ai=nullptr);
 	void update_input(sf::Vector2f position);
 	ColorChecker getCurrentPlayer() const;
 	// Функция  перезапуска контроллера 
@@ -36,6 +37,7 @@ public:
 	// Временно
 	std::vector<std::vector<int>> int_grid;
 private:
+	Ai* ai;
 	// Указатель на менеджер пакетов
 	AssetManager* assets;
 	// Цвет текущего игрока
