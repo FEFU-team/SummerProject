@@ -37,6 +37,7 @@ public:
 	// Временно
 	std::vector<std::vector<int>> int_grid;
 private:
+	bool move = false;
 	int k = 0;
 	Ai* ai;
 	// Указатель на менеджер пакетов

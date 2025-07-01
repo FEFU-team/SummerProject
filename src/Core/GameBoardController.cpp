@@ -59,10 +59,10 @@ void GameBoardController::update_input(sf::Vector2f position)
 		cout << " previous_player Black" << endl;
 	}
 	if (show_player == ColorChecker::White) {
-		cout << " showplayer White" << endl;
+		cout << " show player White" << endl;
 	}
 	else {
-		cout << "showplayer Black" << endl;
+		cout << "show player Black" << endl;
 	}
 	for (int i = 0; i < grid_ptr->size(); i++) {
 		for (int j= 0; j < grid_ptr->size(); j++) {
@@ -76,7 +76,8 @@ void GameBoardController::update_input(sf::Vector2f position)
 				current_player = (*grid_ptr)[i][j]->getChecker()->getColorChecker();
 				coordinate_start.first = i;
 				coordinate_start.second = j;
-				if ((*grid_ptr)[i][j]->isBeChecker()) {
+				// Нужно прописать условия 
+				if ((*grid_ptr)[i][j]->isBeChecker() && !move) {
 					if ((*grid_ptr)[i][j]->getChecker()->is_active()) {
 						if ((*grid_ptr)[i][j]->getChecker()->is_queen()) {
 							(*grid_ptr)[i][j]->getChecker()->update_texture(assets->getTexture("queen"), false);
@@ -244,6 +245,7 @@ void GameBoardController::destroy_figure(std::pair<int, int> coordinate)
 
 void GameBoardController::move_checker(const std::pair<int, int>& coordinate_start, const std::pair<int, int>& coordinate_end,int speed)
 {
+	
 	int_grid[coordinate_start.first][coordinate_start.second] = 0;
 	auto checker = (*grid_ptr)[coordinate_start.first][coordinate_start.second]->releaseChecker();
 	if (checker->getColorChecker() == ColorChecker::Black && !checker->is_queen()) {
@@ -265,7 +267,6 @@ void GameBoardController::move_checker(const std::pair<int, int>& coordinate_sta
 	
 	checker->start_move((*grid_ptr)[coordinate_end.first][coordinate_end.second]->getPosition());
 
-	
 	(*grid_ptr)[coordinate_end.first][coordinate_end.second]->transferChecker(std::move(checker));
 	
 	
@@ -294,8 +295,8 @@ CheckersResult GameBoardController::checking_end()
 
 void GameBoardController::update_ai()
 {
-	_sleep(10); // костыль
-	if (show_player == ai_player) {
+	//_sleep(10); // костыль
+	if (show_player == ai_player && !move) {
 		ai->update_int_grid(int_grid);
 		Move move = ai->active_search();
 		move_checker(move.coordinate_start, move.coordinate_end);
@@ -303,7 +304,6 @@ void GameBoardController::update_ai()
 			destroy_figure(move.coordinate_take);
 		}
 		
-		_sleep(10); // костыль
 		show_player =previous_player;
 		previous_player = ai_player;
 		
