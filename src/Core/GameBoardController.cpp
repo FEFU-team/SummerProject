@@ -71,12 +71,13 @@ void GameBoardController::update_input(sf::Vector2f position)
 					continue;
 				}
 			}
-			
+			// Нужно прописать условия 
+			move = false;
 			if ((*grid_ptr)[i][j]->isPressed(position) && (*grid_ptr)[i][j]->isBeChecker() && pressed_checker == false && !(*grid_ptr)[i][j]->getChecker()->is_move()) {
 				current_player = (*grid_ptr)[i][j]->getChecker()->getColorChecker();
 				coordinate_start.first = i;
 				coordinate_start.second = j;
-				// Нужно прописать условия 
+				
 				if ((*grid_ptr)[i][j]->isBeChecker() && !move) {
 					if ((*grid_ptr)[i][j]->getChecker()->is_active()) {
 						if ((*grid_ptr)[i][j]->getChecker()->is_queen()) {
@@ -162,16 +163,21 @@ void GameBoardController::update_input(sf::Vector2f position)
 							if (cor[i].coordinate_start == coordinate_start && cor[i].coordinate_end == coordinate_end) {
 								move_checker(coordinate_start,coordinate_end);
 								destroy_figure(cor[i].coordinate_take);
+								changing_checkers(current_player, coordinate_end);
 								// Решение бага #183 
+								/*
 								if (changing_checkers(current_player, coordinate_end)) {
 									show_player = previous_player;
 									previous_player = current_player;
 									break;
 								}
-							
+
+
+								*/
 								if (check_capture(coordinate_end,int_grid,cor[i].queen_take).size() == 0) {
 									show_player = previous_player;
 									previous_player = current_player;
+									break;
 								}
 							}
 							else {
