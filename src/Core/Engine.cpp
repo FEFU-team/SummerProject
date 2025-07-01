@@ -13,6 +13,7 @@
 #include <UI/Info/Info.h>
 #include <UI/End/End.h>
 #include <Core/Ai.h>
+#include <string>
 
 
 void Engine::init()
@@ -38,6 +39,7 @@ void Engine::run()
     Ai ai;
     GameBoardController game_board_controller(&game_board.grid,&assets,false,&ai);
     sf::Clock clock;
+    sf::Clock timer;
     MainMenu main_menu({ 0,0 }, HEIGHT_WINDOW, WIDTH_WINDOW, assets.getFont("arial"), &game_controller);
     Info info({ 1100,0 }, assets.getFont("arial"), &game_controller);
     End end({ HEIGHT_WINDOW/2,WIDTH_WINDOW/2 }, assets.getFont("arial"), &game_controller);
@@ -46,8 +48,10 @@ void Engine::run()
     //game_board_controller.int_grid[3][2] = 4;
     //game_board.grid[2][5]->getChecker()->becoming_queen(assets.getTexture("queen"));
     //game_board_controller.int_grid[2][5] = 3;
+    timer.start();
     while (window->isOpen())
     {
+        
         GameState  current_state = game_controller.getGameState();
         float time = clock.getElapsedTime().asMilliseconds(); 
         clock.restart();
@@ -102,15 +106,16 @@ void Engine::run()
 
         }
         else if (current_state == GameState::End) {
+            timer.stop();
             end.draw(window.get());
         }
         else if(current_state == GameState::Play){
-            
+            int x = timer.getElapsedTime().asSeconds();
             if (game_board_controller.getCurrentPlayer()  == ColorChecker::Black) {
-                info.update_info(L"Желтые");
+                info.update_info(L"Желтые", std::to_string(x));
             }
             else {
-               info.update_info(L"Зеленые");
+               info.update_info(L"Зеленые", std::to_string(x));
             }
             game_board.draw(window.get(), time);
             info.draw(window.get());
@@ -123,10 +128,12 @@ void Engine::run()
             game_board.reset();
             game_board_controller.reset();
             info.reset();
+            timer.restart();
             cout << "Restart" << endl;
             game_controller.setGameState(GameState::Play);
         }
         else if (current_state == GameState::Close) {
+           
             window->close();
         }
         window->display();

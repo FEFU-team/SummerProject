@@ -191,16 +191,16 @@ std::vector<CaptureMove> RuleEngine::check_capture(const std::pair<int, int>& co
 
 bool RuleEngine::is_move_checker(const std::pair<int, int>& coordinate_start, const std::pair<int, int>& coordinate_end, const  std::vector<std::vector<int>>& int_grid)
 {
-	if ((coordinate_start.first + 1 == coordinate_end.first && coordinate_start.second + 1 == coordinate_end.second) && int_grid[coordinate_start.first][coordinate_start.second] == 2) {
+	if ((coordinate_start.first + 1 == coordinate_end.first && coordinate_start.second + 1 == coordinate_end.second) && int_grid[coordinate_start.first][coordinate_start.second] == 2 && coordinate_start.first + 1 <8 && coordinate_start.second + 1<8) {
 		return true;
 	}
-	else if ((coordinate_start.first - 1 == coordinate_end.first && coordinate_start.second + 1 == coordinate_end.second) && int_grid[coordinate_start.first][coordinate_start.second] == 2) {
+	else if ((coordinate_start.first - 1 == coordinate_end.first && coordinate_start.second + 1 == coordinate_end.second) && int_grid[coordinate_start.first][coordinate_start.second] == 2 && coordinate_start.first - 1 >=0 && coordinate_start.second + 1 < 8) {
 		return true;
 	}
-	else if ((coordinate_start.first - 1 == coordinate_end.first && coordinate_start.second - 1 == coordinate_end.second) && int_grid[coordinate_start.first][coordinate_start.second] == 1) {
+	else if ((coordinate_start.first - 1 == coordinate_end.first && coordinate_start.second - 1 == coordinate_end.second) && int_grid[coordinate_start.first][coordinate_start.second] == 1 && coordinate_start.first - 1 >=0 && coordinate_start.second - 1 >= 0) {
 		return true;
 	}
-	else if ((coordinate_start.first + 1 == coordinate_end.first && coordinate_start.second - 1 == coordinate_end.second) && int_grid[coordinate_start.first][coordinate_start.second] == 1) {
+	else if ((coordinate_start.first + 1 == coordinate_end.first && coordinate_start.second - 1 == coordinate_end.second) && int_grid[coordinate_start.first][coordinate_start.second] == 1 && coordinate_start.first+1<8&& coordinate_start.second - 1 >= 0) {
 		return true;
 	}
 	else if (int_grid[coordinate_start.first][coordinate_start.second] == 3 || int_grid[coordinate_start.first][coordinate_start.second] == 4) {
