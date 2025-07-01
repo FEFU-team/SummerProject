@@ -15,6 +15,8 @@ Info::Info(sf::Vector2f position, sf::Font* font, GameController* game_controlle
 	widgets.push_back(
 		std::make_unique<TextLabel>(sf::Vector2f(position.x+200, position.y+100), font, color_player, sf::Color::White));
 	widgets.push_back(
+		std::make_unique<TextLabel>(sf::Vector2f(position.x + 500, position.y + 100), font, timer, sf::Color::White));
+	widgets.push_back(
 		std::make_unique<TextButton>(
 			sf::Vector2f(position.x+600, position.y),
 			L"Сдаться", font, 30, sf::Vector2f(100, 100),
@@ -26,17 +28,19 @@ Info::Info(sf::Vector2f position, sf::Font* font, GameController* game_controlle
 
 void Info::update_input(sf::Vector2f mouse_position)
 {
-	if (dynamic_cast<TextButton*>(widgets[3].get())->isPressed(mouse_position)) {
+	if (dynamic_cast<TextButton*>(widgets[4].get())->isPressed(mouse_position)) {
 		game_controller->setGameState(GameState::End);
 		lose = true;;
 	}
 }
 
-void Info::update_info(sf::String inf)
+void Info::update_info(sf::String inf, sf::String timer)
 {
 	this->color_player = inf;
+	this->timer = timer;
 	// Преобразование типов
 	dynamic_cast<TextLabel*>(widgets[2].get())->setText(inf);
+	dynamic_cast<TextLabel*>(widgets[3].get())->setText(timer);
 
 }
 
