@@ -40,6 +40,10 @@ void Info::update_info(sf::String inf, sf::String timer)
 {
 	this->color_player = inf;
 	this->timer = timer;
+	if (std::stoi(timer.toAnsiString()) > 120) {
+		game_controller->setGameState(GameState::End);
+		lose = true;
+	}
 	// Преобразование типов
 	dynamic_cast<TextLabel*>(widgets[2].get())->setText(inf);
 	dynamic_cast<TextLabel*>(widgets[4].get())->setText(timer);
