@@ -12,6 +12,9 @@ struct CaptureMove
 	// Были ли взятие дамкой
 	bool queen_take = false;
 
+	// Было ли взятие шашки
+	bool checker_tale = false;
+
 
 };
 struct Move
