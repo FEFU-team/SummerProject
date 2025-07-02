@@ -37,6 +37,8 @@ public:
 	// Временно
 	std::vector<std::vector<int>> int_grid;
 private:
+	bool repeat_capture = false;
+	std::pair<int, int> repeat_coordinate;
 	bool move = false;
 	int k = 0;
 	Ai* ai;
