@@ -59,10 +59,10 @@ void Info::update_info(sf::String inf, int seconds, int milliseconds)
 	}
 	//std::string text = std::to_string(minutes) + ":" + std::to_string(seconds) + ":" + std::to_string(millisecond);
 	this->timer = text;
-//	if (std::stoi(timer.toAnsiString()) > 120) {
-	//	game_controller->setGameState(GameState::End);
-	//	lose = true;
-	//}
+	if ((minutes) > 3) {
+		game_controller->setGameState(GameState::End);
+	lose = true;
+	}
 	// Преобразование типов
 	dynamic_cast<TextLabel*>(widgets[2].get())->setText(inf);
 	dynamic_cast<TextLabel*>(widgets[4].get())->setText(timer);

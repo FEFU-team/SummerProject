@@ -6,8 +6,9 @@
 #include <UI/Map/Cell.h>
 #include <UI/Text/TextLabel.h>
 #include <UI/SizeBox.h>
-MainMenu::MainMenu(sf::Vector2f position, int height, int width,  sf::Font* font, GameController* game_controller_ptr) {
+MainMenu::MainMenu(sf::Vector2f position, int height, int width,  sf::Font* font, GameController* game_controller_ptr,  sf::Clock* timer) {
 	this->position = position;
+	this->timer = timer;
 	this->game_controller_ptr = game_controller_ptr;
 	SizeBox size_box(sf::Vector2f((height / 2) - 100, (width / 2) - 200),{200,100});
 	widgets.push_back(
@@ -39,6 +40,7 @@ MainMenu::MainMenu(sf::Vector2f position, int height, int width,  sf::Font* font
 void MainMenu::update_input(sf::Vector2f mouse_position) {
 	if (widgets[1]->getBounds().contains(mouse_position)) {
 		(*game_controller_ptr).setGameState(GameState::Play);
+		timer->restart();
 		std::cout << "Start" << std::endl;
 
 	}

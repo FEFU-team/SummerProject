@@ -64,154 +64,159 @@ void GameBoardController::update_input(sf::Vector2f position)
 	else {
 		cout << "show player Black" << endl;
 	}
-	for (int i = 0; i < grid_ptr->size(); i++) {
-		for (int j= 0; j < grid_ptr->size(); j++) {
-			if ((*grid_ptr)[i][j]->getChecker()) {
-				if ((*grid_ptr)[i][j]->getChecker()->getColorChecker() == ai_player && ai_mode) {
-					continue;
-				}
-			}
-			// Нужно прописать условия 
-			move = false;
-			if ((*grid_ptr)[i][j]->isPressed(position) && (*grid_ptr)[i][j]->isBeChecker() && pressed_checker == false && !(*grid_ptr)[i][j]->getChecker()->is_move()) {
-				current_player = (*grid_ptr)[i][j]->getChecker()->getColorChecker();
-				coordinate_start.first = i;
-				coordinate_start.second = j;
-				
-				if ((*grid_ptr)[i][j]->isBeChecker() && !move) {
-					if ((*grid_ptr)[i][j]->getChecker()->is_active()) {
-						if ((*grid_ptr)[i][j]->getChecker()->is_queen()) {
-							(*grid_ptr)[i][j]->getChecker()->update_texture(assets->getTexture("queen"), false);
-						}
-						else {
-							(*grid_ptr)[i][j]->getChecker()->update_texture(assets->getTexture("checker1"), false);
-						}
+	
+	if (!move) {
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+				if ((*grid_ptr)[i][j]->getChecker()) {
 
-						pressed_checker = false;
+					if ((*grid_ptr)[i][j]->getChecker()->getColorChecker() == ai_player && ai_mode) {
+						//break;
+						continue;
 					}
-					else {
-						if ((*grid_ptr)[i][j]->getChecker()->is_queen()) {
-							(*grid_ptr)[i][j]->getChecker()->update_texture(assets->getTexture("queen_active"), true);
-						}
-						else {
-							(*grid_ptr)[i][j]->getChecker()->update_texture(assets->getTexture("checker_active"), true);
-						}
+				}
 
-						pressed_checker = true;
-					}
-				}
-				break;
-				
-			}
-			else if ((*grid_ptr)[i][j]->isPressed(position) && (*grid_ptr)[i][j]->isBeChecker() && !(*grid_ptr)[i][j]->getChecker()->is_move()) {
-				current_player = (*grid_ptr)[i][j]->getChecker()->getColorChecker();
+				if ((*grid_ptr)[i][j]->isPressed(position) && (*grid_ptr)[i][j]->isBeChecker() && pressed_checker == false && !(*grid_ptr)[i][j]->getChecker()->is_move()) {
+					current_player = (*grid_ptr)[i][j]->getChecker()->getColorChecker();
+					coordinate_start.first = i;
+					coordinate_start.second = j;
 
-				if ((*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->is_queen()) {
-					(*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->update_texture(assets->getTexture("queen"), false);
-				}
-				else {
-					(*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->update_texture(assets->getTexture("checker1"), false);
-				}
-				
-				if ((*grid_ptr)[i][j]->getChecker()->is_queen()) {
-					(*grid_ptr)[i][j]->getChecker()->update_texture(assets->getTexture("queen_active"), true);
-				}
-				else {
-					(*grid_ptr)[i][j]->getChecker()->update_texture(assets->getTexture("checker_active"), true);
-				}
-				
-				coordinate_start.first = i;
-				coordinate_start.second = j;
-				
-				break;
-			}
-			else if ((*grid_ptr)[i][j]->isPressed(position) && (*grid_ptr)[i][j]->isBeChecker() == false ) {
-				coordinate_end.first = i;
-				coordinate_end.second = j;
-				if ((*grid_ptr)[coordinate_start.first][coordinate_start.second]->isBeChecker() && !(*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->is_move()) {
-					if ((*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->is_queen()) {
-						(*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->update_texture(assets->getTexture("queen"), false);
-					}
-					else {
-						(*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->update_texture(assets->getTexture("checker1"), false);
-					}
-				}
-				
-				if (pressed_checker && current_player != previous_player) {
-					vector<CaptureMove> cor;
-					if (repeat_capture) {
-						cor = check_capture(repeat_coordinate, int_grid);
-						repeat_capture = false;
-					}
-					else {
-						cor = check_capture_all(coordinate_start, int_grid);
-					}
-					
-					//vector<CaptureMove> cor;
-					if ((*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->is_queen()) {
-						(*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->update_texture(assets->getTexture("queen"), false);
-					}
-					else {
-						(*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->update_texture(assets->getTexture("checker1"), false);
-					}
-					
-					 pat = is_pat(int_grid);
-					//cout << cor.coordinate_take.first << endl;
-					//cout << cor.coordinate_take.second << endl;// )
-					if ((is_move_checker(coordinate_start,coordinate_end,int_grid)) && cor.size() == 0) {
-						move_checker(coordinate_start,coordinate_end);
-						changing_checkers(current_player, coordinate_end);
-						show_player = previous_player;
-						previous_player = current_player;
-						cout << "Simple move" << endl;
-						
-					}
-					else {
-						for (int i = 0; i < cor.size(); i++) {
-							if (cor[i].coordinate_start == coordinate_start && cor[i].coordinate_end == coordinate_end) {
-								move_checker(coordinate_start,coordinate_end);
-								destroy_figure(cor[i].coordinate_take);
-								changing_checkers(current_player, coordinate_end);
-								// Решение бага #183 
-								/*
-								if (changing_checkers(current_player, coordinate_end)) {
-									show_player = previous_player;
-									previous_player = current_player;
-									break;
-								}
-								*/
-
-								// Тут проработать условие повторное
-								if (check_capture(coordinate_end,int_grid).size() == 0) {
-									show_player = previous_player;
-									previous_player = current_player;
-									break;
-								}
-								else {
-									repeat_capture = true;
-									repeat_coordinate = coordinate_end;
-								}
+					if ((*grid_ptr)[i][j]->isBeChecker() && !move) {
+						if ((*grid_ptr)[i][j]->getChecker()->is_active()) {
+							if ((*grid_ptr)[i][j]->getChecker()->is_queen()) {
+								(*grid_ptr)[i][j]->getChecker()->update_texture(assets->getTexture("queen"), false);
 							}
 							else {
-								cout << "Cor " << endl;
-								cout << cor[i].coordinate_start.first << " " << cor[i].coordinate_start.second << endl;
-								cout << cor[i].coordinate_take.first << " " << cor[i].coordinate_take.second << endl;
-								cout << cor[i].coordinate_end.first << " " << cor[i].coordinate_end.second << endl;
+								(*grid_ptr)[i][j]->getChecker()->update_texture(assets->getTexture("checker1"), false);
 							}
+
+							pressed_checker = false;
+						}
+						else {
+							if ((*grid_ptr)[i][j]->getChecker()->is_queen()) {
+								(*grid_ptr)[i][j]->getChecker()->update_texture(assets->getTexture("queen_active"), true);
+							}
+							else {
+								(*grid_ptr)[i][j]->getChecker()->update_texture(assets->getTexture("checker_active"), true);
+							}
+
+							pressed_checker = true;
+						}
+					}
+					break;
+
+				}
+				else if ((*grid_ptr)[i][j]->isPressed(position) && (*grid_ptr)[i][j]->isBeChecker() && !(*grid_ptr)[i][j]->getChecker()->is_move()) {
+					current_player = (*grid_ptr)[i][j]->getChecker()->getColorChecker();
+
+					if ((*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->is_queen()) {
+						(*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->update_texture(assets->getTexture("queen"), false);
+					}
+					else {
+						(*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->update_texture(assets->getTexture("checker1"), false);
+					}
+
+					if ((*grid_ptr)[i][j]->getChecker()->is_queen()) {
+						(*grid_ptr)[i][j]->getChecker()->update_texture(assets->getTexture("queen_active"), true);
+					}
+					else {
+						(*grid_ptr)[i][j]->getChecker()->update_texture(assets->getTexture("checker_active"), true);
+					}
+
+					coordinate_start.first = i;
+					coordinate_start.second = j;
+
+					break;
+				}
+				else if ((*grid_ptr)[i][j]->isPressed(position) && (*grid_ptr)[i][j]->isBeChecker() == false) {
+					coordinate_end.first = i;
+					coordinate_end.second = j;
+					if ((*grid_ptr)[coordinate_start.first][coordinate_start.second]->isBeChecker() && !(*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->is_move()) {
+						if ((*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->is_queen()) {
+							(*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->update_texture(assets->getTexture("queen"), false);
+						}
+						else {
+							(*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->update_texture(assets->getTexture("checker1"), false);
+						}
+					}
+
+					if (pressed_checker && current_player != previous_player) {
+						vector<CaptureMove> cor;
+						if (repeat_capture) {
+							cor = check_capture(repeat_coordinate, int_grid);
+							repeat_capture = false;
+						}
+						else {
+							cor = check_capture_all(coordinate_start, int_grid);
+						}
+
+						//vector<CaptureMove> cor;
+						if ((*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->is_queen()) {
+							(*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->update_texture(assets->getTexture("queen"), false);
+						}
+						else {
+							(*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->update_texture(assets->getTexture("checker1"), false);
+						}
+
+						pat = is_pat(int_grid);
+						//cout << cor.coordinate_take.first << endl;
+						//cout << cor.coordinate_take.second << endl;// )
+						if ((is_move_checker(coordinate_start, coordinate_end, int_grid)) && cor.size() == 0) {
+							move_checker(coordinate_start, coordinate_end);
+							changing_checkers(current_player, coordinate_end);
+							show_player = previous_player;
+							previous_player = current_player;
+							cout << "Simple move" << endl;
+
+						}
+						else {
+							for (int i = 0; i < cor.size(); i++) {
+								if (cor[i].coordinate_start == coordinate_start && cor[i].coordinate_end == coordinate_end) {
+									move_checker(coordinate_start, coordinate_end);
+									destroy_figure(cor[i].coordinate_take);
+									changing_checkers(current_player, coordinate_end);
+									// Решение бага #183 
+									/*
+									if (changing_checkers(current_player, coordinate_end)) {
+										show_player = previous_player;
+										previous_player = current_player;
+										break;
+									}
+									*/
+
+									// Тут проработать условие повторное
+									if (check_capture(coordinate_end, int_grid).size() == 0) {
+										show_player = previous_player;
+										previous_player = current_player;
+										break;
+									}
+									else {
+										repeat_capture = true;
+										repeat_coordinate = coordinate_end;
+									}
+								}
+								else {
+									cout << "Cor " << endl;
+									cout << cor[i].coordinate_start.first << " " << cor[i].coordinate_start.second << endl;
+									cout << cor[i].coordinate_take.first << " " << cor[i].coordinate_take.second << endl;
+									cout << cor[i].coordinate_end.first << " " << cor[i].coordinate_end.second << endl;
+								}
+							}
+
+
 						}
 
 
 					}
+					pressed_checker = false;
 
-
+					break;
 				}
-				pressed_checker = false;
 
-				break;
 			}
-		
 		}
 	}
+	
 }
 
 ColorChecker GameBoardController::getCurrentPlayer() const
@@ -313,15 +318,28 @@ CheckersResult GameBoardController::checking_end()
 
 void GameBoardController::update_ai()
 {
+	move = false;
+	for (int i = 0; i < 8 && !move; i++)
+	{
+		for (int j = 0; j < 8; j++)
+		{
+			if ((*grid_ptr)[i][j]->getChecker() && (*grid_ptr)[i][j]->getChecker()->is_move()) {
+				move = true;
+				break;
+			}
+		}
+	}
 	//_sleep(10); // костыль
 	if (show_player == ai_player && !move) {
 		ai->update_int_grid(int_grid);
 		Move move = ai->active_search();
+		std::cout <<"Ai mode start " << move.coordinate_start.first <<move.coordinate_start.second  <<std::endl;
+		std::cout << "Ai mode end " << move.coordinate_end.first << move.coordinate_end.second << std::endl;
 		move_checker(move.coordinate_start, move.coordinate_end);
 		if (move.coordinate_take.first != -1 && move.coordinate_take.second != -1) {
 			destroy_figure(move.coordinate_take);
 		}
-		
+		cout << "Ai mode" << endl;
 		show_player =previous_player;
 		previous_player = ai_player;
 		

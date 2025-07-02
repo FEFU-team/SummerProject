@@ -77,6 +77,10 @@ Move Ai::active_search()
 {
 	std::vector<Move> all_move = RuleEngine::get_all_move(int_grid, false);
 	Move _move;
+	std::cout << "All move " << all_move.size() << std::endl;;
+	if (all_move.size() > 10) {
+		int x = 0;
+	}
 	if (all_move.size() == 1) {
 		return all_move[0];
 	}

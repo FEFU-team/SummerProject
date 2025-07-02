@@ -485,18 +485,21 @@ std::vector<Move> RuleEngine::get_all_move(const std::vector<std::vector<int>>& 
 {
 	std::vector<Move> move;
 	Move move_elem;
+	bool check = false;
 	for (int i = 0; i < 8; i++)
 	{
 		for (int j = 0; j < 8; j++)
 		{
 			std::vector<CaptureMove> c_move;
-
-			if (int_grid[i][j] == 1 || int_grid[i][j] == 3 && color) {
-				 c_move = check_capture_all({ i,j }, int_grid);
+			if (!color && !check) {
+				c_move = check_capture_all({ i,j }, int_grid);
+				check = true;
 			}
-			else {
-				 c_move = check_capture_all({ i,j }, int_grid);
+			else if (color && !check) {
+				c_move = check_capture_all({ i,j }, int_grid);
+				check = true;
 			}
+			
 			if (c_move.size() != 0) {
 				for (int i = 0; i < c_move.size(); i++) {
 					move_elem.coordinate_start = c_move[i].coordinate_start;
