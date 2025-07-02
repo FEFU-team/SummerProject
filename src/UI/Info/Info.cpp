@@ -4,6 +4,7 @@
 #include <UI/Buttons/TextButton.h>
 #include <UI/SizeBox.h>
 #include <iostream>
+#include <string>
 Info::Info(sf::Vector2f position, sf::Font* font, GameController* game_controller)
 {
 	this->game_controller = game_controller;
@@ -17,7 +18,7 @@ Info::Info(sf::Vector2f position, sf::Font* font, GameController* game_controlle
 	widgets.push_back(
 		std::make_unique<TextLabel>(sf::Vector2f(position.x, position.y + 200), font, L"Время", sf::Color::White));
 	widgets.push_back(
-		std::make_unique<TextLabel>(sf::Vector2f(position.x + 500, position.y + 200), font, timer, sf::Color::White));
+		std::make_unique<TextLabel>(sf::Vector2f(position.x + 100, position.y + 200), font, timer, sf::Color::White));
 	widgets.push_back(
 		std::make_unique<TextButton>(
 			sf::Vector2f(position.x+600, position.y),
@@ -36,14 +37,32 @@ void Info::update_input(sf::Vector2f mouse_position)
 	}
 }
 
-void Info::update_info(sf::String inf, sf::String timer)
+void Info::update_info(sf::String inf, int seconds, int milliseconds)
 {
 	this->color_player = inf;
-	this->timer = timer;
-	if (std::stoi(timer.toAnsiString()) > 120) {
-		game_controller->setGameState(GameState::End);
-		lose = true;
+	
+	int minutes = seconds / 60;
+	seconds -= (minutes * 60);
+	int millisecond = milliseconds ;
+	std::string text;
+	if (seconds < 10 && minutes <10 ) {
+		text = "0" + std::to_string(minutes) + ":" + "0"+std::to_string(seconds) + ":" + std::to_string(millisecond);
+	} 
+	else if (minutes < 10 && seconds >= 10 ) {
+		text = "0" + std::to_string(minutes) + ":" +  std::to_string(seconds) + ":" + std::to_string(millisecond);
 	}
+	else if (minutes > 0 &&  seconds >= 10) {
+		text = "0" +std::to_string(minutes) + ":" + std::to_string(seconds) + ":" + std::to_string(millisecond);
+	}
+	else if (minutes > 10 && seconds < 10) {
+		text = std::to_string(minutes) + ":" + "0" + std::to_string(seconds) + ":" + std::to_string(millisecond);
+	}
+	//std::string text = std::to_string(minutes) + ":" + std::to_string(seconds) + ":" + std::to_string(millisecond);
+	this->timer = text;
+//	if (std::stoi(timer.toAnsiString()) > 120) {
+	//	game_controller->setGameState(GameState::End);
+	//	lose = true;
+	//}
 	// Преобразование типов
 	dynamic_cast<TextLabel*>(widgets[2].get())->setText(inf);
 	dynamic_cast<TextLabel*>(widgets[4].get())->setText(timer);
