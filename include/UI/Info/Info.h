@@ -9,7 +9,7 @@ public:
 	Info(sf::Vector2f position,sf::Font* font, GameController* game_controller);
 	// Унаследовано через WidgetForm
 	void update_input(sf::Vector2f mouse_position) override;
-	void update_info(sf::String inf, sf::String timer);
+	void update_info(sf::String inf, int seconds, int milliseconds);
 	bool get_lose();
 	void reset();
 private:

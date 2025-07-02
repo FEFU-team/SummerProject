@@ -110,12 +110,13 @@ void Engine::run()
             end.draw(window.get());
         }
         else if(current_state == GameState::Play){
-            int x = timer.getElapsedTime().asSeconds();
+            int s = timer.getElapsedTime().asSeconds();
+            int m = timer.getElapsedTime().asMilliseconds();
             if (game_board_controller.getCurrentPlayer()  == ColorChecker::Black) {
-                info.update_info(L"Желтые", std::to_string(x));
+                info.update_info(L"Желтые",s,m );
             }
             else {
-               info.update_info(L"Зеленые", std::to_string(x));
+               info.update_info(L"Зеленые",s,m );
             }
             game_board.draw(window.get(), time);
             info.draw(window.get());
