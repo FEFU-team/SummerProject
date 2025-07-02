@@ -40,7 +40,7 @@ void Engine::run()
     GameBoardController game_board_controller(&game_board.grid,&assets,false,&ai);
     sf::Clock clock;
     sf::Clock timer;
-    MainMenu main_menu({ 0,0 }, HEIGHT_WINDOW, WIDTH_WINDOW, assets.getFont("arial"), &game_controller);
+    MainMenu main_menu({ 0,0 }, HEIGHT_WINDOW, WIDTH_WINDOW, assets.getFont("arial"), &game_controller,&timer);
     Info info({ 1100,0 }, assets.getFont("arial"), &game_controller);
     End end({ HEIGHT_WINDOW/2,WIDTH_WINDOW/2 }, assets.getFont("arial"), &game_controller);
 
@@ -48,7 +48,7 @@ void Engine::run()
     //game_board_controller.int_grid[3][2] = 4;
     //game_board.grid[2][5]->getChecker()->becoming_queen(assets.getTexture("queen"));
     //game_board_controller.int_grid[2][5] = 3;
-    timer.start();
+   // timer.start();
     while (window->isOpen())
     {
         
