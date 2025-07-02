@@ -9,11 +9,8 @@ struct CaptureMove
 	std::pair<int, int> coordinate_end;
 	// Координаты взятия фигуры 
 	std::pair<int, int> coordinate_take;
-	// Были ли взятие дамкой
-	bool queen_take = false;
 
-	// Было ли взятие шашки
-	bool checker_tale = false;
+
 
 
 };
@@ -29,8 +26,10 @@ struct Move
 };
 namespace RuleEngine {
 	// Все варианты взятие шашки  или дамки
+	std::vector<CaptureMove>  check_capture_all( const std::pair<int, int>& coordinate, const  std::vector<std::vector<int>>& int_grid);
+	// Вариант взятие для повторного взятие
 	// queen_take для повторного вызова функции 
-	std::vector<CaptureMove>  check_capture( const std::pair<int, int>& coordinate, const  std::vector<std::vector<int>>& int_grid, bool queen_take = false);
+	std::vector<CaptureMove> check_capture(const std::pair<int, int>& coordinate, const  std::vector<std::vector<int>>& int_grid);
 	//Возможно ли так походить
 	bool is_move_checker(const std::pair<int, int>& coordinate_start, const std::pair<int, int>& coordinate_end, const  std::vector<std::vector<int>>& int_grid);
 	// Пат или сейчас

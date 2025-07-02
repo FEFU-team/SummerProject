@@ -138,7 +138,15 @@ void GameBoardController::update_input(sf::Vector2f position)
 				}
 				
 				if (pressed_checker && current_player != previous_player) {
-					vector<CaptureMove> cor = check_capture(coordinate_start,int_grid);
+					vector<CaptureMove> cor;
+					if (repeat_capture) {
+						cor = check_capture(repeat_coordinate, int_grid);
+						repeat_capture = false;
+					}
+					else {
+						cor = check_capture_all(coordinate_start, int_grid);
+					}
+					
 					//vector<CaptureMove> cor;
 					if ((*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->is_queen()) {
 						(*grid_ptr)[coordinate_start.first][coordinate_start.second]->getChecker()->update_texture(assets->getTexture("queen"), false);
@@ -171,13 +179,17 @@ void GameBoardController::update_input(sf::Vector2f position)
 									previous_player = current_player;
 									break;
 								}
-
-
 								*/
-								if (check_capture(coordinate_end,int_grid,cor[i].queen_take).size() == 0) {
+
+								// Тут проработать условие повторное
+								if (check_capture(coordinate_end,int_grid).size() == 0) {
 									show_player = previous_player;
 									previous_player = current_player;
 									break;
+								}
+								else {
+									repeat_capture = true;
+									repeat_coordinate = coordinate_end;
 								}
 							}
 							else {
