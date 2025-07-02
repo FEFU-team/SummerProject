@@ -37,8 +37,10 @@ public:
 	// Временно
 	std::vector<std::vector<int>> int_grid;
 private:
+	// Множественное взятие 
 	bool repeat_capture = false;
 	std::pair<int, int> repeat_coordinate;
+	// Движеться ли фигура
 	bool move = false;
 	int k = 0;
 	Ai* ai;

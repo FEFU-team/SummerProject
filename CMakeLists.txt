@@ -22,6 +22,6 @@ add_executable(main src/main.cpp
 "src/UI/Checkers/Ckecker.cpp"
    "src/Core/GameController.cpp"
    "src/UI/Menu/MainMenu.cpp" 
-   "src/UI/Buttons/TextButton.cpp" "include/WidgetForm.h" "src/UI/WidgetForm.cpp" "include/Core/AssetManager.h" "src/Core/AssetManager.cpp" "include/UI/Text/TextLabel.h" "src/UI/Text/TextLabel.cpp" "include/UI/Info/Info.h" "src/UI/Info/Info.cpp" "include/UI/End/End.h" "src/UI/End/End.cpp" "include/Core/Ai.h" "src/Core/Ai.cpp" "include/Core/RuleEngine.h" "src/Core/RuleEngine.cpp" "include/Core/Observer.h" "src/Core/Observer.cpp")
+   "src/UI/Buttons/TextButton.cpp" "include/WidgetForm.h" "src/UI/WidgetForm.cpp" "include/Core/AssetManager.h" "src/Core/AssetManager.cpp" "include/UI/Text/TextLabel.h" "src/UI/Text/TextLabel.cpp" "include/UI/Info/Info.h" "src/UI/Info/Info.cpp" "include/UI/End/End.h" "src/UI/End/End.cpp" "include/Core/Ai.h" "src/Core/Ai.cpp" "include/Core/RuleEngine.h" "src/Core/RuleEngine.cpp")
 target_compile_features(main PRIVATE cxx_std_17)
 target_link_libraries(main PRIVATE SFML::Graphics)
